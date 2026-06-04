@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,9 @@ class ChatController extends GetxController {
   var isSending = false.obs;
   var selectedImages = <File>[].obs;
   String? chatId;
+
+  var adminName = "Administrator".obs;
+  var adminImage = "".obs;
 
   @override
   void onInit() {
@@ -49,9 +53,22 @@ class ChatController extends GetxController {
     try {
       final response = await _apiClient.get('/messages/$chatId');
       if (response.statusCode == 200) {
-        final List rawMessages = response.data['data']['messages'] ?? [];
-        final String currentId = LocalStorage.userId.trim();
+        final data = response.data['data'];
         
+        if (data['chat'] != null && data['chat']['participants'] != null) {
+          List participants = data['chat']['participants'];
+          for (var p in participants) {
+            if (p['role'] == 'ADMIN' || p['role'] == 'SUPER_ADMIN') {
+              adminName.value = p['name'] ?? "Administrator";
+              adminImage.value = p['image'] ?? "";
+              break;
+            }
+          }
+        }
+        final List rawMessages = data['messages'] ?? [];
+        final String currentId = LocalStorage.userId.trim();
+        log("..............................................${currentId}");
+
         messages.value = rawMessages
             .map((m) => MessageModel.fromJson(m, currentId))
             .toList();
@@ -69,7 +86,6 @@ class ChatController extends GetxController {
 
     SocketService.on('newMessage::$userId', (data) {
       if (data != null) {
-        // Socket এর মাধ্যমে আসা মেসেজ যদি অ্যাডমিন পাঠায় তবে বামে, নতুবা আপনার ডাটা চেক করবে
         final newMessage = MessageModel.fromJson(data, userId);
         if (newMessage.chatId == chatId) {
           bool exists = messages.any((m) => m.id == newMessage.id);
@@ -115,15 +131,11 @@ class ChatController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (response.data['data'] != null) {
-           // যেহেতু আপনি মেসেজটি পাঠিয়েছেন, তাই এটি অবশ্যই Right Side (isMe = true) এ থাকবে।
-           // এখানে forceMe: true ব্যবহার করা হয়েছে।
            final sentMsg = MessageModel.fromJson(response.data['data'], userId, forceMe: true);
-           
            if (!messages.any((m) => m.id == sentMsg.id)) {
              messages.insert(0, sentMsg);
            }
         }
-
         messageController.clear();
         selectedImages.clear();
       }

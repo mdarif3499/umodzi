@@ -24,7 +24,6 @@ class ProfileScreen extends StatelessWidget {
     final homeController = Get.find<HomeController>();
 
     return Scaffold(
-
       backgroundColor: const Color(0xFFFDFDFD),
       appBar: const CustomHomeAppBar(
         hasNotification: true,
@@ -32,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
         title: 'Profile',
       ),
       body: SingleChildScrollView(
-        physics:  ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +143,6 @@ class ProfileScreen extends StatelessWidget {
                         builder: (context) => DeleteAccountDialog(
                           controller: controller.deletePasswordController,
                           onDelete: () {
-
                             Get.back();
                             Get.toNamed(AppRoutes.signIn);
                           },
@@ -178,7 +176,7 @@ class ProfileScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed(AppRoutes.chatScreen);
+          homeController.createChatAndNavigate();
         },
         backgroundColor: const Color(0xFF31993B),
         elevation: 4,
@@ -203,7 +201,6 @@ class ProfileScreen extends StatelessWidget {
             color: AppColors.textSecondaryColor,
           ),
         ),
-        // Icon(Icons.info_outline, color: const Color(0xFFEAB308), size: 20.sp),
       ],
     );
   }
