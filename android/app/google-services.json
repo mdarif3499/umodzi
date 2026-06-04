@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "508913384122",
+    "project_id": "umodzi-7e23d",
+    "storage_bucket": "umodzi-7e23d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508913384122:android:56a3ee710eef1e61c82083",
+        "android_client_info": {
+          "package_name": "com.example.umodzi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd3B5huM5iCxsgiG_1Z_QIdAbh_oX_RcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
