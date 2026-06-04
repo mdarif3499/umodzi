@@ -179,7 +179,7 @@ class PaymentsScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed(AppRoutes.chatScreen);
+          homeController.createChatAndNavigate();
         },
         backgroundColor: const Color(0xFF31993B),
         elevation: 4,

@@ -31,24 +31,56 @@ class ChatScreen extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(2.r),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: Colors.grey.shade200,
                     shape: BoxShape.circle,
                   ),
                   child: CircleAvatar(
                     radius: 20.r,
-                    backgroundColor: Colors.white,
-                    backgroundImage: const NetworkImage(
-                      'https://img.freepik.com/free-photo/portrait-smiling-attractive-man-woman_171337-18723.jpg?semt=ais_hybrid&w=740&q=80',
+                    backgroundColor: Colors.grey.shade100,
+                    child: ClipOval(
+                      child: Obx(() {
+                        if (controller.adminImage.value.isEmpty) {
+                          return Icon(
+                            Icons.person,
+                            size: 24.r,
+                            color: Colors.grey.shade400,
+                          );
+                        }
+                        
+                        return Image.network(
+                          "${ApiEndPoint.imageUrl}${controller.adminImage.value}",
+                          fit: BoxFit.cover,
+                          width: 40.r,
+                          height: 40.r,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(
+                              Icons.person,
+                              size: 24.r,
+                              color: Colors.grey.shade400,
+                            );
+                          },
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: SizedBox(
+                                width: 20.r,
+                                height: 20.r,
+                                child: const CircularProgressIndicator(strokeWidth: 2),
+                              ),
+                            );
+                          },
+                        );
+                      }),
                     ),
                   ),
                 ),
                 SizedBox(width: 12.w),
-                CommonText(
-                  text: 'Administrator',
+                Obx(() => CommonText(
+                  text: controller.adminName.value,
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
-                ),
+                )),
               ],
             ),
           ),
@@ -92,7 +124,6 @@ class ChatScreen extends StatelessWidget {
             padding: EdgeInsets.all(12.sp),
             margin: EdgeInsets.only(bottom: 4.h),
             decoration: BoxDecoration(
-              // User message (Right) uses Green, Others (Left) use Light Grey/Green
               color: message.isMe ? AppColors.green : const Color(0xFFF1F1F1),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16.r),
@@ -104,7 +135,6 @@ class ChatScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Display Images if any
                 if (message.images != null && message.images!.isNotEmpty)
                   Padding(
                     padding: EdgeInsets.only(bottom: message.text.isNotEmpty ? 8.h : 0),
@@ -118,7 +148,6 @@ class ChatScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                // Display Text if any
                 if (message.text.isNotEmpty)
                   Text(
                     message.text,
@@ -131,7 +160,6 @@ class ChatScreen extends StatelessWidget {
               ],
             ),
           ),
-          // Time Display
           if (message.time.isNotEmpty)
             Padding(
               padding: EdgeInsets.only(bottom: 12.h, left: 4.w, right: 4.w),
@@ -158,7 +186,6 @@ class ChatScreen extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            // Image Preview Section
             Obx(() => controller.selectedImages.isEmpty
                 ? const SizedBox.shrink()
                 : Container(
