@@ -34,7 +34,7 @@ class PaymentHistoryDetailsScreen extends StatelessWidget {
                 const Expanded(
                   child: Center(
                     child: CommonText(
-                      text: 'Payment Details',
+                      text: ' Details',
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
