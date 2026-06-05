@@ -16,7 +16,7 @@ class PaymentBreakdownModel {
 
 class PaymentBreakdownData {
   String? status;
-  List<dynamic>? breakdown;
+  List<BreakdownItem>? breakdown;
   Summary? summary;
   dynamic reinstatementInfo;
 
@@ -24,9 +24,44 @@ class PaymentBreakdownData {
 
   PaymentBreakdownData.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    breakdown = json['breakdown'];
+    if (json['breakdown'] != null) {
+      breakdown = <BreakdownItem>[];
+      json['breakdown'].forEach((v) {
+        breakdown!.add(BreakdownItem.fromJson(v));
+      });
+    }
     summary = json['summary'] != null ? Summary.fromJson(json['summary']) : null;
     reinstatementInfo = json['reinstatementInfo'];
+  }
+}
+
+class BreakdownItem {
+  String? contributionId;
+  String? eventName;
+  String? eventType;
+  DateTime? deadlinePassed;
+  num? minContribution;
+  num? penaltyFee;
+  num? totalDue;
+
+  BreakdownItem({
+    this.contributionId,
+    this.eventName,
+    this.eventType,
+    this.deadlinePassed,
+    this.minContribution,
+    this.penaltyFee,
+    this.totalDue,
+  });
+
+  BreakdownItem.fromJson(Map<String, dynamic> json) {
+    contributionId = json['contributionId'];
+    eventName = json['eventName'];
+    eventType = json['eventType'];
+    deadlinePassed = json['deadlinePassed'] != null ? DateTime.tryParse(json['deadlinePassed']) : null;
+    minContribution = json['minContribution'];
+    penaltyFee = json['penaltyFee'];
+    totalDue = json['totalDue'];
   }
 }
 
