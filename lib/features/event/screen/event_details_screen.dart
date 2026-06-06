@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:umodzi/utils/constants/app_colors.dart';
 import 'package:umodzi/utils/constants/app_icons.dart';
+import '../../../config/api/api_end_point.dart';
 import '../../../component/text/common_text.dart';
 import '../../../config/route/app_routes.dart';
 import '../../../utils/constants/temp_image.dart';
@@ -71,7 +72,7 @@ class EventDetailsScreen extends StatelessWidget {
                           onTap: () => Get.back(),
                           child: CircleAvatar(
                             radius: 20.r,
-                            backgroundColor: Colors.black.withValues(alpha: 0.3),
+                            backgroundColor: Colors.black.withOpacity(0.3),
                             child: Icon(Icons.arrow_back_ios_new,
                                 color: Colors.white, size: 16.sp),
                           ),
@@ -93,7 +94,7 @@ class EventDetailsScreen extends StatelessWidget {
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
                       padding: EdgeInsets.only(
-                          left: 16.w, right: 16.sp, bottom: 16.sp, top: 48),
+                          left: 16.w, right: 16.w, bottom: 16.h, top: 48.h),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16.r),
@@ -130,7 +131,7 @@ class EventDetailsScreen extends StatelessWidget {
                           SizedBox(height: 8.h),
                           CommonText(
                             text: event?.description ?? "",
-                            fontSize: 12,
+                            fontSize: 12.sp,
                             color: AppColors.textSecondaryColor,
                             fontWeight: FontWeight.w400,
                           ),
@@ -150,7 +151,6 @@ class EventDetailsScreen extends StatelessWidget {
                           ),
 
                           SizedBox(height: 16.h),
-                          // Dynamic Warning (Remaining days logic could be added here)
                         ],
                       ),
                     ),
@@ -181,7 +181,7 @@ class EventDetailsScreen extends StatelessWidget {
                               text: 'Target Goal',
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
-                              color: Colors.white.withValues(alpha: 0.9),
+                              color: Colors.white.withOpacity(0.9),
                             ),
                             CommonText(
                               text: '\$ ${event?.targetContribution?.toStringAsFixed(0) ?? "0"}',
@@ -252,23 +252,21 @@ class EventDetailsScreen extends StatelessWidget {
 
   Widget _buildBannerImage(String? banner) {
     String imageUrl = banner != null 
-        ? "https://umodzi-server.vercel.app$banner" 
+        ? (banner.startsWith('http') ? banner : "${ApiEndPoint.imageUrl}$banner") 
         : "";
     
-    return imageUrl.isNotEmpty 
-      ? Image.network(
-          imageUrl,
-          height: 240.h,
-          width: double.infinity,
-          fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) => Image.asset(TempImage.family, height: 240.h, width: double.infinity, fit: BoxFit.cover),
-        )
-      : Image.asset(
-          TempImage.family,
-          height: 240.h,
-          width: double.infinity,
-          fit: BoxFit.cover,
-        );
+    return Container(
+      height: 240.h,
+      width: double.infinity,
+      color: Colors.grey.shade100,
+      child: imageUrl.isNotEmpty 
+        ? Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => Image.asset(TempImage.family, fit: BoxFit.cover),
+          )
+        : Image.asset(TempImage.family, fit: BoxFit.cover),
+    );
   }
 
   Widget _buildSectionCard(String title, Widget content) {
@@ -332,14 +330,38 @@ class EventDetailsScreen extends StatelessWidget {
   }
 
   Widget _buildBeneficiaryInfo(dynamic beneficiary) {
+    final String? image = beneficiary?.image;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircleAvatar(
-            radius: 25.r, 
-            backgroundImage: (beneficiary?.image != null && beneficiary!.image!.startsWith('http'))
-              ? NetworkImage(beneficiary.image!) as ImageProvider
-              : AssetImage(TempImage.doctor)),
+        Container(
+          height: 50.r,
+          width: 50.r,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade100,
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.r),
+            child: (image != null && image.isNotEmpty)
+                ? Image.network(
+                    image.startsWith('http')
+                        ? image
+                        : "${ApiEndPoint.imageUrl}$image",
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Icon(
+                      Icons.person,
+                      color: Colors.grey.shade400,
+                      size: 30.sp,
+                    ),
+                  )
+                : Icon(
+                    Icons.person,
+                    color: Colors.grey.shade400,
+                    size: 30.sp,
+                  ),
+          ),
+        ),
         SizedBox(width: 12.w),
         Expanded(
           child: Column(
@@ -349,11 +371,13 @@ class EventDetailsScreen extends StatelessWidget {
                 children: [
                   CommonText(
                       text: beneficiary?.name ?? "",
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w400),
                   SizedBox(width: 6.w),
                   CommonText(
-                      text: beneficiary?.relationship ?? "", fontSize: 12, color: const Color(0xFFE29D19)),
+                      text: beneficiary?.relationship ?? "", 
+                      fontSize: 12.sp, 
+                      color: const Color(0xFFE29D19)),
                 ],
               ),
               Row(
@@ -368,18 +392,18 @@ class EventDetailsScreen extends StatelessWidget {
               ),
               CommonText(
                   text: beneficiary?.email ?? "",
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color: AppColors.color333333),
               CommonText(
                   text: "${beneficiary?.countryCode ?? ""} ${beneficiary?.contactNumber ?? ""}",
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color: AppColors.color333333),
               SizedBox(height: 6.h),
               CommonText(
                   text: beneficiary?.address ?? "",
-                  fontSize: 12,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color: AppColors.color333333),
               SizedBox(height: 6.h),
@@ -397,7 +421,7 @@ class EventDetailsScreen extends StatelessWidget {
               SizedBox(height: 8.h),
               CommonText(
                   text: beneficiary?.fundsReason ?? "",
-                  fontSize: 10,
+                  fontSize: 10.sp,
                   fontWeight: FontWeight.w400,
                   color: AppColors.color333333),
             ],
@@ -409,7 +433,7 @@ class EventDetailsScreen extends StatelessWidget {
 
   Widget _buildParticipationInfo(
       bool hasPenalty, double penalty, double min, double total, dynamic stats, DateTime? createdAt) {
-    double percentage = stats?.totalPercentage ?? 0.0;
+    double percentage = stats?.totalPercentage?.toDouble() ?? 0.0;
     String createdOn = createdAt != null ? DateFormat('MMMM d, yyyy').format(createdAt) : "";
 
     return Column(
@@ -419,9 +443,9 @@ class EventDetailsScreen extends StatelessWidget {
           children: [
             CommonText(
                 text: '${stats?.totalPaidUsers ?? 0} of ${stats?.totalUsers ?? 0} members paid',
-                fontSize: 12,
+                fontSize: 12.sp,
                 color: const Color(0xFF64748B)),
-            CommonText(text: '${percentage.toInt()}%', fontSize: 12, color: const Color(0xFF64748B)),
+            CommonText(text: '${percentage.toInt()}%', fontSize: 12.sp, color: const Color(0xFF64748B)),
           ],
         ),
         SizedBox(height: 8.h),
@@ -484,7 +508,7 @@ class EventDetailsScreen extends StatelessWidget {
               SizedBox(width: 4.w),
               CommonText(
                 text: label,
-                fontSize: 12,
+                fontSize: 12.sp,
                 color: AppColors.textSecondaryColor,
                 fontWeight: FontWeight.w400,
               ),

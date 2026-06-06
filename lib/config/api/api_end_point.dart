@@ -31,4 +31,5 @@ class ApiEndPoint {
   static const settings = '/settings';
   static const notificationPreferences = '/notification-preferences';
   static const paymentBreakdown = '/wallet/payment-breakdown';
+  static const checkoutPenalties = '/payments/checkout/penalties';
 }
