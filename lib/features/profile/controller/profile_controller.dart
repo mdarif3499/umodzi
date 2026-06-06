@@ -4,6 +4,7 @@ import '../../../config/api/api_end_point.dart';
 import '../../../services/api/api_client.dart';
 import '../../../services/api/api_service.dart';
 import '../../../utils/app_snackbar.dart';
+import '../../payment/screen/webview_screen.dart';
 import '../data/profile_model.dart';
 import '../data/payment_breakdown_model.dart';
 
@@ -58,6 +59,26 @@ class ProfileController extends GetxController {
       debugPrint('Error fetching payment breakdown: $e');
     } finally {
       isStatsLoading.value = false;
+    }
+  }
+
+  Future<void> checkoutPenalties() async {
+    try {
+      isLoading.value = true;
+      final response = await apiClient.post(ApiEndPoint.checkoutPenalties, body: {});
+
+      if (response.statusCode == 200) {
+        final checkoutUrl = response.data['data']['url'];
+        if (checkoutUrl != null) {
+          Get.to(() => StripeWebViewPage(checkoutUrl: checkoutUrl));
+        }
+      } else {
+        AppSnackbar.error(title: 'Error', message: response.message);
+      }
+    } catch (e) {
+      AppSnackbar.error(title: 'Error', message: e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
 

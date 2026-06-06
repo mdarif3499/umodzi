@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:umodzi/component/button/common_button.dart';
 import 'package:umodzi/component/text/common_text.dart';
 import 'package:umodzi/utils/constants/app_colors.dart';
-import '../../../component/common_appbar/common_appbar.dart';
 import '../../profile/controller/profile_controller.dart';
 import '../../profile/data/payment_breakdown_model.dart';
 
@@ -20,11 +19,36 @@ class PaymentResolutionScreen extends StatelessWidget {
     controller.fetchPaymentBreakdown();
 
     return Scaffold(
-      appBar: const CommonAppBar(
-        title: 'Payment Details',
-        showBackButton: true,
+      backgroundColor: const Color(0xFFF9F9F9),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        leadingWidth: 70.w,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 20.w),
+          child: Center(
+            child: InkWell(
+              onTap: () => Get.back(),
+              child: Container(
+                height: 40.r,
+                width: 40.r,
+                decoration: const BoxDecoration(
+                  color: Color(0xFFFDF2F0),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(Icons.chevron_left, color: const Color(0xFF8B4513), size: 24.sp),
+              ),
+            ),
+          ),
+        ),
+        title: CommonText(
+          text: 'Payment Details',
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w600,
+          color: const Color(0xFF423838),
+        ),
       ),
-      backgroundColor: AppColors.background,
       body: SafeArea(
         child: Obx(() {
           if (controller.isStatsLoading.value) {
@@ -59,9 +83,9 @@ class PaymentResolutionScreen extends StatelessWidget {
                             CommonText(
                               text: 'BREAKDOWN OF DUES',
                               fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.textSecondaryColor,
-                              letterSpacing: 1.1,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey,
+                              letterSpacing: 0.5,
                             ),
                             _buildStatusBadge(status),
                           ],
@@ -82,17 +106,13 @@ class PaymentResolutionScreen extends StatelessWidget {
                             ),
                           )
                         else
-                          ...breakdownList.map((item) => Padding(
-                            padding: EdgeInsets.only(bottom: 12.h),
-                            child: _buildDueCard(item),
-                          )),
+                          ...breakdownList.map((item) => _buildDueCard(item)),
                         
                         if (summary != null) ...[
-                          SizedBox(height: 24.h),
                           _buildSummarySection(summary),
                         ],
                         
-                        SizedBox(height: 30.h),
+                        SizedBox(height: 20.h),
                       ],
                     ),
                   ),
@@ -100,17 +120,17 @@ class PaymentResolutionScreen extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.all(20.r),
-                child: CommonButton(
-                  titleText: 'Proceed to Payment',
+                child: Obx(() => CommonButton(
+                  titleText: 'Next',
                   buttonColor: AppColors.green,
-                  buttonRadius: 12,
+                  buttonRadius: 10,
                   titleSize: 16,
                   titleWeight: FontWeight.w600,
+                  isLoading: controller.isLoading.value,
                   onTap: () {
-                    // Navigate to checkout or specific payment flow
-                    Get.back();
+                    controller.checkoutPenalties();
                   },
-                ),
+                )),
               ),
             ],
           );
@@ -120,31 +140,27 @@ class PaymentResolutionScreen extends StatelessWidget {
   }
 
   Widget _buildStatusBadge(String status) {
-    final bool isSuspended = status.toLowerCase() != 'active';
+    final bool isActive = status.toLowerCase() == 'active';
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
       decoration: BoxDecoration(
-        color: isSuspended ? const Color(0xFFFEF2F2) : const Color(0xFFF0FDF4),
+        color: isActive ? const Color(0xFFF0FDF4) : const Color(0xFFFEF2F2),
         borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(
-          color: isSuspended ? const Color(0xFFFEE2E2) : const Color(0xFFDCFCE7),
-          width: 1,
-        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            isSuspended ? Icons.error_outline_rounded : Icons.check_circle_outline_rounded,
-            color: isSuspended ? const Color(0xFFEF4444) : AppColors.green,
-            size: 16.sp,
+            isActive ? Icons.check_circle : Icons.error,
+            color: isActive ? AppColors.green : const Color(0xFFEF4444),
+            size: 18.sp,
           ),
-          SizedBox(width: 6.w),
+          SizedBox(width: 8.w),
           CommonText(
             text: status.capitalizeFirst ?? 'Active',
-            fontSize: 12.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w600,
-            color: isSuspended ? const Color(0xFFEF4444) : AppColors.green,
+            color: isActive ? AppColors.green : const Color(0xFFEF4444),
           ),
         ],
       ),
@@ -153,22 +169,16 @@ class PaymentResolutionScreen extends StatelessWidget {
 
   Widget _buildDueCard(BreakdownItem item) {
     final String formattedDate = item.deadlinePassed != null 
-        ? DateFormat('MMM dd, yyyy').format(item.deadlinePassed!) 
+        ? DateFormat('MMMM dd, yyyy').format(item.deadlinePassed!) 
         : "N/A";
 
     return Container(
+      margin: EdgeInsets.only(bottom: 16.h),
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: const Color(0xFFF1F5F9)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 0.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,75 +189,86 @@ class PaymentResolutionScreen extends StatelessWidget {
               Expanded(
                 child: CommonText(
                   text: item.eventName ?? "Event Name",
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.black,
+                  fontSize: 17.sp,
+                  fontWeight: FontWeight.w500,
+                  color: const Color(0xFF423838),
                   maxLines: 1,
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFF7ED),
-                  borderRadius: BorderRadius.circular(6.r),
+                  borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: CommonText(
                   text: item.eventType ?? "N/A",
-                  fontSize: 10.sp,
+                  fontSize: 11.sp,
                   color: const Color(0xFFF59E0B),
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 14.h),
+          SizedBox(height: 12.h),
           
           Row(
             children: [
-              Icon(Icons.calendar_month_outlined, size: 14.sp, color: AppColors.textSecondaryColor),
+              Icon(Icons.calendar_month_outlined, size: 16.sp, color: Colors.grey),
               SizedBox(width: 8.w),
-              CommonText(
+              const CommonText(
                 text: 'Deadline Passed:',
-                fontSize: 12.sp,
-                color: AppColors.textSecondaryColor,
+                fontSize: 13,
+                color: Colors.grey,
               ),
               const Spacer(),
               CommonText(
                 text: formattedDate,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w600,
-                color: AppColors.black,
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFF423838),
               ),
             ],
           ),
-          SizedBox(height: 14.h),
+          SizedBox(height: 12.h),
           Divider(color: Colors.grey.shade100, thickness: 1),
-          SizedBox(height: 14.h),
+          SizedBox(height: 12.h),
+          
+          Row(
+            children: [
+              CommonText(text: 'Minimum contribution ', fontSize: 11.sp, color: Colors.grey),
+              CommonText(
+                text: '\$${item.minContribution?.toStringAsFixed(2) ?? "0.00"}', 
+                fontSize: 12.sp, 
+                fontWeight: FontWeight.w600, 
+                color: const Color(0xFFD32F2F)
+              ),
+              const Spacer(),
+              CommonText(text: 'Penalty fee ', fontSize: 11.sp, color: Colors.grey),
+              CommonText(
+                text: '\$${item.penaltyFee?.toStringAsFixed(2) ?? "0.00"}', 
+                fontSize: 12.sp, 
+                fontWeight: FontWeight.w600, 
+                color: const Color(0xFFD32F2F)
+              ),
+            ],
+          ),
+          SizedBox(height: 16.h),
           
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildAmountRow('Base Contribution', 'MWK ${item.minContribution?.toStringAsFixed(2) ?? "0.00"}'),
-                  SizedBox(height: 6.h),
-                  _buildAmountRow('Late Penalty Fee', 'MWK ${item.penaltyFee?.toStringAsFixed(2) ?? "0.00"}', isRed: true),
-                ],
+              const CommonText(
+                text: 'Total Due',
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF423838),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const CommonText(text: 'Total Due', fontSize: 11, fontWeight: FontWeight.w500, color: AppColors.textSecondaryColor),
-                  SizedBox(height: 2.h),
-                  CommonText(
-                    text: 'MWK ${item.totalDue?.toStringAsFixed(2) ?? "0.00"}',
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w800,
-                    color: const Color(0xFFD32F2F),
-                  ),
-                ],
+              CommonText(
+                text: '\$ ${item.totalDue?.toStringAsFixed(2) ?? "0.00"}',
+                fontSize: 26.sp,
+                fontWeight: FontWeight.w700,
+                color: const Color(0xFFD32F2F),
               ),
             ],
           ),
@@ -256,53 +277,34 @@ class PaymentResolutionScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAmountRow(String label, String amount, {bool isRed = false}) {
-    return Row(
-      children: [
-        CommonText(text: '$label: ', fontSize: 11.sp, color: AppColors.textSecondaryColor),
-        CommonText(
-          text: amount, 
-          fontSize: 11.sp, 
-          fontWeight: FontWeight.w600, 
-          color: isRed ? const Color(0xFFD32F2F) : AppColors.black
-        ),
-      ],
-    );
-  }
-
   Widget _buildSummarySection(Summary summary) {
     return Container(
-      padding: EdgeInsets.all(20.r),
+      padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: const Color(0xFFF8FAFC),
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        color: const Color(0xFFF0F9F0),
+        borderRadius: BorderRadius.circular(4.r),
       ),
       child: Column(
         children: [
-          _buildSummaryRow('Total Base Dues', 'MWK ${summary.totalEventDues?.toStringAsFixed(2) ?? "0.00"}'),
+          _buildSummaryRow('Total Events Dues', '\$${summary.totalEventDues?.toStringAsFixed(2) ?? "0.00"}'),
           SizedBox(height: 12.h),
-          _buildSummaryRow('Total Penalty Fees', 'MWK ${summary.totalPenaltyFee?.toStringAsFixed(2) ?? "0.00"}'),
-          if ((summary.reactivationAmount ?? 0) > 0) ...[
-            SizedBox(height: 12.h),
-            _buildSummaryRow('Reactivation Fee', 'MWK ${summary.reactivationAmount?.toStringAsFixed(2) ?? "0.00"}'),
-          ],
-          SizedBox(height: 16.h),
-          const Divider(color: Color(0xFFE2E8F0), thickness: 1.5),
-          SizedBox(height: 16.h),
+          _buildSummaryRow('Penalty Fee (Late Payment)', '\$${summary.totalPenaltyFee?.toStringAsFixed(2) ?? "0.00"}'),
+          SizedBox(height: 12.h),
+          Divider(color: Colors.grey.withOpacity(0.2), thickness: 1),
+          SizedBox(height: 12.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CommonText(
-                text: 'Grand Total',
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w700,
-                color: AppColors.black,
+              const CommonText(
+                text: 'Total Due',
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF423838),
               ),
               CommonText(
-                text: 'MWK ${summary.grandTotal?.toStringAsFixed(2) ?? "0.00"}',
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w900,
+                text: '\$${summary.grandTotal?.toStringAsFixed(2) ?? "0.00"}',
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w700,
                 color: const Color(0xFFD32F2F),
               ),
             ],
@@ -319,14 +321,14 @@ class PaymentResolutionScreen extends StatelessWidget {
         CommonText(
           text: title,
           fontSize: 14.sp,
-          color: AppColors.textSecondaryColor,
-          fontWeight: FontWeight.w500,
+          color: Colors.grey,
+          fontWeight: FontWeight.w400,
         ),
         CommonText(
           text: amount,
           fontSize: 14.sp,
-          fontWeight: FontWeight.w600,
-          color: AppColors.black,
+          fontWeight: FontWeight.w500,
+          color: const Color(0xFF423838),
         ),
       ],
     );
