@@ -9,6 +9,7 @@ import '../controller/event_controller.dart';
 import '../../home/widget/custom_home_appbar.dart';
 import '../../home/widget/event_card.dart';
 import '../widget/completed_event_card.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
 
 class EventsScreen extends StatelessWidget {
   EventsScreen({super.key});
@@ -49,11 +50,11 @@ class EventsScreen extends StatelessWidget {
               SizedBox(height: 12.h),
               Obx(() {
                 if (controller.isPendingLoading.value) {
-                  return const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: CircularProgressIndicator(),
-                    ),
+                  return Column(
+                    children: List.generate(2, (index) => Padding(
+                      padding: EdgeInsets.only(bottom: 12.h),
+                      child: CommonSkeleton(height: 130.h, width: double.infinity, borderRadius: 16),
+                    )),
                   );
                 }
                 if (controller.pendingContributions.isEmpty) {
@@ -105,11 +106,11 @@ class EventsScreen extends StatelessWidget {
 
               Obx(() {
                 if (controller.isLoading.value) {
-                  return const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: CircularProgressIndicator(),
-                    ),
+                  return Column(
+                    children: List.generate(3, (index) => Padding(
+                      padding: EdgeInsets.only(bottom: 12.h),
+                      child: CommonSkeleton(height: 80.h, width: double.infinity, borderRadius: 16),
+                    )),
                   );
                 }
                 if (controller.completedContributions.isEmpty) {
