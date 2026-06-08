@@ -4,12 +4,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:umodzi/utils/constants/app_colors.dart';
 import 'package:umodzi/utils/constants/app_icons.dart';
-import '../../../config/api/api_end_point.dart';
 import '../../../component/text/common_text.dart';
-import '../../../config/route/app_routes.dart';
 import '../../../utils/constants/temp_image.dart';
 import '../controller/event_details_controller.dart';
-import '../widget/show_success_dialog.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
+import '../../../component/image/common_image.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   const EventDetailsScreen({super.key});
@@ -19,11 +18,9 @@ class EventDetailsScreen extends StatelessWidget {
     final controller = Get.put(EventDetailsController());
     final dynamic args = Get.arguments;
     
-    // Extract eventId and contributionId from arguments
     final String eventId = args['eventId']?.toString() ?? "";
     final bool hasPenalty = args['hasPenalty'] == true;
     
-    // Call API with eventId on build
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (eventId.isNotEmpty) {
         controller.fetchEventDetails(eventId);
@@ -34,7 +31,7 @@ class EventDetailsScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF8FAFC),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return _buildSkeleton();
         }
 
         final data = controller.eventData.value;
@@ -72,7 +69,7 @@ class EventDetailsScreen extends StatelessWidget {
                           onTap: () => Get.back(),
                           child: CircleAvatar(
                             radius: 20.r,
-                            backgroundColor: Colors.black.withOpacity(0.3),
+                            backgroundColor: Colors.black.withValues(alpha: 0.3),
                             child: Icon(Icons.arrow_back_ios_new,
                                 color: Colors.white, size: 16.sp),
                           ),
@@ -181,7 +178,7 @@ class EventDetailsScreen extends StatelessWidget {
                               text: 'Target Goal',
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.white.withValues(alpha: 0.9),
                             ),
                             CommonText(
                               text: '\$ ${event?.targetContribution?.toStringAsFixed(0) ?? "0"}',
@@ -197,7 +194,7 @@ class EventDetailsScreen extends StatelessWidget {
                 ],
               ),
 
-              SizedBox(height: 240.h),
+              SizedBox(height: 140.h),
 
               // --- Beneficiary Details Card ---
               _buildSectionCard('Beneficiary Details', _buildBeneficiaryInfo(beneficiary)),
@@ -218,28 +215,24 @@ class EventDetailsScreen extends StatelessWidget {
                 child: SizedBox(
                   width: double.infinity,
                   height: 52.h,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      showSuccessDialog(context);
-                      Future.delayed(const Duration(seconds: 2), () {
-                        if (Get.isDialogOpen ?? false) {
-                          Get.back();
-                        }
-                        Get.offAllNamed(AppRoutes.navBarScreen);
-                      });
-                    },
+                  child: Obx(() => ElevatedButton(
+                    onPressed: controller.isPaymentLoading.value 
+                        ? null 
+                        : () => controller.createCheckoutSession(eventId),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.buttonColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.r)),
                     ),
-                    child: CommonText(
-                      text: 'Pay Now - \$${totalDue.toStringAsFixed(2)}',
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.sp,
-                    ),
-                  ),
+                    child: controller.isPaymentLoading.value
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : CommonText(
+                            text: 'Pay Now - \$${totalDue.toStringAsFixed(2)}',
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.sp,
+                          ),
+                  )),
                 ),
               ),
               SizedBox(height: 40.h),
@@ -250,22 +243,103 @@ class EventDetailsScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildSkeleton() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              CommonSkeleton(height: 240.h, width: double.infinity, borderRadius: 0),
+              Positioned(
+                top: 45.h,
+                left: 20.w,
+                right: 20.w,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CommonSkeleton(height: 40.r, width: 40.r, borderRadius: 20),
+                    CommonSkeleton(height: 20.h, width: 120.w),
+                    SizedBox(width: 40.w),
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 180.h,
+                left: 0,
+                right: 0,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20.w),
+                  padding: EdgeInsets.only(
+                      left: 16.w, right: 16.w, bottom: 16.h, top: 48.h),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CommonSkeleton(height: 20.h, width: 150.w),
+                          CommonSkeleton(height: 20.h, width: 60.w, borderRadius: 20),
+                        ],
+                      ),
+                      SizedBox(height: 12.h),
+                      CommonSkeleton(height: 12.h, width: double.infinity),
+                      SizedBox(height: 6.h),
+                      CommonSkeleton(height: 12.h, width: 200.w),
+                      SizedBox(height: 20.h),
+                      Row(
+                        children: [
+                          Expanded(child: CommonSkeleton(height: 60.h, width: double.infinity)),
+                          SizedBox(width: 7.w),
+                          Expanded(child: CommonSkeleton(height: 60.h, width: double.infinity)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 25.h,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: CommonSkeleton(height: 60.h, width: 220.w, borderRadius: 12),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 140.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: CommonSkeleton(height: 150.h, width: double.infinity, borderRadius: 16),
+          ),
+          SizedBox(height: 20.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: CommonSkeleton(height: 180.h, width: double.infinity, borderRadius: 16),
+          ),
+          SizedBox(height: 24.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: CommonSkeleton(height: 52.h, width: double.infinity, borderRadius: 10),
+          ),
+          SizedBox(height: 40.h),
+        ],
+      ),
+    );
+  }
+
   Widget _buildBannerImage(String? banner) {
-    String imageUrl = banner != null 
-        ? (banner.startsWith('http') ? banner : "${ApiEndPoint.imageUrl}$banner") 
-        : "";
-    
-    return Container(
+    return CommonImage(
+      imageSrc: banner ?? "",
       height: 240.h,
       width: double.infinity,
-      color: Colors.grey.shade100,
-      child: imageUrl.isNotEmpty 
-        ? Image.network(
-            imageUrl,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => Image.asset(TempImage.family, fit: BoxFit.cover),
-          )
-        : Image.asset(TempImage.family, fit: BoxFit.cover),
+      fill: BoxFit.cover,
+      defaultImage: TempImage.family,
     );
   }
 
@@ -334,33 +408,13 @@ class EventDetailsScreen extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        CommonImage(
+          imageSrc: image ?? "",
           height: 50.r,
           width: 50.r,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(8.r),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8.r),
-            child: (image != null && image.isNotEmpty)
-                ? Image.network(
-                    image.startsWith('http')
-                        ? image
-                        : "${ApiEndPoint.imageUrl}$image",
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Icon(
-                      Icons.person,
-                      color: Colors.grey.shade400,
-                      size: 30.sp,
-                    ),
-                  )
-                : Icon(
-                    Icons.person,
-                    color: Colors.grey.shade400,
-                    size: 30.sp,
-                  ),
-          ),
+          borderRadius: 8,
+          fill: BoxFit.cover,
+          defaultImage: TempImage.manP, // Using manP as default for person
         ),
         SizedBox(width: 12.w),
         Expanded(
