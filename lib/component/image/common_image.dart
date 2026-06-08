@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../config/api/api_end_point.dart';
 import '../../utils/constants/app_images.dart';
 import '../../utils/log/error_log.dart';
+import '../other_widgets/common_skeleton.dart';
 
 class CommonImage extends StatelessWidget {
   final String imageSrc;
@@ -46,7 +47,7 @@ class CommonImage extends StatelessWidget {
 
   Widget _buildNetworkImage() {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(borderRadius),
+      borderRadius: BorderRadius.circular(borderRadius.r),
       child: CachedNetworkImage(
         height: size?.sp ?? height?.h,
         width: size?.sp ?? width?.w,
@@ -56,12 +57,15 @@ class CommonImage extends StatelessWidget {
         fit: fill,
         imageBuilder: (context, imageProvider) => Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: BorderRadius.circular(borderRadius.r),
             image: DecorationImage(image: imageProvider, fit: fill),
           ),
         ),
-        progressIndicatorBuilder: (context, url, downloadProgress) =>
-            CircularProgressIndicator(value: downloadProgress.progress),
+        placeholder: (context, url) => CommonSkeleton(
+          height: size?.sp ?? height?.h ?? 100.h,
+          width: size?.sp ?? width?.w ?? 100.w,
+          borderRadius: borderRadius,
+        ),
         errorWidget: (context, url, error) {
           errorLog(error, source: 'Common Image');
 
@@ -83,7 +87,7 @@ class CommonImage extends StatelessWidget {
 
   Widget _buildPngImage() {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(borderRadius),
+      borderRadius: BorderRadius.circular(borderRadius.r),
       child: Image.asset(
         imageSrc,
         color: imageColor,
