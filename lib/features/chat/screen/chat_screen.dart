@@ -7,6 +7,7 @@ import '../../../component/common_appbar/common_appbar.dart';
 import '../../../config/api/api_end_point.dart';
 import '../controller/chat_controller.dart';
 import '../model/message_model.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -39,6 +40,9 @@ class ChatScreen extends StatelessWidget {
                     backgroundColor: Colors.grey.shade100,
                     child: ClipOval(
                       child: Obx(() {
+                        if (controller.isLoading.value && controller.adminImage.value.isEmpty) {
+                          return CommonSkeleton(height: 40.r, width: 40.r, borderRadius: 20);
+                        }
                         if (controller.adminImage.value.isEmpty) {
                           return Icon(
                             Icons.person,
@@ -59,35 +63,35 @@ class ChatScreen extends StatelessWidget {
                               color: Colors.grey.shade400,
                             );
                           },
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: SizedBox(
-                                width: 20.r,
-                                height: 20.r,
-                                child: const CircularProgressIndicator(strokeWidth: 2),
-                              ),
-                            );
-                          },
                         );
                       }),
                     ),
                   ),
                 ),
                 SizedBox(width: 12.w),
-                Obx(() => CommonText(
-                  text: controller.adminName.value,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                )),
+                Obx(() {
+                   if (controller.isLoading.value && controller.adminName.value.isEmpty) {
+                     return CommonSkeleton(height: 18.h, width: 120.w);
+                   }
+                   return CommonText(
+                    text: controller.adminName.value,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  );
+                }),
               ],
             ),
           ),
           Expanded(
             child: Obx(() {
               if (controller.isLoading.value && controller.messages.isEmpty) {
-                return const Center(child: CircularProgressIndicator());
+                return ListView.builder(
+                  reverse: true,
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  itemCount: 8,
+                  itemBuilder: (context, index) => _buildSkeletonBubble(index % 2 == 0),
+                );
               }
               if (controller.messages.isEmpty) {
                 return const Center(child: CommonText(text: "No messages yet"));
@@ -105,6 +109,23 @@ class ChatScreen extends StatelessWidget {
             }),
           ),
           _buildMessageInput(controller),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSkeletonBubble(bool isMe) {
+    return Align(
+      alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+      child: Column(
+        crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          CommonSkeleton(
+            height: 40.h,
+            width: 0.5.sw,
+            borderRadius: 16,
+          ),
+          SizedBox(height: 12.h),
         ],
       ),
     );
