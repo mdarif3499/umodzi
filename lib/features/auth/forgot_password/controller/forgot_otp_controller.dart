@@ -14,13 +14,13 @@ class ForgotOtpController extends GetxController {
   final otpController = TextEditingController();
   late final PinInputController pinController;
   
-  RxInt timerSeconds = 90.obs; // 1 minute 30 seconds
+  RxInt timerSeconds = 90.obs;
   Timer? _timer;
   RxBool canResend = false.obs;
 
   final ApiClient apiClient = DioApiClient();
-  bool isLoading = false;
-  bool isResending = false;
+  RxBool isLoading = false.obs;
+  RxBool isResending = false.obs;
   
   String identity = '';
   String type = '';
@@ -38,72 +38,59 @@ class ForgotOtpController extends GetxController {
   }
 
   void startTimer() {
+    _timer?.cancel();
     canResend.value = false;
     timerSeconds.value = 90;
-    _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (timerSeconds.value > 0) {
         timerSeconds.value--;
       } else {
         canResend.value = true;
-        _timer?.cancel();
+        timer.cancel();
       }
     });
   }
 
   Future<void> resendOtp() async {
-    if (isResending) return;
+    if (isResending.value) return;
 
     try {
-      isResending = true;
-      update();
-
+      isResending.value = true;
+      
       Map<String, String> body = {
         type == 'email' ? 'email' : 'phoneNumber': identity,
       };
 
-      final response = await apiClient.post(ApiEndPoint.resendOtp, body: body);
+      final response = await apiClient.post(ApiEndPoint.forgotPassword, body: body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         startTimer();
         AppSnackbar.success(
           title: 'Success',
-          message: 'OTP has been resent successfully',
+          message: 'A new OTP has been sent to your $type',
         );
       } else {
-        AppSnackbar.error(
-          title: 'Error',
-          message: response.message,
-        );
+        AppSnackbar.error(title: 'Error', message: response.message);
       }
     } catch (e) {
-      AppSnackbar.error(title: 'Error', message: e.toString());
+      AppSnackbar.error(title: 'Error', message: 'Failed to resend OTP. Please try again.');
     } finally {
-      isResending = false;
-      if (!isClosed) {
-        update();
-      }
+      isResending.value = false;
     }
   }
 
   Future<void> verifyOtp() async {
-    final otp = otpController.text;
+    final otp = otpController.text.trim();
     
-    if (otp.isEmpty) {
-      AppSnackbar.error(title: 'Validation Error', message: 'OTP field cannot be empty');
+    if (otp.isEmpty || otp.length < 4) {
+      AppSnackbar.error(title: 'Invalid OTP', message: 'Please enter a valid 4-digit code');
       return;
     }
 
-    if (otp.length < 4) {
-      AppSnackbar.error(title: 'Validation Error', message: 'Please enter a 4-digit OTP');
-      return;
-    }
-
-    if (isLoading) return;
+    if (isLoading.value) return;
 
     try {
-      isLoading = true;
-      update();
+      isLoading.value = true;
 
       Map<String, dynamic> body = {
         type == 'email' ? 'email' : 'phoneNumber': identity,
@@ -117,29 +104,17 @@ class ForgotOtpController extends GetxController {
         final verifyToken = data['verifyToken'];
 
         if (verifyToken != null) {
-          // Saving token to local storage just like SignInController
           await LocalStorage.setString(LocalStorageKeys.token, verifyToken);
         }
 
         Get.toNamed(AppRoutes.resetPassword);
-
-        AppSnackbar.success(
-          title: 'Success',
-          message: response.message,
-        );
       } else {
-        AppSnackbar.error(
-          title: 'Error',
-          message: response.message,
-        );
+        AppSnackbar.error(title: 'Verification Failed', message: response.message);
       }
     } catch (e) {
-      AppSnackbar.error(title: 'Error', message: e.toString());
+      AppSnackbar.error(title: 'Error', message: 'Something went wrong. Please try again.');
     } finally {
-      isLoading = false;
-      if (!isClosed) {
-        update();
-      }
+      isLoading.value = false;
     }
   }
 
