@@ -4,14 +4,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:umodzi/component/text/common_text.dart';
 import '../../../component/common_appbar/common_appbar.dart';
-import '../controller/about_us_controller.dart';
+import '../controller/dynamic_content_controller.dart';
 
 class AboutUsScreen extends StatelessWidget {
   const AboutUsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(AboutUsController());
+    final controller = Get.put(DynamicContentController());
+    
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getContent("aboutUs");
+    });
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -24,14 +28,14 @@ class AboutUsScreen extends StatelessWidget {
           return const Center(child: CircularProgressIndicator(color: Colors.black));
         }
         
-        if (controller.aboutUsContent.value.isEmpty) {
+        if (controller.content.value.isEmpty) {
           return const Center(child: CommonText(text: "No content available"));
         }
 
         return SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
           child: Html(
-            data: controller.aboutUsContent.value,
+            data: controller.content.value,
             style: {
               "body": Style(
                 fontSize: FontSize(14.sp),
@@ -40,10 +44,6 @@ class AboutUsScreen extends StatelessWidget {
                 lineHeight: const LineHeight(1.5),
                 padding: HtmlPaddings.zero,
                 margin: Margins.zero,
-              ),
-              "strong": Style(
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
               ),
             },
           ),
