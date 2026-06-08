@@ -118,58 +118,58 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
 
-                  Obx(() {
-                    if (controller.selectedOption.value == 0) {
-                      return Column(
-                        children: [
-                          SizedBox(height: 24.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(width: 60.w, child: const Divider()),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                                child: CommonText(
-                                  text: 'or',
-                                  fontSize: 12,
-                                  color: Colors.grey.shade400,
-                                ),
-                              ),
-                              SizedBox(width: 60.w, child: const Divider()),
-                            ],
-                          ),
-                          SizedBox(height: 24.h),
-                          OutlinedButton(
-                            onPressed: () {},
-                            style: OutlinedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 12.h),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.r),
-                              ),
-                              side: BorderSide(color: Colors.grey.shade300),
-                              minimumSize: Size(double.infinity, 48.h),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(AppImages.google, height: 20.h),
-                                SizedBox(width: 12.w),
-                                const CommonText(
-                                  text: 'Continue with Google',
-                                  color: AppColors.color333333,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-                    } else {
-                      return const SizedBox();
-                    }
-                  }),
+                  // Obx(() {
+                  //   if (controller.selectedOption.value == 0) {
+                  //     return Column(
+                  //       children: [
+                  //         SizedBox(height: 24.h),
+                  //         Row(
+                  //           mainAxisAlignment: MainAxisAlignment.center,
+                  //           crossAxisAlignment: CrossAxisAlignment.center,
+                  //           children: [
+                  //             SizedBox(width: 60.w, child: const Divider()),
+                  //             Padding(
+                  //               padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  //               child: CommonText(
+                  //                 text: 'or',
+                  //                 fontSize: 12,
+                  //                 color: Colors.grey.shade400,
+                  //               ),
+                  //             ),
+                  //             SizedBox(width: 60.w, child: const Divider()),
+                  //           ],
+                  //         ),
+                  //         SizedBox(height: 24.h),
+                  //         OutlinedButton(
+                  //           onPressed: () {},
+                  //           style: OutlinedButton.styleFrom(
+                  //             padding: EdgeInsets.symmetric(vertical: 12.h),
+                  //             shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(10.r),
+                  //             ),
+                  //             side: BorderSide(color: Colors.grey.shade300),
+                  //             minimumSize: Size(double.infinity, 48.h),
+                  //           ),
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: [
+                  //               Image.asset(AppImages.google, height: 20.h),
+                  //               SizedBox(width: 12.w),
+                  //               const CommonText(
+                  //                 text: 'Continue with Google',
+                  //                 color: AppColors.color333333,
+                  //                 fontWeight: FontWeight.w400,
+                  //                 fontSize: 14,
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     );
+                  //   } else {
+                  //     return const SizedBox();
+                  //   }
+                  // }),
                   SizedBox(height: 40.h),
                 ],
               ),
@@ -234,17 +234,9 @@ class _SignInScreenState extends State<SignInScreen> {
           children: [
             Row(
               children: [
-                Obx(() => Checkbox(
-                      value: controller.rememberMe.value,
-                      onChanged: controller.toggleRememberMe,
-                      activeColor: const Color(0xFFEABB00),
-                      side: const BorderSide(color: Color(0xFFEABB00)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                    )),
+
                 const CommonText(
-                  text: 'Remember me',
+                  text: '',
                   fontSize: 14,
                   color: Color(0xFFEABB00),
                 ),

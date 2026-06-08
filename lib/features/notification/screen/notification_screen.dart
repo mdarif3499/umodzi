@@ -6,6 +6,7 @@ import '../../../component/text/common_text.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../controller/notification_controller.dart';
 import 'package:get/get.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
 
 class NotificationScreen extends StatelessWidget {
   NotificationScreen({super.key});
@@ -52,7 +53,11 @@ class NotificationScreen extends StatelessWidget {
             Expanded(
               child: Obx(() {
                 if (controller.isLoading.value) {
-                  return const Center(child: CircularProgressIndicator());
+                  return ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    itemCount: 6,
+                    itemBuilder: (context, index) => _buildSkeletonItem(),
+                  );
                 }
                 if (controller.notificationList.isEmpty) {
                   return const Center(child: CommonText(text: "No notifications found"));
@@ -95,6 +100,45 @@ class NotificationScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildSkeletonItem() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.all(16.sp),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: Colors.grey.shade100),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CommonSkeleton(height: 40.r, width: 40.r, borderRadius: 20),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CommonSkeleton(height: 16.h, width: 150.w),
+                    CommonSkeleton(height: 8.h, width: 8.h, borderRadius: 4),
+                  ],
+                ),
+                SizedBox(height: 8.h),
+                CommonSkeleton(height: 12.h, width: double.infinity),
+                SizedBox(height: 6.h),
+                CommonSkeleton(height: 12.h, width: 200.w),
+                SizedBox(height: 12.h),
+                CommonSkeleton(height: 10.h, width: 80.w),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

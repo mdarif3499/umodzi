@@ -7,6 +7,7 @@ import 'package:umodzi/component/text/common_text.dart';
 import 'package:umodzi/utils/constants/app_colors.dart';
 import '../../profile/controller/profile_controller.dart';
 import '../../profile/data/payment_breakdown_model.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
 
 class PaymentResolutionScreen extends StatelessWidget {
   const PaymentResolutionScreen({super.key});
@@ -52,7 +53,7 @@ class PaymentResolutionScreen extends StatelessWidget {
       body: SafeArea(
         child: Obx(() {
           if (controller.isStatsLoading.value) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.green));
+            return _buildSkeleton();
           }
 
           final data = controller.paymentBreakdown.value;
@@ -135,6 +136,37 @@ class PaymentResolutionScreen extends StatelessWidget {
             ],
           );
         }),
+      ),
+    );
+  }
+
+  Widget _buildSkeleton() {
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 20.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CommonSkeleton(height: 15.h, width: 120.w),
+              CommonSkeleton(height: 30.h, width: 80.w, borderRadius: 20),
+            ],
+          ),
+          SizedBox(height: 16.h),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 3,
+            itemBuilder: (context, index) => Padding(
+              padding: EdgeInsets.only(bottom: 16.h),
+              child: CommonSkeleton(height: 180.h, width: double.infinity, borderRadius: 12),
+            ),
+          ),
+          CommonSkeleton(height: 120.h, width: double.infinity, borderRadius: 4),
+          SizedBox(height: 20.h),
+        ],
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../config/api/api_end_point.dart';
@@ -13,44 +14,49 @@ class ForgotPasswordController extends GetxController {
   final phoneController = TextEditingController();
 
   final ApiClient apiClient = DioApiClient();
-  bool isLoading = false;
+  RxBool isLoading = false.obs;
 
   void selectOption(int index) {
     selectedOption.value = index;
   }
 
   Future<void> forgotPassword() async {
-    if (isLoading) return;
+    if (isLoading.value) return;
+
+    final String identity = selectedOption.value == 0 
+        ? emailController.text.trim() 
+        : phoneController.text.trim();
+
+    if (identity.isEmpty) {
+      AppSnackbar.error(title: 'Error', message: 'Please enter your ${selectedOption.value == 0 ? 'email' : 'phone number'}');
+      return;
+    }
 
     try {
-      isLoading = true;
-      update();
+      isLoading.value = true;
 
       Map<String, String> body = {};
       if (selectedOption.value == 0) {
-        body = {'email': emailController.text.trim()};
+        body = {'email': identity};
       } else {
-        body = {'phoneNumber': phoneController.text.trim()};
+        body = {'phoneNumber': identity};
       }
 
       final response = await apiClient.post(ApiEndPoint.forgotPassword, body: body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         Get.toNamed(AppRoutes.forgotOtp, arguments: {
-          'identity': selectedOption.value == 0 ? emailController.text.trim() : phoneController.text.trim(),
+          'identity': identity,
           'type': selectedOption.value == 0 ? 'email' : 'phone'
         });
-        AppSnackbar.success(title: 'Success', message: response.message);
+        AppSnackbar.success(title: 'Success', message: 'OTP sent successfully');
       } else {
         AppSnackbar.error(title: 'Error', message: response.message);
       }
     } catch (e) {
-      AppSnackbar.error(title: 'Error', message: e.toString());
+      AppSnackbar.error(title: 'Error', message: 'Something went wrong. Please try again.');
     } finally {
-      isLoading = false;
-      if (!isClosed) {
-        update();
-      }
+      isLoading.value = false;
     }
   }
 

@@ -109,9 +109,9 @@ class ForgotOtpScreen extends StatelessWidget {
                 SizedBox(height: 45.h),
 
                 // --- Verify Button ---
-                GetBuilder<ForgotOtpController>(
-                  builder: (controller) => CommonButton(
-                    isLoading: controller.isLoading,
+                Obx(
+                  () => CommonButton(
+                    isLoading: controller.isLoading.value,
                     buttonColor: AppColors.black,
                     titleText: 'Verify',
                     onTap: () {
@@ -157,8 +157,7 @@ class ForgotOtpScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 16.w),
-                      GetBuilder<ForgotOtpController>(
-                        builder: (controller) => controller.isResending 
+                      controller.isResending.value 
                         ? SizedBox(
                           height: 20.h,
                           width: 20.w,
@@ -177,7 +176,6 @@ class ForgotOtpScreen extends StatelessWidget {
                                 : Colors.grey,
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ),

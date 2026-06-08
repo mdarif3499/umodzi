@@ -1,7 +1,15 @@
 class ApiEndPoint {
-  static const baseUrl = 'http://10.10.7.39:5005/api/v1';
-  static const imageUrl = 'http://10.10.7.39:5005';
-  static const socketUrl = 'http://10.10.7.39:5005';
+  // static const baseUrl = 'http://10.10.7.39:5005/api/v1';
+  // static const imageUrl = 'http://10.10.7.39:5005';
+  // static const socketUrl = 'http://10.10.7.39:5005';
+
+  static const baseUrl = 'https://rakibur5005.binarybards.online/api/v1';
+  static const imageUrl = 'https://rakibur5005.binarybards.online';
+  static const socketUrl = 'https://rakibur5005.binarybards.online';
+
+
+
+
 
   static const signUp = 'users/sign-up';
   static const verifyEmail = 'users/verify-email';
