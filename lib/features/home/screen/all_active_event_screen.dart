@@ -7,6 +7,7 @@ import 'package:umodzi/features/home/controller/home_controller.dart';
 import '../../../component/common_appbar/common_appbar.dart';
 import '../../../component/text/common_text.dart';
 import '../widget/event_card.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
 
 class AllActiveEventScreen extends StatefulWidget {
   const AllActiveEventScreen({super.key});
@@ -52,9 +53,16 @@ class _AllActiveEventScreenState extends State<AllActiveEventScreen> {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 16.w),
           child: Obx(() {
-            // Show main loader only on initial load
+            // Show skeleton only on initial load
             if (controller.isEventsLoading.value && controller.allActiveEvents.isEmpty) {
-              return const Center(child: CircularProgressIndicator());
+              return ListView.builder(
+                padding: EdgeInsets.only(top: 18.h),
+                itemCount: 5,
+                itemBuilder: (context, index) => Padding(
+                  padding: EdgeInsets.only(bottom: 12.h),
+                  child: CommonSkeleton(height: 130.h, width: double.infinity, borderRadius: 16),
+                ),
+              );
             }
 
             // Show empty message only if not loading and list is empty
