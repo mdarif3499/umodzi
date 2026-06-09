@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../config/api/api_end_point.dart';
+import '../../../config/route/app_routes.dart';
 import '../../../services/api/api_client.dart';
 import '../../../services/api/api_service.dart';
+import '../../../services/socket/socket_service.dart';
+import '../../../services/storage/storage_services.dart';
 import '../../../utils/app_snackbar.dart';
 import '../../payment/screen/webview_screen.dart';
 import '../data/profile_model.dart';
@@ -121,6 +124,39 @@ class ProfileController extends GetxController {
       // Revert if exception
       isNotificationEnabled.value = previousValue;
       AppSnackbar.error(title: 'Error', message: 'Something went wrong');
+    }
+  }
+
+  Future<void> deleteUserAccount() async {
+    final password = deletePasswordController.text.trim();
+    if (password.isEmpty) {
+      AppSnackbar.error(title: 'Error', message: 'Please enter your password');
+      return;
+    }
+
+    try {
+      isLoading.value = true;
+      final response = await apiClient.delete(
+        ApiEndPoint.deleteAccount,
+        body: {'password': password},
+      );
+
+      if (response.statusCode == 200) {
+        AppSnackbar.success(title: 'Success', message: 'Account deleted successfully');
+        
+        // Logout and navigate to Sign In
+        await LocalStorage.removeAllPrefData();
+        SocketService.disconnect();
+        
+        deletePasswordController.clear();
+        Get.offAllNamed(AppRoutes.signIn);
+      } else {
+        AppSnackbar.error(title: 'Error', message: response.message);
+      }
+    } catch (e) {
+      AppSnackbar.error(title: 'Error', message: e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
 
