@@ -22,7 +22,6 @@ class EditProfileController extends GetxController {
   RxString imagePath = ''.obs;
   RxBool isLoading = false.obs;
   
-  // Variable to store the selected country code
   RxString selectedCountryCode = '+880'.obs;
 
   @override
@@ -56,24 +55,31 @@ class EditProfileController extends GetxController {
       isLoading.value = true;
       final profileController = Get.find<ProfileController>();
 
-
-
+      // বেসিক ডাটা ম্যাপ
       Map<String, dynamic> dataMap = {
         'name': nameController.text.trim(),
         'email': emailController.text.trim(),
         'countryCode': selectedCountryCode.value,
         'phone': phoneController.text.trim(),
         'address': locationController.text.trim(),
-        'image': profileController.profileData.value?.image ?? "",
       };
 
       List<MultipartFileItem> files = [];
       
+      // ইমেজ লজিক:
       if (imagePath.value.isNotEmpty) {
+        // ১. যদি নতুন ইমেজ সিলেক্ট করা হয়
         files.add(MultipartFileItem(
           filePath: imagePath.value,
           fileName: 'image',
         ));
+      } else {
+        // ২. যদি নতুন ইমেজ না থাকে, কিন্তু আগে থেকে ইমেজ থাকে
+        final existingImage = profileController.profileData.value?.image;
+        if (existingImage != null && existingImage.isNotEmpty) {
+          dataMap['image'] = existingImage;
+        }
+        // ৩. যদি কোনো ইমেজই না থাকে, তবে 'image' কী-টি পাঠানো হবে না (dataMap-এ অটোমেটিক বাদ থাকবে)
       }
 
       final response = await apiClient.multipart(
@@ -85,7 +91,7 @@ class EditProfileController extends GetxController {
 
       if (response.isSuccess) {
         AppSnackbar.success(title: 'Success', message: 'Profile updated successfully');
-         await profileController.getProfileData();
+        await profileController.getProfileData();
         Get.toNamed(AppRoutes.navBarScreen);
       } else {
         AppSnackbar.error(title: 'Error', message: response.message);
