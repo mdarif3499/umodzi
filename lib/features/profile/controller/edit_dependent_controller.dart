@@ -6,7 +6,6 @@ class EditDependentController extends GetxController {
   final nameController = TextEditingController(text: 'Tendal Mbeki');
   final phoneController = TextEditingController(text: '01234568775');
   final dobController = TextEditingController(text: '03-12-2000');
-
   RxString selectedRelationship = 'Brother'.obs;
   RxString selectedFileName = ''.obs;
   RxString selectedImagePath = ''.obs;
