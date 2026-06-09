@@ -39,12 +39,14 @@ class BreakdownItem {
   String? contributionId;
   String? eventName;
   String? eventType;
+  String? totalParticipatedEvents;
   DateTime? deadlinePassed;
   num? minContribution;
   num? penaltyFee;
   num? totalDue;
 
   BreakdownItem({
+    this.totalParticipatedEvents,
     this.contributionId,
     this.eventName,
     this.eventType,
@@ -56,6 +58,7 @@ class BreakdownItem {
 
   BreakdownItem.fromJson(Map<String, dynamic> json) {
     contributionId = json['contributionId'];
+    totalParticipatedEvents = json['totalParticipatedEvents'];
     eventName = json['eventName'];
     eventType = json['eventType'];
     deadlinePassed = json['deadlinePassed'] != null ? DateTime.tryParse(json['deadlinePassed']) : null;
@@ -67,14 +70,16 @@ class BreakdownItem {
 
 class Summary {
   num? totalEventDues;
+  num? totalParticipatedEvents;
   num? totalPenaltyFee;
   num? reactivationAmount;
   num? grandTotal;
 
-  Summary({this.totalEventDues, this.totalPenaltyFee, this.reactivationAmount, this.grandTotal});
+  Summary({this.totalEventDues, this.totalParticipatedEvents, this.totalPenaltyFee, this.reactivationAmount, this.grandTotal});
 
   Summary.fromJson(Map<String, dynamic> json) {
     totalEventDues = json['totalEventDues'];
+    totalParticipatedEvents = json['totalParticipatedEvents'];
     totalPenaltyFee = json['totalPenaltyFee'];
     reactivationAmount = json['reactivationAmount'];
     grandTotal = json['grandTotal'];
