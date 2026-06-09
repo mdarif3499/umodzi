@@ -60,7 +60,7 @@ class UserStatsCard extends StatelessWidget {
               'Total\nContributions'
             ),
             _buildStatItem(
-              '\$${summary?.totalEventDues?.toStringAsFixed(0) ?? '0'}',
+              summary?.totalParticipatedEvents ?.toStringAsFixed(0) ?? '0',
               'Events\nParticipated'
             ),
             _buildStatItem(
