@@ -12,7 +12,6 @@ class EditDependentController extends GetxController {
   RxString selectedImagePath = ''.obs;
 
   final List<String> relationships = ['Brother', 'Sister', 'Father', 'Mother', 'Spouse', 'Child'];
-
   RxList<String> uploadedFiles = <String>['NID.pdf', 'NID.pdf'].obs;
 
   Future<void> selectDate(BuildContext context) async {
