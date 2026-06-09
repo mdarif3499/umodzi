@@ -8,7 +8,6 @@ import 'package:umodzi/component/text/common_text.dart';
 import 'package:umodzi/component/text_field/common_text_field.dart';
 import 'package:umodzi/config/api/api_end_point.dart';
 import '../../../component/text_field/common_phone_number_text_filed.dart';
-import '../../../utils/constants/temp_image.dart';
 import '../controller/edit_profile_controller.dart';
 import '../controller/profile_controller.dart';
 
@@ -68,7 +67,7 @@ class EditProfileScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   );
                 } else if (networkImage != null && networkImage.isNotEmpty) {
-                  final imageUrl = networkImage.startsWith('http') 
+                  final imageUrl = networkImage.startsWith('http')
                       ? networkImage 
                       : "${ApiEndPoint.imageUrl}${networkImage.startsWith('/') ? '' : '/'}$networkImage";
                   
@@ -80,22 +79,22 @@ class EditProfileScreen extends StatelessWidget {
                     placeholder: (context, url) => Container(
                       width: 100.r,
                       height: 100.r,
-                      color: Colors.grey[200],
+                      color: Colors.grey[100],
                       child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
                     ),
-                    errorWidget: (context, url, error) => Image.asset(
-                      TempImage.manP,
+                    errorWidget: (context, url, error) => Container(
                       width: 100.r,
                       height: 100.r,
-                      fit: BoxFit.cover,
+                      color: Colors.grey[100],
+                      child: Icon(Icons.person, size: 50.r, color: Colors.grey[400]),
                     ),
                   );
                 } else {
-                  imageWidget = Image.asset(
-                    TempImage.manP,
+                  imageWidget = Container(
                     width: 100.r,
                     height: 100.r,
-                    fit: BoxFit.cover,
+                    color: Colors.grey[100],
+                    child: Icon(Icons.person, size: 50.r, color: Colors.grey[400]),
                   );
                 }
 
