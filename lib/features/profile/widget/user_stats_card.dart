@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:umodzi/component/text/common_text.dart';
 import '../controller/profile_controller.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
 
 class UserStatsCard extends StatelessWidget {
   const UserStatsCard({super.key});
@@ -15,9 +16,19 @@ class UserStatsCard extends StatelessWidget {
     return Obx(() {
       if (controller.isStatsLoading.value) {
         return Container(
-          height: 80.h,
-          alignment: Alignment.center,
-          child: const CircularProgressIndicator(),
+          padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.w),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF9EDE9),
+            borderRadius: BorderRadius.circular(20.r),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildSkeletonStat(),
+              _buildSkeletonStat(),
+              _buildSkeletonStat(),
+            ],
+          ),
         );
       }
 
@@ -59,9 +70,21 @@ class UserStatsCard extends StatelessWidget {
           ],
         ),
       );
-
-
     });
+  }
+
+  Widget _buildSkeletonStat() {
+    return Expanded(
+      child: Column(
+        children: [
+          CommonSkeleton(height: 20.h, width: 50.w),
+          SizedBox(height: 8.h),
+          CommonSkeleton(height: 12.h, width: 60.w),
+          SizedBox(height: 4.h),
+          CommonSkeleton(height: 12.h, width: 40.w),
+        ],
+      ),
+    );
   }
 
   Widget _buildStatItem(String value, String label) {

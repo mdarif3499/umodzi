@@ -34,7 +34,8 @@ class OtpScreen extends StatelessWidget {
                       padding: EdgeInsets.all(10.w),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: const Color(0x14A53200),                      ),
+                        color: const Color(0x14A53200),
+                      ),
                       child: Icon(
                         Icons.arrow_back_ios_new,
                         size: 16.sp,
@@ -54,16 +55,24 @@ class OtpScreen extends StatelessWidget {
                   color: AppColors.color333333,
                 ),
                 SizedBox(height: 6.h),
-                CommonText(
-                  text: 'Enter the code we sent to your phone',
+                Obx(() => CommonText(
+                  text: 'Enter the code we sent to your ${controller.type}',
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                   color: AppColors.color6A7282,
                   textAlign: TextAlign.center,
-                ),
+                )),
+                SizedBox(height: 8.h),
+                Obx(() => CommonText(
+                  text: controller.identity,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.color333333,
+                  textAlign: TextAlign.center,
+                )),
                 SizedBox(height: 32.h),
 
-                // --- OTP Field (MaterialPinField v9.3.0) ---
+                // --- OTP Field (MaterialPinField) ---
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: MaterialPinField(
@@ -74,16 +83,12 @@ class OtpScreen extends StatelessWidget {
                       shape: MaterialPinShape.circle,
                       cellSize: Size(72.h, 72.h),
                       spacing: 12.w,
-                      // Border Colors
-                      borderColor: Color(0xFF6A7282),
+                      borderColor: const Color(0xFF6A7282),
                       focusedBorderColor: const Color(0xFFA53200),
                       filledBorderColor: Colors.grey.shade300,
-                      // Fill Colors
                       fillColor: Colors.white,
-                      focusedFillColor: const Color(0xFFA53200),
+                      focusedFillColor: Colors.white,
                       filledFillColor: Colors.white,
-
-                      // Text Style
                       textStyle: TextStyle(
                         fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
@@ -95,13 +100,16 @@ class OtpScreen extends StatelessWidget {
                 SizedBox(height: 32.h),
 
                 // --- Next Button ---
-                CommonButton(
+                Obx(() => CommonButton(
+                  isLoading: controller.isLoading.value,
                   buttonColor: Colors.black,
-                  titleText: 'Next',
+                  titleText: 'Verify',
                   onTap: () {
-                    _showSuccessDialog(context);
+                    controller.verifyOtp(context, () {
+                      _showSuccessDialog(context);
+                    });
                   },
-                ),
+                )),
                 SizedBox(height: 40.h),
 
                 // --- Resend Section ---
@@ -112,9 +120,11 @@ class OtpScreen extends StatelessWidget {
                   color: AppColors.color6A7282,
                 ),
                 SizedBox(height: 8.h),
-                Obx(() => GestureDetector(
+                Obx(() => controller.isResending.value 
+                  ? const CircularProgressIndicator(strokeWidth: 2, color: Color(0xFFA53200))
+                  : GestureDetector(
                       onTap: controller.canResend.value
-                          ? () => controller.startTimer()
+                          ? () => controller.resendOtp()
                           : null,
                       child: CommonText(
                         text: controller.canResend.value
@@ -122,7 +132,9 @@ class OtpScreen extends StatelessWidget {
                             : controller.timerText,
                         fontSize: 12,
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xFFE43730),
+                        color: controller.canResend.value 
+                            ? const Color(0xFFA53200)
+                            : Colors.grey,
                       ),
                     )),
                 SizedBox(height: 40.h),
@@ -156,9 +168,8 @@ class OtpScreen extends StatelessWidget {
                 ),
                 child: Image.asset(
                   AppIcons.checkI,
-
                   height: 44.sp,
-                  width: 44,
+                  width: 44.w,
                 ),
               ),
               SizedBox(height: 20.h),
@@ -176,7 +187,6 @@ class OtpScreen extends StatelessWidget {
                 color: AppColors.color6A7282,
                 textAlign: TextAlign.center,
                 fontWeight: FontWeight.w500,
-
               ),
               SizedBox(height: 20.h),
             ],

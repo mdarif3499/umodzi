@@ -6,6 +6,7 @@ import 'package:umodzi/utils/constants/app_colors.dart';
 import '../../../component/common_appbar/common_appbar.dart';
 import '../controller/payment_history_controller.dart';
 import '../widget/history_payment_item.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
 
 class PaymentHistoryScreen extends StatelessWidget {
   const PaymentHistoryScreen({super.key});
@@ -64,7 +65,14 @@ class PaymentHistoryScreen extends StatelessWidget {
                   ),
                   child: Obx(() {
                     if (controller.isLoading.value && controller.paymentHistory.isEmpty) {
-                      return const Center(child: CircularProgressIndicator());
+                      return ListView.builder(
+                        padding: EdgeInsets.all(12.sp),
+                        itemCount: 8,
+                        itemBuilder: (context, index) => Padding(
+                          padding: EdgeInsets.only(bottom: 12.h),
+                          child: CommonSkeleton(height: 60.h, width: double.infinity),
+                        ),
+                      );
                     }
                     
                     if (controller.filteredHistory.isEmpty) {

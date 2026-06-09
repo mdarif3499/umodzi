@@ -7,6 +7,7 @@ import 'package:umodzi/utils/constants/app_colors.dart';
 import 'package:umodzi/utils/constants/temp_image.dart';
 import '../controller/profile_controller.dart';
 import '../../../../config/api/api_end_point.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
 
 class UserInfoCard extends StatelessWidget {
   const UserInfoCard({super.key});
@@ -16,6 +17,29 @@ class UserInfoCard extends StatelessWidget {
     final controller = Get.find<ProfileController>();
 
     return Obx(() {
+      if (controller.isLoading.value) {
+        return Row(
+          children: [
+            CommonSkeleton(height: 80.r, width: 80.r, borderRadius: 40),
+            SizedBox(width: 16.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CommonSkeleton(height: 20.h, width: 150.w),
+                  SizedBox(height: 8.h),
+                  CommonSkeleton(height: 12.h, width: double.infinity),
+                  SizedBox(height: 4.h),
+                  CommonSkeleton(height: 12.h, width: 180.w),
+                  SizedBox(height: 4.h),
+                  CommonSkeleton(height: 12.h, width: 200.w),
+                ],
+              ),
+            ),
+          ],
+        );
+      }
+
       final data = controller.profileData.value;
       if (data == null) {
         return const SizedBox.shrink();

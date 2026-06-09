@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:umodzi/utils/constants/app_icons.dart';
 import 'package:umodzi/utils/helpers/validation.dart';
 import '../../../../component/button/common_button.dart';
 import '../../../../component/text/common_text.dart';
@@ -9,19 +8,14 @@ import '../../../../component/text_field/common_text_field.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../controller/forgot_password_controller.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
+class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
-}
-
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final controller = Get.find<ForgotPasswordController>();
-
-  @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+    final controller = Get.find<ForgotPasswordController>();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -92,18 +86,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   }
                 }),
                 SizedBox(height: 40.h),
-                GetBuilder<ForgotPasswordController>(
-                  builder: (controller) => CommonButton(
-                    isLoading: controller.isLoading,
-                    buttonColor: Colors.black,
-                    titleText: 'Reset Password',
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        controller.forgotPassword();
-                      }
-                    },
-                  ),
-                ),
+                Obx(() => CommonButton(
+                  isLoading: controller.isLoading.value,
+                  buttonColor: Colors.black,
+                  titleText: 'Reset Password',
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      controller.forgotPassword();
+                    }
+                  },
+                )),
               ],
             ),
           ),

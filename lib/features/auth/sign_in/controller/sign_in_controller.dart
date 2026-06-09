@@ -14,8 +14,8 @@ import '../../../../utils/app_snackbar.dart';
 class SignInController extends GetxController {
   RxInt selectedOption = 0.obs;
 
-  final emailController = TextEditingController(text: 'arifhossen3499@gmail.com');
-  final passwordController = TextEditingController(text: 'hello123');
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   final phoneController = TextEditingController();
   RxBool rememberMe = false.obs;
 

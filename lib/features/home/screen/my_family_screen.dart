@@ -7,6 +7,7 @@ import 'package:umodzi/utils/constants/app_colors.dart';
 import '../../../config/api/api_end_point.dart';
 import '../../../config/route/app_routes.dart';
 import '../controller/family_member_controller.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
 
 class MyFamilyScreen extends StatelessWidget {
   const MyFamilyScreen({super.key});
@@ -79,7 +80,14 @@ class MyFamilyScreen extends StatelessWidget {
             Expanded(
               child: Obx(() {
                 if (controller.isLoading.value) {
-                  return const Center(child: CircularProgressIndicator(color: AppColors.green));
+                  return ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+                    itemCount: 5,
+                    itemBuilder: (context, index) => Padding(
+                      padding: EdgeInsets.only(bottom: 12.h),
+                      child: CommonSkeleton(height: 90.h, width: double.infinity, borderRadius: 16),
+                    ),
+                  );
                 }
                 
                 if (controller.familyMembers.isEmpty) {

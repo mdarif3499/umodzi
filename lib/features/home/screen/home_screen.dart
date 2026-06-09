@@ -13,6 +13,7 @@ import '../widget/custom_home_appbar.dart';
 import '../widget/event_card.dart';
 import '../widget/payment_tile.dart';
 import '../widget/status_card.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -106,15 +107,7 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: 16.h),
                       Obx(() {
                         if (controller.isWalletLoading.value) {
-                          return Container(
-                            height: 150.h,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16.r),
-                            ),
-                            child: const CircularProgressIndicator(),
-                          );
+                          return CommonSkeleton(height: 180.h, width: double.infinity, borderRadius: 16);
                         }
 
                         final wallet = controller.walletSummary.value;
@@ -132,7 +125,7 @@ class HomeScreen extends StatelessWidget {
 
                         return StatusCard(
                           isSuspended: isSuspended,
-                          amount: '\$${wallet.pendingAmount?.abs().toStringAsFixed(2) ?? '0.00'}',
+                          amount: '\$${wallet.pendingAmount?.abs().toStringAsFixed(2) ?? '0.00'}' ,
                           dueDate: dueDateStr,
                           reason: wallet.suspensionInfo?.reason,
                           reactivation: wallet.suspensionInfo?.reactivation,
@@ -155,44 +148,59 @@ class HomeScreen extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: Obx(() => _buildQuickAction(
-                              textColor: controller.unreadMessageCount.value > 0 
-                                  ? AppColors.green 
-                                  : AppColors.textSecondaryColor,
-                              icon: AppIcons.messageChat,
-                              title: 'Communicate',
-                              subtitle: '${controller.unreadMessageCount.value} unread',
-                              color: const Color(0xFFE8F5E9),
-                              iconColor: AppColors.green,
-                              onTap: controller.createChatAndNavigate,
-                              badgeCount: controller.unreadMessageCount.value,
-                            )),
+                            child: Obx(() {
+                              if (controller.isWalletLoading.value) {
+                                return CommonSkeleton(height: 70.h, width: double.infinity, borderRadius: 12);
+                              }
+                              return _buildQuickAction(
+                                textColor: controller.unreadMessageCount.value > 0 
+                                    ? AppColors.green 
+                                    : AppColors.textSecondaryColor,
+                                icon: AppIcons.messageChat,
+                                title: 'Communicate',
+                                subtitle: '${controller.unreadMessageCount.value} unread',
+                                color: const Color(0xFFE8F5E9),
+                                iconColor: AppColors.green,
+                                onTap: controller.createChatAndNavigate,
+                                badgeCount: controller.unreadMessageCount.value,
+                              );
+                            }),
                           ),
                           SizedBox(width: 12.w),
                           Expanded(
-                            child: Obx(() => _buildQuickAction(
-                              textColor: const Color(0xFF7039AC),
-                              icon: AppIcons.purolee,
-                              title: 'My Family',
-                              subtitle: '${controller.quickActionData.value.dependenceCount ?? 0} members',
-                              color: const Color(0xFFF3E5F5),
-                              iconColor: Colors.purple,
-                              onTap: () => Get.toNamed(AppRoutes.myFamilyScreen),
-                            )),
+                            child: Obx(() {
+                              if (controller.isWalletLoading.value) {
+                                return CommonSkeleton(height: 70.h, width: double.infinity, borderRadius: 12);
+                              }
+                              return _buildQuickAction(
+                                textColor: const Color(0xFF7039AC),
+                                icon: AppIcons.purolee,
+                                title: 'My Family',
+                                subtitle: '${controller.quickActionData.value.dependenceCount ?? 0} members',
+                                color: const Color(0xFFF3E5F5),
+                                iconColor: Colors.purple,
+                                onTap: () => Get.toNamed(AppRoutes.myFamilyScreen),
+                              );
+                            }),
                           ),
                         ],
                       ),
                       SizedBox(height: 12.h),
-                      Obx(() => _buildQuickAction(
-                        textColor: AppColors.textSecondaryColor,
-                        icon: AppIcons.payment,
-                        title: 'View Payment History',
-                        subtitle: '${controller.quickActionData.value.transactionCount ?? 0} payments',
-                        color: const Color(0xFFF1F5F9),
-                        iconColor: Colors.blueGrey,
-                        isFullWidth: true,
-                        onTap: () => Get.toNamed(AppRoutes.paymentHistory),
-                      )),
+                      Obx(() {
+                        if (controller.isWalletLoading.value) {
+                          return CommonSkeleton(height: 70.h, width: double.infinity, borderRadius: 12);
+                        }
+                        return _buildQuickAction(
+                          textColor: AppColors.textSecondaryColor,
+                          icon: AppIcons.payment,
+                          title: 'View Payment History',
+                          subtitle: '${controller.quickActionData.value.transactionCount ?? 0} payments',
+                          color: const Color(0xFFF1F5F9),
+                          iconColor: Colors.blueGrey,
+                          isFullWidth: true,
+                          onTap: () => Get.toNamed(AppRoutes.paymentHistory),
+                        );
+                      }),
                       SizedBox(height: 24.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,7 +220,14 @@ class HomeScreen extends StatelessWidget {
                         if (controller.isEventsLoading.value) {
                           return SizedBox(
                             height: 130.h,
-                            child: const Center(child: CircularProgressIndicator()),
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 3,
+                              itemBuilder: (context, index) => Padding(
+                                padding: EdgeInsets.only(right: 12.w),
+                                child: CommonSkeleton(height: 130.h, width: 320.w, borderRadius: 16),
+                              ),
+                            ),
                           );
                         }
                         if (controller.activeEvents.isEmpty) {
@@ -284,10 +299,11 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: 16.h),
                       Obx(() {
                         if (controller.isTransactionsLoading.value) {
-                          return Container(
-                            height: 100.h,
-                            alignment: Alignment.center,
-                            child: const CircularProgressIndicator(),
+                          return Column(
+                            children: List.generate(3, (index) => Padding(
+                              padding: EdgeInsets.only(bottom: 8.h),
+                              child: CommonSkeleton(height: 70.h, width: double.infinity, borderRadius: 16),
+                            )),
                           );
                         }
                         

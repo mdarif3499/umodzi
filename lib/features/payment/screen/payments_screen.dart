@@ -14,6 +14,7 @@ import '../model/pending_payment_model.dart';
 import '../widget/history_payment_item.dart';
 import '../widget/pending_payment_card.dart';
 import '../widget/section_header.dart';
+import '../../../component/other_widgets/common_skeleton.dart';
 
 class PaymentsScreen extends StatelessWidget {
   const PaymentsScreen({super.key});
@@ -37,6 +38,12 @@ class PaymentsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Obx(() {
+              if (controller.isLoading.value) {
+                return Padding(
+                  padding: EdgeInsets.only(top: 16.h),
+                  child: CommonSkeleton(height: 20.h, width: 250.w),
+                );
+              }
               final notice = controller.paymentSummary.value.penaltyNotice;
               if (notice != null && notice.isNotEmpty) {
                 return Column(
@@ -48,13 +55,30 @@ class PaymentsScreen extends StatelessWidget {
               }
               return SizedBox(height: 16.h);
             }),
-            Obx(() => _buildTotalPaidCard(controller.paymentSummary.value.totalPaid ?? 0.0)),
+            Obx(() {
+              if (controller.isLoading.value) {
+                return CommonSkeleton(height: 100.h, width: double.infinity, borderRadius: 16);
+              }
+              return _buildTotalPaidCard(controller.paymentSummary.value.totalPaid ?? 0.0);
+            }),
             SizedBox(height: 12.h),
-            Obx(() => _buildStatGrid(
-                controller.paymentSummary.value.pendingAmount ?? 0.0,
-                controller.paymentSummary.value.penaltyAmount ?? 0.0)),
+            Obx(() {
+              if (controller.isLoading.value) {
+                return Row(
+                  children: [
+                    Expanded(child: CommonSkeleton(height: 90.h, width: double.infinity, borderRadius: 16)),
+                    SizedBox(width: 12.w),
+                    Expanded(child: CommonSkeleton(height: 90.h, width: double.infinity, borderRadius: 16)),
+                  ],
+                );
+              }
+              return _buildStatGrid(
+                  controller.paymentSummary.value.pendingAmount ?? 0.0,
+                  controller.paymentSummary.value.penaltyAmount ?? 0.0);
+            }),
             SizedBox(height: 16.h),
             Obx(() {
+              if (controller.isLoading.value) return const SizedBox.shrink();
               final summary = controller.paymentSummary.value;
               if (summary.penaltyNotice != null && summary.penaltyNotice!.isNotEmpty) {
                 return Column(
@@ -68,12 +92,17 @@ class PaymentsScreen extends StatelessWidget {
             }),
             Obx(() => SectionHeader(
                   title: 'Pending Payments',
-                  count: '${homeController.activeEvents.length} payments',
+                  count: homeController.isEventsLoading.value ? "..." : '${homeController.activeEvents.length} payments',
                 )),
             SizedBox(height: 12.h),
             Obx(() {
               if (homeController.isEventsLoading.value) {
-                return const Center(child: CircularProgressIndicator());
+                return Column(
+                  children: List.generate(2, (index) => Padding(
+                    padding: EdgeInsets.only(bottom: 12.h),
+                    child: CommonSkeleton(height: 100.h, width: double.infinity, borderRadius: 16),
+                  )),
+                );
               }
               if (homeController.activeEvents.isEmpty) {
                 return Container(
@@ -132,7 +161,7 @@ class PaymentsScreen extends StatelessWidget {
             SizedBox(height: 12.h),
             Obx(() => SectionHeader(
                   title: 'Payment History',
-                  count: '${controller.paymentHistory.length} payments',
+                  count: controller.isLoading.value ? "..." : '${controller.paymentHistory.length} payments',
                 )),
             SizedBox(height: 12.h),
             Obx(() => Container(
@@ -142,9 +171,11 @@ class PaymentsScreen extends StatelessWidget {
                     border: Border.all(color: const Color(0xFFF1F5F9)),
                   ),
                   child: controller.isLoading.value
-                      ? Padding(
-                          padding: EdgeInsets.all(20.sp),
-                          child: const Center(child: CircularProgressIndicator()),
+                      ? Column(
+                          children: List.generate(3, (index) => Padding(
+                            padding: EdgeInsets.all(12.sp),
+                            child: CommonSkeleton(height: 60.h, width: double.infinity),
+                          )),
                         )
                       : controller.paymentHistory.isEmpty
                           ? Padding(
