@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../../utils/log/app_utils.dart';
 import '../../bottom_navbar/screen/navbar_screen.dart';
-import '../../home/screen/home_screen.dart';
 
 class StripeWebViewPage extends StatefulWidget {
   final String checkoutUrl;
@@ -35,12 +34,12 @@ class _StripeWebViewPageState extends State<StripeWebViewPage> {
               _isLoading = false;
             });
 
-            // Handle success
+            //
             if (url.contains("success")) {
               Get.offAll(() => NavbarScreen ());
               Utils.successSnackBar("Payment successful");
             } 
-            // Handle cancel or failure
+            //  cancel or failure
             else if (url.contains("cancel") || url.contains("failure")) {
               Get.back();
               Utils.errorSnackBar("Payment Status", "Payment was cancelled or failed.");
