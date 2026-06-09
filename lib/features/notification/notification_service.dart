@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math' hide log;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -47,6 +48,7 @@ class NotificationService {
     );
 
     await _handleTokens();
+    await _handleDeviceId();
     await _createNotificationChannel();
     await _initializeLocalNotifications();
 
@@ -85,6 +87,17 @@ class NotificationService {
       }
     } catch (e) {
       log("⚠️ Token error: $e");
+    }
+  }
+
+  Future<void> _handleDeviceId() async {
+    String existingId = LocalStorage.getString(LocalStorageKeys.deviceId);
+    if (existingId.isEmpty) {
+      String newId = "${DateTime.now().millisecondsSinceEpoch}-${Random().nextInt(10000)}";
+      await LocalStorage.setString(LocalStorageKeys.deviceId, newId);
+      log("🆔 Generated New Device ID: $newId");
+    } else {
+      log("🆔 Existing Device ID: $existingId");
     }
   }
 
