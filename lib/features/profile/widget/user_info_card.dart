@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:umodzi/component/text/common_text.dart';
 import 'package:umodzi/utils/constants/app_colors.dart';
-import 'package:umodzi/utils/constants/temp_image.dart';
 import '../controller/profile_controller.dart';
 import '../../../../config/api/api_end_point.dart';
 import '../../../component/other_widgets/common_skeleton.dart';
@@ -56,7 +55,8 @@ class UserInfoCard extends StatelessWidget {
       return Row(
         children: [
           Container(
-            padding: EdgeInsets.all(3.r),
+            height: 80.r,
+            width: 80.r,
             decoration: const BoxDecoration(
               color: Color(0xFFF1F5F9),
               shape: BoxShape.circle,
@@ -72,20 +72,20 @@ class UserInfoCard extends StatelessWidget {
                         width: 80.r,
                         height: 80.r,
                         color: Colors.grey[200],
-                        child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                        child: const Center(
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
                       ),
-                      errorWidget: (context, url, error) => Image.asset(
-                        TempImage.manP,
-                        width: 80.r,
-                        height: 80.r,
-                        fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => Icon(
+                        Icons.person,
+                        size: 45.sp,
+                        color: Colors.grey.shade400,
                       ),
                     )
-                  : Image.asset(
-                      TempImage.manP,
-                      width: 80.r,
-                      height: 80.r,
-                      fit: BoxFit.cover,
+                  : Icon(
+                      Icons.person,
+                      size: 45.sp,
+                      color: Colors.grey.shade400,
                     ),
             ),
           ),
@@ -129,7 +129,6 @@ class UserInfoCard extends StatelessWidget {
       );
     });
   }
-
   Widget _buildInfoItem(IconData icon, String text) {
     return Padding(
       padding: EdgeInsets.only(top: 4.h),
