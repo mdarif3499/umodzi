@@ -57,9 +57,13 @@ class LocalStorage {
   }
 
   /// Generic Get Method
-  /// Eta diye jekono key er value read kora jabe
   static dynamic getValue(String key) {
     return preferences?.get(key);
+  }
+
+  /// Get String Method
+  static String getString(String key) {
+    return preferences?.getString(key) ?? "";
   }
 
   /// Remove All Data From SharedPreferences
