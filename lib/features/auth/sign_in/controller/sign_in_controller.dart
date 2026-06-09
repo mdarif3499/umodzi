@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decode/jwt_decode.dart';
@@ -37,16 +38,25 @@ class SignInController extends GetxController {
       isLoading = true;
       update();
 
-      Map<String, String> body = {};
+      final String fcmToken = LocalStorage.getString(LocalStorageKeys.fcmToken);
+      final String deviceId = LocalStorage.getString(LocalStorageKeys.deviceId);
+      final String deviceType = Platform.isAndroid ? 'android' : 'ios';
+
+      Map<String, dynamic> body = {
+        'fcmToken': fcmToken,
+        'deviceId': deviceId,
+        'deviceType': deviceType,
+      };
+
       if (selectedOption.value == 0) {
-        body = {
+        body.addAll({
           'email': emailController.text.trim(),
           'password': passwordController.text.trim(),
-        };
+        });
       } else {
-        body = {
+        body.addAll({
           'phoneNumber': phoneController.text.trim(),
-        };
+        });
       }
 
       final response = await apiClient.post(ApiEndPoint.signIn, body: body);
