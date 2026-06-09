@@ -7,14 +7,12 @@ import '../../../services/api/api_client.dart';
 import '../../../services/api/api_service.dart';
 import '../../../services/api/multipart_helper.dart';
 import '../../../utils/app_snackbar.dart';
-import '../screen/report_success_screen.dart';
 
 class ReportEventController extends GetxController {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final dateController = TextEditingController();
 
-  // For event type fetching
   RxList<dynamic> fetchedEventTypes = <dynamic>[].obs;
   RxString selectedEventTypeId = ''.obs;
   RxString selectedEventTypeName = ''.obs;
@@ -51,7 +49,6 @@ class ReportEventController extends GetxController {
     }
   }
 
-  // --- Date Picker ---
   void pickDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
       context: context,
