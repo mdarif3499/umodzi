@@ -153,7 +153,7 @@ class EventDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    bottom: 25.h,
+                    bottom: 45.h,
                     left: 0,
                     right: 0,
                     child: Center(
