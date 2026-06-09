@@ -9,18 +9,15 @@ class DynamicContentController extends GetxController {
   
   RxString content = "".obs;
   RxBool isLoading = false.obs;
-
   Future<void> getContent(String key) async {
     try {
       isLoading.value = true;
-      content.value = ""; // Clear old content
+      content.value = "";
       final response = await apiClient.get(
         ApiEndPoint.settings,
         query: {"key": key},
       );
-
-      if (response.isSuccess && response.data != null) {
-        // Based on the image, the content is likely in response.data['data']
+      if (response.isSuccess) {
         content.value = response.data['data'] ?? "";
       }
     } catch (e) {
