@@ -7,10 +7,6 @@ class ApiEndPoint {
   static const imageUrl = 'https://rakibur5005.binarybards.online';
   static const socketUrl = 'https://rakibur5005.binarybards.online';
 
-
-
-
-
   static const signUp = 'users/sign-up';
   static const verifyEmail = 'users/verify-email';
   static const signIn = '/auth/login';
@@ -23,6 +19,7 @@ class ApiEndPoint {
   static const user = 'users';
   static const profile = '/users/profile';
   static const getMe = '/users/me';
+  static const deleteAccount = '/users/delete/account';
   static const dependents = '/dependents';
   static const createDependent = '/dependents/create';
   static String updateDependent(String id) => '/dependents/update/$id';
