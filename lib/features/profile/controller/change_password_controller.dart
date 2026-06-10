@@ -48,10 +48,7 @@ class ChangePasswordController extends GetxController {
       isLoading.value = true;
 
       final Map<String, dynamic> body = {
-        "currentPassword": currentPassword,
-        "newPassword": newPassword,
-        "confirmPassword": confirmPassword,
-      };
+        "currentPassword": currentPassword,"newPassword": newPassword, "confirmPassword": confirmPassword,};
 
       final response = await apiClient.post(
         ApiEndPoint.changePassword,
