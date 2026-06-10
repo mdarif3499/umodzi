@@ -55,7 +55,6 @@ class EditProfileController extends GetxController {
       isLoading.value = true;
       final profileController = Get.find<ProfileController>();
 
-      // বেসিক ডাটা ম্যাপ
       Map<String, dynamic> dataMap = {
         'name': nameController.text.trim(),
         'email': emailController.text.trim(),
@@ -66,20 +65,16 @@ class EditProfileController extends GetxController {
 
       List<MultipartFileItem> files = [];
       
-      // ইমেজ লজিক:
       if (imagePath.value.isNotEmpty) {
-        // ১. যদি নতুন ইমেজ সিলেক্ট করা হয়
         files.add(MultipartFileItem(
           filePath: imagePath.value,
           fileName: 'image',
         ));
       } else {
-        // ২. যদি নতুন ইমেজ না থাকে, কিন্তু আগে থেকে ইমেজ থাকে
         final existingImage = profileController.profileData.value?.image;
         if (existingImage != null && existingImage.isNotEmpty) {
           dataMap['image'] = existingImage;
         }
-        // ৩. যদি কোনো ইমেজই না থাকে, তবে 'image' কী-টি পাঠানো হবে না (dataMap-এ অটোমেটিক বাদ থাকবে)
       }
 
       final response = await apiClient.multipart(
