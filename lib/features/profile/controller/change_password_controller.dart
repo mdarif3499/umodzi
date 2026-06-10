@@ -29,9 +29,7 @@ class ChangePasswordController extends GetxController {
 
     if (newPassword.length < 8) {
 
-      AppSnackbar.error(
-          title: "Invalid",
-          message: "New password must be at least 8 characters");
+      AppSnackbar.error(title: "Invalid", message: "New password must be at least 8 characters");
 
       return;
     }
@@ -48,10 +46,8 @@ class ChangePasswordController extends GetxController {
       isLoading.value = true;
 
       final Map<String, dynamic> body = {
-        "currentPassword": currentPassword,
-        "newPassword": newPassword,
-        "confirmPassword": confirmPassword,
-      };
+
+        "currentPassword": currentPassword,"newPassword": newPassword, "confirmPassword": confirmPassword,};
 
       final response = await apiClient.post(
         ApiEndPoint.changePassword,
@@ -68,9 +64,13 @@ class ChangePasswordController extends GetxController {
         AppSnackbar.error(title: "Error", message: response.message);
       }
     } catch (e) {
+
       AppSnackbar.error(title: "Error", message: "Something went wrong: $e");
+
     } finally {
+
       isLoading.value = false;
+
     }
   }
 
