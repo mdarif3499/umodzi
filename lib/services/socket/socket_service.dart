@@ -56,6 +56,9 @@ class SocketService {
       appLog('🔌 Socket: Attempting to reconnect existing instance...');
       _socket!.connect();
     }
+
+
+
   }
 
   static void _reRegisterListeners() {
