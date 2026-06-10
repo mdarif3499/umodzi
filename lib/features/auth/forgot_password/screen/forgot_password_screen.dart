@@ -13,7 +13,7 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     final controller = Get.find<ForgotPasswordController>();
 
     return Scaffold(
@@ -27,7 +27,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             onTap: () => Get.back(),
             child: Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFA53200).withOpacity(0.1),
+                color: const Color(0xFFA53200).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -43,7 +43,7 @@ class ForgotPasswordScreen extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -91,7 +91,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                   buttonColor: Colors.black,
                   titleText: 'Reset Password',
                   onTap: () {
-                    if (_formKey.currentState!.validate()) {
+                    if (formKey.currentState!.validate()) {
                       controller.forgotPassword();
                     }
                   },
