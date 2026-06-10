@@ -5,7 +5,6 @@ import 'package:umodzi/component/button/common_button.dart';
 import 'package:umodzi/component/text/common_text.dart';
 import 'package:umodzi/component/text_field/common_text_field.dart';
 
-import '../../../config/route/app_routes.dart';
 
 class DeleteAccountDialog extends StatelessWidget {
   final TextEditingController controller;
