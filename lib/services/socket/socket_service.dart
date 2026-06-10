@@ -49,7 +49,6 @@ class SocketService {
 
         _reRegisterListeners();
       });
-
       _socket!.onDisconnect((_) => appLog('⚠️ Socket: Disconnected'));
       _socket!.onConnectError((e) => appLog('❌ Socket: Connect Error $e'));
     } else {

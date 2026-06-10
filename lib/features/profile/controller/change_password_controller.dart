@@ -28,15 +28,20 @@ class ChangePasswordController extends GetxController {
     }
 
     if (newPassword.length < 8) {
+
       AppSnackbar.error(
           title: "Invalid",
           message: "New password must be at least 8 characters");
+
       return;
     }
 
     if (newPassword != confirmPassword) {
+
       AppSnackbar.error(title: "Mismatch", message: "Passwords do not match");
+
       return;
+
     }
 
     try {
@@ -54,9 +59,11 @@ class ChangePasswordController extends GetxController {
       );
 
       if (response.isSuccess) {
+
         AppSnackbar.success(title: "Success", message: response.message);
         _clearFields();
         Get.toNamed(AppRoutes.navBarScreen);
+
       } else {
         AppSnackbar.error(title: "Error", message: response.message);
       }
