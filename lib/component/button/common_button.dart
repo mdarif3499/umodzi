@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:umodzi/utils/constants/app_icons.dart';
 import '../../utils/constants/app_colors.dart';
-import '../../utils/constants/app_images.dart';
 import '../text/common_text.dart';
 
 class CommonButton extends StatelessWidget {
@@ -49,7 +48,7 @@ class CommonButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: (isLoading || onTap == null) ? null : onTap,
         style: ElevatedButton.styleFrom(
-          disabledBackgroundColor: (buttonColor ?? AppColors.primaryColor).withOpacity(0.5),
+          disabledBackgroundColor: (buttonColor ?? AppColors.primaryColor).withValues(alpha: 0.5),
           backgroundColor: buttonColor ?? AppColors.primaryColor,
           foregroundColor: titleColor,
           elevation: 0,
