@@ -11,4 +11,6 @@ class LocalStorageKeys {
   static const String adminId = "adminId";
   static const String fcmToken = "fcmToken";
   static const String deviceId = "deviceId";
+  static const String rememberMe = "rememberMe";
+  static const String password = "password";
 }
