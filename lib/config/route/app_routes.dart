@@ -8,7 +8,7 @@ import '../../features/home/screen/my_family_screen.dart';
 import '../../features/home/screen/status_activity_screen.dart';
 import '../../features/notification/screen/notification_screen.dart';
 import '../../features/payment/screen/pay_pending_details_screen.dart';
-import '../../features/payment/screen/paymentHistory_details_screen.dart';
+import '../../features/payment/screen/payment_history_details_screen.dart';
 import '../../features/payment/screen/payment_history_screen.dart';
 import '../../splash/mmu_bylaws_screen.dart';
 import '../../splash/splash_screen.dart';
