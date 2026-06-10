@@ -31,6 +31,22 @@ class SignInController extends GetxController {
   final ApiClient apiClient = DioApiClient();
   bool isLoading = false;
 
+  @override
+  void onInit() {
+    super.onInit();
+    _loadSavedCredentials();
+  }
+
+  // Saved credentials load korar jonno
+  void _loadSavedCredentials() {
+    bool isRemember = LocalStorage.getBool(LocalStorageKeys.rememberMe);
+    if (isRemember) {
+      rememberMe.value = true;
+      emailController.text = LocalStorage.getString(LocalStorageKeys.myEmail);
+      passwordController.text = LocalStorage.getString(LocalStorageKeys.password);
+    }
+  }
+
   Future<void> signInUser() async {
     if (isLoading) return;
 
@@ -68,15 +84,23 @@ class SignInController extends GetxController {
         await LocalStorage.setString(LocalStorageKeys.token, accessToken);
         await LocalStorage.setString(LocalStorageKeys.refreshToken, data["refreshToken"] ?? "");
         
+        // Remember Me logic
+        if (rememberMe.value) {
+          await LocalStorage.setBool(LocalStorageKeys.rememberMe, true);
+          await LocalStorage.setString(LocalStorageKeys.myEmail, emailController.text.trim());
+          await LocalStorage.setString(LocalStorageKeys.password, passwordController.text.trim());
+        } else {
+          await LocalStorage.setBool(LocalStorageKeys.rememberMe, false);
+          await LocalStorage.remove(LocalStorageKeys.password);
+        }
+
         if (accessToken.isNotEmpty) {
           try {
             Map<String, dynamic> payload = Jwt.parseJwt(accessToken);
-            debugPrint("SIGNIN_LOG: JWT Payload: $payload");
             
             final String uId = (payload["id"] ?? "").toString();
             if (uId.isNotEmpty) {
               await LocalStorage.setString(LocalStorageKeys.userId, uId);
-              debugPrint("SIGNIN_LOG: Saved User ID from Token: $uId");
             }
 
             if (payload["email"] != null) await LocalStorage.setString(LocalStorageKeys.myEmail, payload["email"].toString());
@@ -90,9 +114,12 @@ class SignInController extends GetxController {
         await LocalStorage.setBool(LocalStorageKeys.isLogIn, true);
         
         SocketService.connect();
+        SocketService.emit('authenticate', accessToken);
 
-        emailController.clear();
-        passwordController.clear();
+        if (!rememberMe.value) {
+          emailController.clear();
+          passwordController.clear();
+        }
         phoneController.clear();
 
         Get.offAllNamed(AppRoutes.navBarScreen);
