@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../constants/app_colors.dart';
 
 class Utils {
-  static successSnackBar( String message) {
+  static void successSnackBar( String message) {
     Get.snackbar(
       "Success",
       message,
@@ -14,7 +14,7 @@ class Utils {
     );
   }
 
-  static errorSnackBar(dynamic title, String message) {
+  static void errorSnackBar(dynamic title, String message) {
     Get.snackbar(
       kDebugMode ? title.toString() : "Oops",
       message,
