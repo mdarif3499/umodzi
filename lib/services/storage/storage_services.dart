@@ -1,12 +1,11 @@
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../config/route/app_routes.dart';
-import '../../utils/log/app_log.dart';
 import 'storage_keys.dart';
+import '../../utils/log/app_log.dart';
 
 class LocalStorage {
+  static SharedPreferences? preferences;
 
+  // Static variables for quick access
   static String token = "";
   static String refreshToken = "";
   static bool isLogIn = false;
@@ -18,7 +17,10 @@ class LocalStorage {
   static String plan = "";
   static String adminId = "";
 
-  static SharedPreferences? preferences;
+  static Future<void> init() async {
+    preferences = await SharedPreferences.getInstance();
+    await getAllPrefData();
+  }
 
   static Future<SharedPreferences> _getStorage() async {
     preferences ??= await SharedPreferences.getInstance();
@@ -42,60 +44,24 @@ class LocalStorage {
     appLog(userId, source: "Local Storage");
   }
 
-
-
-  static Future<void> setValue(String key, dynamic value) async {
-    if (value is String) {
-      await preferences?.setString(key, value);
-    } else if (value is bool) {
-      await preferences?.setBool(key, value);
-    } else if (value is int) {
-      await preferences?.setInt(key, value);
-    } else if (value is double) {
-      await preferences?.setDouble(key, value);
-    }
-  }
-
-  /// Generic Get Method
-  static dynamic getValue(String key) {
-    return preferences?.get(key);
-  }
-
-  /// Get String Method
+  /// Get methods
   static String getString(String key) {
     return preferences?.getString(key) ?? "";
   }
 
-  /// Remove All Data From SharedPreferences
-  static Future<void> removeAllPrefData() async {
-    final localStorage = await _getStorage();
-    await localStorage.clear();
-    _resetLocalStorageData();
-    // Get.offAllNamed(AppRoutes.signIn);
-    await getAllPrefData();
+  static bool getBool(String key) {
+    return preferences?.getBool(key) ?? false;
   }
 
-  // Reset LocalStorage Data
-  static void _resetLocalStorageData() {
-    final localStorage = preferences!;
-    localStorage.setString(LocalStorageKeys.token, "");
-    localStorage.setString(LocalStorageKeys.refreshToken, "");
-    localStorage.setString(LocalStorageKeys.userId, "");
-    localStorage.setString(LocalStorageKeys.myImage, "");
-    localStorage.setString(LocalStorageKeys.myName, "");
-    localStorage.setString(LocalStorageKeys.myEmail, "");
-    localStorage.setBool(LocalStorageKeys.isLogIn, false);
-    localStorage.setString(LocalStorageKeys.role, "");
-    localStorage.setString(LocalStorageKeys.plan, "");
-    localStorage.setString(LocalStorageKeys.adminId, "");
+  static int getInt(String key) {
+    return preferences?.getInt(key) ?? 0;
   }
 
-  // Save Data To SharedPreferences
+  /// Set methods
   static Future<void> setString(String key, String value) async {
     final localStorage = await _getStorage();
     await localStorage.setString(key, value);
-
-    // Update static variables to be available immediately without re-reading all
+    
     if (key == LocalStorageKeys.token) token = value;
     if (key == LocalStorageKeys.refreshToken) refreshToken = value;
     if (key == LocalStorageKeys.userId) userId = value;
@@ -116,5 +82,30 @@ class LocalStorage {
   static Future<void> setInt(String key, int value) async {
     final localStorage = await _getStorage();
     await localStorage.setInt(key, value);
+  }
+
+  static Future<void> remove(String key) async {
+    final localStorage = await _getStorage();
+    await localStorage.remove(key);
+  }
+
+  static Future<void> removeAllPrefData() async {
+    final localStorage = await _getStorage();
+    await localStorage.clear();
+    _resetLocalStorageVariables();
+    await getAllPrefData();
+  }
+
+  static void _resetLocalStorageVariables() {
+    token = "";
+    refreshToken = "";
+    isLogIn = false;
+    userId = "";
+    myImage = "";
+    myName = "";
+    myEmail = "";
+    role = "";
+    plan = "";
+    adminId = "";
   }
 }
