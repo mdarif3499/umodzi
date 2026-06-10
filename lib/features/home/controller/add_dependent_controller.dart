@@ -9,7 +9,6 @@ import '../../../services/api/api_client.dart';
 import '../../../services/api/api_service.dart';
 import '../../../services/api/multipart_helper.dart';
 import '../../../utils/app_snackbar.dart';
-import '../model/family_member_model.dart';
 import 'family_member_controller.dart';
 
 class AddDependentController extends GetxController {
