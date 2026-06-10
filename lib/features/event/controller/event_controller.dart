@@ -24,7 +24,7 @@ class EventController extends GetxController {
     isPendingLoading.value = true;
     try {
       final response = await _apiClient.get('/contributions/pending');
-      if (response.statusCode == 200 && response.data != null) {
+      if (response.statusCode == 200) {
         final model = PendingContributionModel.fromJson(response.data);
         if (model.data != null) {
           pendingContributions.assignAll(model.data!);
@@ -41,7 +41,7 @@ class EventController extends GetxController {
     isLoading.value = true;
     try {
       final response = await _apiClient.get('/contributions/completed');
-      if (response.statusCode == 200 && response.data != null) {
+      if (response.statusCode == 200) {
         final model = CompletedContributionModel.fromJson(response.data);
         if (model.data != null) {
           completedContributions.assignAll(model.data!);
