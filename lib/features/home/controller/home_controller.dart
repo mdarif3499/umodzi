@@ -164,7 +164,7 @@ class HomeController extends GetxController {
     isWalletLoading.value = true;
     try {
       final response = await _apiClient.get('/wallet/summary');
-      if (response.statusCode == 200 && response.data != null) {
+      if (response.statusCode == 200) {
         final model = WalletSummaryModel.fromJson(response.data);
         if (model.data != null) {
           walletSummary.value = model.data!;
@@ -191,7 +191,7 @@ class HomeController extends GetxController {
 
     try {
       final response = await _apiClient.get('/events/public?page=$currentPage&limit=10');
-      if (response.statusCode == 200 && response.data != null) {
+      if (response.statusCode == 200) {
         final model = ActiveEventModel.fromJson(response.data);
         if (model.data != null) {
           allActiveEvents.addAll(model.data!);
