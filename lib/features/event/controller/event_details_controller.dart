@@ -18,7 +18,7 @@ class EventDetailsController extends GetxController {
     isLoading.value = true;
     try {
       final response = await _apiClient.get('/events/view-single-by/$eventId');
-      if (response.statusCode == 200 && response.data != null) {
+      if (response.statusCode == 200) {
         final model = SingleEventModel.fromJson(response.data);
         eventData.value = model.data;
       }
