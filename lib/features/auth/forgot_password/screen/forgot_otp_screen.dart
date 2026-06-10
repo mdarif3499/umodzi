@@ -32,7 +32,7 @@ class ForgotOtpScreen extends StatelessWidget {
                       padding: EdgeInsets.all(10.w),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: const Color(0xFFA53200).withOpacity(0.08),
+                        color: const Color(0xFFA53200).withValues(alpha: 0.08),
                       ),
                       child: Icon(
                         Icons.arrow_back_ios_new,
