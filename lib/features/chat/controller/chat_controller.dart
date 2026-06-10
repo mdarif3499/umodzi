@@ -67,7 +67,7 @@ class ChatController extends GetxController {
         }
         final List rawMessages = data['messages'] ?? [];
         final String currentId = LocalStorage.userId.trim();
-        log("..............................................${currentId}");
+        log("..............................................$currentId");
 
         messages.value = rawMessages
             .map((m) => MessageModel.fromJson(m, currentId))
