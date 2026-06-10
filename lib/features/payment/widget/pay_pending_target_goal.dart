@@ -34,7 +34,7 @@ class PayPendingTargetGoal extends StatelessWidget {
               text: 'Target Goal',
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withValues(alpha: 0.9),
             ),
             CommonText(
               text: amount,

@@ -322,7 +322,7 @@ class PaymentResolutionScreen extends StatelessWidget {
           SizedBox(height: 12.h),
           _buildSummaryRow('Penalty Fee (Late Payment)', '\$${summary.totalPenaltyFee?.toStringAsFixed(2) ?? "0.00"}'),
           SizedBox(height: 12.h),
-          Divider(color: Colors.grey.withOpacity(0.2), thickness: 1),
+          Divider(color: Colors.grey.withValues(alpha: 0.2), thickness: 1),
           SizedBox(height: 12.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

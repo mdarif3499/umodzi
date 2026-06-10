@@ -35,7 +35,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             onTap: () => Get.back(),
             child: Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFA53200).withOpacity(0.1),
+                color: const Color(0xFFA53200).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(Icons.arrow_back_ios_new,
