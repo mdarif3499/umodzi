@@ -74,6 +74,7 @@ class SocketService {
 
   static void on(String event, void Function(dynamic data) handler) {
     if (!_handlers.containsKey(event)) {
+
       _handlers[event] = [];
       
       if (_socket == null) connect();
@@ -97,10 +98,12 @@ class SocketService {
     if (_socket == null) connect();
     _socket?.emit(event, data);
   }
+
   static void disconnect() {
     _socket?.dispose();
     _socket = null;
     _handlers.clear();
     appLog('🔌 Socket: Manually disconnected and cleared');
   }
+
 }
