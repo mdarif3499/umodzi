@@ -21,7 +21,6 @@ class FaqController extends GetxController {
     try {
       isLoading.value = true;
       final response = await _apiClient.get(ApiEndPoint.faqsPublic);
-      
       if (response.statusCode == 200) {
         final model = FaqModel.fromJson(response.data);
         if (model.data != null) {
