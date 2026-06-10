@@ -8,12 +8,11 @@ class SocketService {
 
   static io.Socket? _socket;
   
-  // স্টোর করা লিসেনার যা রিকানেকশনের পর আবার সেট হবে
   static final Map<String, List<void Function(dynamic)>> _handlers = {};
 
   static bool get isConnected => _socket?.connected ?? false;
 
-  /// ================= CONNECT =================
+
   static void connect() {
     final token = LocalStorage.token;
     if (token.isEmpty) {
@@ -39,7 +38,14 @@ class SocketService {
 
       _socket!.onConnect((_) {
         appLog('✅ Socket: Connected');
-        _reRegisterListeners(); // কানেক্ট হলে সব লিসেনার আবার রেজিস্টার করবে
+        
+        final currentToken = LocalStorage.token;
+        if (currentToken.isNotEmpty) {
+          _socket!.emit('authenticate', currentToken);
+          appLog('🔑 Socket: Authenticated with token');
+        }
+
+        _reRegisterListeners();
       });
 
       _socket!.onDisconnect((_) => appLog('⚠️ Socket: Disconnected'));
@@ -50,7 +56,6 @@ class SocketService {
     }
   }
 
-  /// সব রেজিস্টার করা লিসেনার আবার সকেটে যোগ করা হয়
   static void _reRegisterListeners() {
     if (_socket == null) return;
     _handlers.forEach((event, handlers) {
@@ -65,14 +70,12 @@ class SocketService {
     });
   }
 
-  /// ================= LISTEN =================
   static void on(String event, void Function(dynamic data) handler) {
     if (!_handlers.containsKey(event)) {
       _handlers[event] = [];
       
       if (_socket == null) connect();
       
-      // সকেটে মূল লিসেনারটি সেট করা
       _socket?.on(event, (data) {
         appLog('📩 Socket: Received data for [$event]');
         final currentHandlers = List<void Function(dynamic)>.from(_handlers[event]!);
@@ -88,13 +91,11 @@ class SocketService {
     appLog('👂 Socket: Registered listener for [$event]');
   }
 
-  /// ================= EMIT =================
   static void emit(String event, dynamic data) {
     if (_socket == null) connect();
     _socket?.emit(event, data);
   }
 
-  /// ================= DISCONNECT =================
   static void disconnect() {
     _socket?.dispose();
     _socket = null;
