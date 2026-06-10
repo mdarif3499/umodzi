@@ -32,10 +32,8 @@ class UserStatsCard extends StatelessWidget {
         );
       }
 
-      // API Data mapping
       final summary = controller.paymentBreakdown.value?.summary;
       
-      // Formatting Member Since Date
       String memberSince = 'N/A';
       if (controller.profileData.value?.createdAt != null) {
         try {
@@ -70,6 +68,7 @@ class UserStatsCard extends StatelessWidget {
           ],
         ),
       );
+
     });
   }
 
@@ -86,7 +85,6 @@ class UserStatsCard extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildStatItem(String value, String label) {
     return Expanded(
       child: Column(
@@ -111,4 +109,5 @@ class UserStatsCard extends StatelessWidget {
       ),
     );
   }
+
 }
