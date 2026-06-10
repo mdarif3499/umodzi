@@ -20,6 +20,8 @@ class SocketService {
       return;
     }
 
+
+
     if (_socket != null && _socket!.connected) return;
 
     if (_socket == null) {
@@ -72,6 +74,7 @@ class SocketService {
 
   static void on(String event, void Function(dynamic data) handler) {
     if (!_handlers.containsKey(event)) {
+
       _handlers[event] = [];
       
       if (_socket == null) connect();
@@ -102,4 +105,5 @@ class SocketService {
     _handlers.clear();
     appLog('🔌 Socket: Manually disconnected and cleared');
   }
+
 }
