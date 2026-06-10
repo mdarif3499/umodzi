@@ -20,6 +20,8 @@ class SocketService {
       return;
     }
 
+
+
     if (_socket != null && _socket!.connected) return;
 
     if (_socket == null) {
@@ -95,7 +97,6 @@ class SocketService {
     if (_socket == null) connect();
     _socket?.emit(event, data);
   }
-
   static void disconnect() {
     _socket?.dispose();
     _socket = null;
