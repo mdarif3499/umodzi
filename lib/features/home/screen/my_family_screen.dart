@@ -79,7 +79,7 @@ class MyFamilyScreen extends StatelessWidget {
             // Family Members List
             Expanded(
               child: Obx(() {
-                if (controller.isLoading.value) {
+                if (controller.isLoading.value && controller.familyMembers.isEmpty) {
                   return ListView.builder(
                     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
                     itemCount: 5,
@@ -195,21 +195,47 @@ class MyFamilyScreen extends StatelessWidget {
                               ),
                             ),
                             
-                            // Edit Button
-                            Material(
-                              color: Colors.transparent,
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(20.r),
-                                onTap: () => Get.toNamed(AppRoutes.addDependentScreen, arguments: member.id),
-                                child: Container(
-                                  padding: EdgeInsets.all(8.r),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade50,
-                                    shape: BoxShape.circle,
+                            // Actions Section
+                            Row(
+                              children: [
+                                // Edit Button
+                                Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    onTap: () => Get.toNamed(AppRoutes.addDependentScreen, arguments: member.id),
+                                    child: Container(
+                                      padding: EdgeInsets.all(8.r),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade50,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(Icons.edit_note_rounded, color: AppColors.green, size: 24.sp),
+                                    ),
                                   ),
-                                  child: Icon(Icons.edit_note_rounded, color: AppColors.green, size: 24.sp),
                                 ),
-                              ),
+                                SizedBox(width: 8.w),
+                                // Delete Button
+                                Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(20.r),
+                                    onTap: () {
+                                      if (member.id != null) {
+                                        _showDeleteDialog(context, controller, member.id!, member.name);
+                                      }
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(8.r),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red.withValues(alpha: 0.1),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(Icons.delete_outline_rounded, color: Colors.red, size: 20.sp),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -222,6 +248,24 @@ class MyFamilyScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showDeleteDialog(BuildContext context, FamilyMemberController controller, String id, String name) {
+    Get.defaultDialog(
+      title: "Remove Member",
+      titleStyle: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+      middleText: "Are you sure you want to remove $name from your family?",
+      middleTextStyle: TextStyle(fontSize: 14.sp),
+      textConfirm: "Remove",
+      textCancel: "Cancel",
+      confirmTextColor: Colors.white,
+      buttonColor: Colors.red,
+      cancelTextColor: Colors.black,
+      onConfirm: () {
+        controller.deleteDependent(id);
+      },
+      contentPadding: EdgeInsets.all(20.r),
     );
   }
 }
