@@ -97,7 +97,7 @@ class SignInController extends GetxController {
         if (accessToken.isNotEmpty) {
           try {
             Map<String, dynamic> payload = Jwt.parseJwt(accessToken);
-            
+
             final String uId = (payload["id"] ?? "").toString();
             if (uId.isNotEmpty) {
               await LocalStorage.setString(LocalStorageKeys.userId, uId);
@@ -112,7 +112,7 @@ class SignInController extends GetxController {
         }
 
         await LocalStorage.setBool(LocalStorageKeys.isLogIn, true);
-        
+
         SocketService.connect();
         SocketService.emit('authenticate', accessToken);
 

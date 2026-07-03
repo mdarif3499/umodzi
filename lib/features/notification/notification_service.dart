@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
-import 'dart:math' hide log;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -10,8 +8,12 @@ import '../../services/storage/storage_keys.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  log('🔥 Background message received: ${message.messageId}');
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
+  log("🔥 Handling a background message: ${message.messageId}");
 }
 
 class NotificationService {
@@ -19,159 +21,62 @@ class NotificationService {
   factory NotificationService() => _instance;
   NotificationService._internal();
 
-  static final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
-
-  static const AndroidNotificationChannel _androidChannel =
-  AndroidNotificationChannel(
-    'high_importance_channel',
-    'Important Notifications',
-    description: 'Used for important notifications',
-    importance: Importance.max,
-  );
+  final FlutterLocalNotificationsPlugin _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   Future<void> init() async {
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    // ১. ব্যাকগ্রাউন্ড মেসেজ হ্যান্ডলার সেট করা
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
+    // ২. পারমিশন রিকোয়েস্ট করা
     NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
       alert: true,
       badge: true,
       sound: true,
-      provisional: false,
     );
     log('🔔 Permission Status: ${settings.authorizationStatus}');
 
-    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-
-    await _handleTokens();
-    await _handleDeviceId();
-    await _createNotificationChannel();
-    await _initializeLocalNotifications();
-
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      log('📨 Foreground message received: ${message.notification?.body}');
-
-      if (Platform.isAndroid) {
-        _showLocalNotification(message);
-      }
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage msg) {
-      log('📩 Notification clicked (background): ${msg.data}');
-    });
-
-    final initialMsg = await FirebaseMessaging.instance.getInitialMessage();
-    if (initialMsg != null) {
-      log('🚀 Opened from terminated: ${initialMsg.data}');
+    // ৩. FCM টোকেন সংগ্রহ করা
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    log("🎯 FCM Token: $fcmToken");
+    if (fcmToken != null) {
+      await LocalStorage.setString(LocalStorageKeys.fcmToken, fcmToken);
     }
-  }
 
-  Future<void> _handleTokens() async {
-    try {
-      if (Platform.isIOS) {
-        String? apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-        log("📱 APNs Token: $apnsToken");
-      }
-
-      final fcmToken = await FirebaseMessaging.instance.getToken();
-      log("🎯 FCM Token: $fcmToken");
-
-      if (fcmToken != null) {
-        await LocalStorage.setString(LocalStorageKeys.fcmToken, fcmToken);
-      }
-    } catch (e) {
-      log("⚠️ Token error: $e");
-    }
-  }
-
-  Future<void> _handleDeviceId() async {
-    String existingId = LocalStorage.getString(LocalStorageKeys.deviceId);
-    if (existingId.isEmpty) {
-      String newId = "${DateTime.now().millisecondsSinceEpoch}-${Random().nextInt(10000)}";
-      await LocalStorage.setString(LocalStorageKeys.deviceId, newId);
-      log("🆔 Generated New Device ID: $newId");
-    } else {
-      log("🆔 Existing Device ID: $existingId");
-    }
-  }
-
-  Future<void> _createNotificationChannel() async {
-    if (Platform.isAndroid) {
-      final androidPlugin = _localNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>();
-      await androidPlugin?.createNotificationChannel(_androidChannel);
-    }
-  }
-
-  Future<void> _initializeLocalNotifications() async {
+    // ৪. লোকাল নোটিফিকেশন ইনিশিয়ালাইজ করা (ফোরগ্রাউন্ডে দেখানোর জন্য)
     const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const iosSettings = DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
-
-    const initSettings = InitializationSettings(
-        android: androidSettings,
-        iOS: iosSettings
-    );
-
+    const initSettings = InitializationSettings(android: androidSettings);
+    
     await _localNotificationsPlugin.initialize(
       initSettings,
-      onDidReceiveNotificationResponse: (NotificationResponse details) {
-        log('✅ Notification tapped: ${details.payload}');
+      onDidReceiveNotificationResponse: (details) {
+        log("📩 Notification Tapped: ${details.payload}");
       },
     );
+
+    // ৫. ফোরগ্রাউন্ড মেসেজ লিসেনার
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      log('📬 Foreground Message: ${message.notification?.title}');
+      _showLocalNotification(message);
+    });
   }
 
-  void _showLocalNotification(RemoteMessage message) {
-    final n = message.notification;
-    final data = message.data;
-
-    final title = n?.title ?? data['title'] ?? '';
-    final body = n?.body ?? data['body'] ?? '';
-
-    final String displayTitle = "\u200f$title";
-    final String displayBody = "\u200f$body";
-
-    final int notificationId = message.messageId != null
-        ? message.messageId.hashCode
-        : DateTime.now().millisecondsSinceEpoch ~/ 1000;
-
-    final android = AndroidNotificationDetails(
-      _androidChannel.id,
-      _androidChannel.name,
-      channelDescription: _androidChannel.description,
+  Future<void> _showLocalNotification(RemoteMessage message) async {
+    const androidDetails = AndroidNotificationDetails(
+      'umodzi_channel',
+      'Umodzi Notifications',
       importance: Importance.max,
       priority: Priority.high,
-      ticker: 'ticker',
-      styleInformation: BigTextStyleInformation(
-        displayBody,
-        htmlFormatBigText: false,
-        contentTitle: displayTitle,
-        htmlFormatContentTitle: false,
-      ),
+      playSound: true,
     );
 
-    final ios = DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-    );
+    const notificationDetails = NotificationDetails(android: androidDetails);
 
-    _localNotificationsPlugin.show(
-      notificationId,
-      Platform.isIOS ? "\u202E$title\u202C" : displayTitle,
-      Platform.isIOS ? "\u202E$body\u202C" : displayBody,
-      NotificationDetails(android: android, iOS: ios),
-      payload: data.toString(),
+    await _localNotificationsPlugin.show(
+      message.hashCode,
+      message.notification?.title,
+      message.notification?.body,
+      notificationDetails,
+      payload: message.data.toString(),
     );
   }
 }
