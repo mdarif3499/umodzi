@@ -1,24 +1,40 @@
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:umodzi/services/storage/storage_services.dart';
+import 'package:umodzi/utils/device_utils.dart';
 import 'package:umodzi/utils/log/app_log.dart';
 import 'app.dart';
 import 'config/core/global_error_handler.dart';
 import 'config/dependency/dependency_injection.dart';
 import 'features/notification/notification_service.dart';
-import 'services/socket/socket_service.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
 
     try {
-      await NotificationService().init();
-      appLog("🔥 Firebase & Notification Service Initialized Successfully");
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      appLog("🔥 Firebase Initialized Successfully");
     } catch (e) {
-      appLog("Firebase/Notification Error: $e");
+      if (e.toString().contains('duplicate-app')) {
+        appLog("ℹ️ Firebase already running, skipping re-initialization.");
+      } else {
+        appLog("❌ Firebase Init Error: $e");
+      }
     }
+
+    await LocalStorage.init();
+
+    await DeviceUtils.getAndSaveDeviceId();
+    appLog("📱 Device ID Captured and Saved");
+
+    await NotificationService().init();
+    appLog("🔔 Notification Service Initialized");
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -34,24 +50,7 @@ Future<void> main() async {
 }
 
 Future<void> _preAppInitialization() async {
-  try {
-    final dI = DependencyInjection();
-    dI.dependencies();
-
-    await Future.wait([
-      SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ]),
-      LocalStorage.getAllPrefData(),
-    ]);
-
-    if (LocalStorage.token.isNotEmpty) {
-      Future.delayed(const Duration(milliseconds: 500), () {
-        SocketService.connect();
-      });
-    }
-  } catch (e, stack) {
-    globalError(e, stack);
-  }
+  final dI = DependencyInjection();
+  dI.dependencies();
+  await LocalStorage.getAllPrefData();
 }

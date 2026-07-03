@@ -153,6 +153,8 @@ class HomeScreen extends StatelessWidget {
                                 return CommonSkeleton(height: 70.h, width: double.infinity, borderRadius: 12);
                               }
                               return _buildQuickAction(
+                                height: 30,
+                                width: 30,
                                 textColor: controller.unreadMessageCount.value > 0 
                                     ? AppColors.green 
                                     : AppColors.textSecondaryColor,
@@ -173,6 +175,8 @@ class HomeScreen extends StatelessWidget {
                                 return CommonSkeleton(height: 70.h, width: double.infinity, borderRadius: 12);
                               }
                               return _buildQuickAction(
+                                height: 30,
+                                width: 30,
                                 textColor: const Color(0xFF7039AC),
                                 icon: AppIcons.purolee,
                                 title: 'My Family',
@@ -186,21 +190,42 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 12.h),
-                      Obx(() {
-                        if (controller.isWalletLoading.value) {
-                          return CommonSkeleton(height: 70.h, width: double.infinity, borderRadius: 12);
-                        }
-                        return _buildQuickAction(
-                          textColor: AppColors.textSecondaryColor,
-                          icon: AppIcons.payment,
-                          title: 'View Payment History',
-                          subtitle: '${controller.quickActionData.value.transactionCount ?? 0} payments',
-                          color: const Color(0xFFF1F5F9),
-                          iconColor: Colors.blueGrey,
-                          isFullWidth: true,
-                          onTap: () => Get.toNamed(AppRoutes.paymentHistory),
-                        );
-                      }),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildQuickAction(
+                              height: 20,
+                              width: 20,
+                              textColor: const Color(0xFFA53200).withValues(alpha: 0.6),
+                              icon: AppIcons.speaker,
+                              title: 'Report Event',
+                              subtitle: 'Notify urgent',
+                              color: const Color(0xFFFFF7F5),
+                              iconColor: const Color(0xFFA53200),
+                              onTap: () => Get.toNamed(AppRoutes.reportEvent),
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
+                          Expanded(
+                            child: Obx(() {
+                              if (controller.isWalletLoading.value) {
+                                return CommonSkeleton(height: 70.h, width: double.infinity, borderRadius: 12);
+                              }
+                              return _buildQuickAction(
+                                height: 30,
+                                width: 30,
+                                textColor: AppColors.textSecondaryColor,
+                                icon: AppIcons.payment,
+                                title: 'Payments',
+                                subtitle: '${controller.quickActionData.value.transactionCount ?? 0} history',
+                                color: const Color(0xFFF1F5F9),
+                                iconColor: Colors.blueGrey,
+                                onTap: () => Get.toNamed(AppRoutes.paymentHistory),
+                              );
+                            }),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: 24.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -383,6 +408,8 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildQuickAction({
     required String icon,
+    required double height,
+    required double width,
     required String title,
     required String subtitle,
     required Color color,
@@ -406,7 +433,7 @@ class HomeScreen extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Image.asset(icon, height: 40.h, width: 40.w, color: iconColor),
+                Image.asset(icon, height: height.h, width: width.w, color: iconColor),
                 SizedBox(width: 12.w),
                 Expanded(
                   child: Column(
@@ -416,12 +443,14 @@ class HomeScreen extends StatelessWidget {
                           text: title,
                           fontSize: 14.sp,
                           color: AppColors.text121212,
-                          fontWeight: FontWeight.w600),
+                          fontWeight: FontWeight.w600,
+                          maxLines: 1),
                       CommonText(
                           text: subtitle,
-                          fontSize: 12.sp,
+                          fontSize: 11.sp,
                           fontWeight: FontWeight.w400,
-                          color: textColor),
+                          color: textColor,
+                          maxLines: 1),
                     ],
                   ),
                 ),

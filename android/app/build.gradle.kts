@@ -1,17 +1,23 @@
 plugins {
     id("com.android.application")
-    // START: FlutterFire Configuration
     id("com.google.gms.google-services")
-    // END: FlutterFire Configuration
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
 android {
-    namespace = "com.example.umodzi"
+    namespace = "com.mmu.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
+
+    signingConfigs {
+        create("release") {
+            storeFile = file("key.jks")
+            storePassword = "Mm@692972"
+            keyAlias = "key"
+            keyPassword = "Mm@692972"
+        }
+    }
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
@@ -20,11 +26,11 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = "17"
     }
 
     defaultConfig {
-        applicationId = "com.example.umodzi"
+        applicationId = "com.mmu.app"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -32,14 +38,16 @@ android {
     }
 
     buildTypes {
-        release {
-            signingConfig = signingConfigs.getByName("debug")
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = true
+            isShrinkResources = true
         }
     }
+}
 
-    dependencies {
-        coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
-    }
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }
 
 flutter {

@@ -27,7 +27,7 @@ class PaymentsController extends GetxController {
     isSummaryLoading.value = true;
     try {
       final response = await _apiClient.get('/wallet/payment-summary');
-      if (response.statusCode == 200 && response.data != null) {
+      if (response.statusCode == 200) {
         final model = PaymentSummaryModel.fromJson(response.data);
         if (model.data != null) {
           paymentSummary.value = model.data!;
@@ -45,7 +45,7 @@ class PaymentsController extends GetxController {
     try {
       final response = await _apiClient.get('/transactions/my');
       
-      if (response.statusCode == 200 && response.data != null) {
+      if (response.statusCode == 200) {
         final model = TransactionModel.fromJson(response.data);
         if (model.data != null) {
           paymentHistory.assignAll(model.data!);

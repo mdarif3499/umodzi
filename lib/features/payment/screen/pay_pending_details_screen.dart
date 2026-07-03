@@ -41,7 +41,7 @@ class PayPendingDetailsScreen extends StatelessWidget {
                         onTap: () => Get.back(),
                         child: CircleAvatar(
                           radius: 20.r,
-                          backgroundColor: Colors.black.withOpacity(0.3),
+                          backgroundColor: Colors.black.withValues(alpha: 0.3),
                           child: Icon(Icons.arrow_back_ios_new,
                               color: Colors.white, size: 16.sp),
                         ),
@@ -186,7 +186,7 @@ class PayPendingDetailsScreen extends StatelessWidget {
                             text: 'Target Goal',
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w400,
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                           ),
                           CommonText(
                             text: '\$ 150,000',

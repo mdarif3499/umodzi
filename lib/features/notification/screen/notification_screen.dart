@@ -88,8 +88,8 @@ class NotificationScreen extends StatelessWidget {
                         icon: Icons.notifications_none_rounded,
                         iconColor: isRead ? Colors.grey : AppColors.green,
                         bgColor: isRead
-                            ? Colors.grey.withOpacity(0.1)
-                            : AppColors.green.withOpacity(0.1),
+                            ? Colors.grey.withValues(alpha: 0.1)
+                            : AppColors.green.withValues(alpha: 0.1),
                         hasIndicator: !isRead,
                         hasBorder: !isRead,
                       ),

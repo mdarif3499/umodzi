@@ -24,7 +24,7 @@ class PaymentHistoryController extends GetxController {
         if (searchTerm.isNotEmpty) 'searchTerm': searchTerm,
       });
       
-      if (response.statusCode == 200 && response.data != null) {
+      if (response.statusCode == 200) {
         final model = TransactionModel.fromJson(response.data);
         if (model.data != null) {
           paymentHistory.assignAll(model.data!);

@@ -88,7 +88,7 @@ class ProfileController extends GetxController {
   Future<void> fetchNotificationPreferences() async {
     try {
       final response = await apiClient.get(ApiEndPoint.notificationPreferences);
-      if (response.statusCode == 200 && response.data != null) {
+      if (response.statusCode == 200) {
         final data = response.data['data'];
         if (data != null && data['enabled'] != null) {
           isNotificationEnabled.value = data['enabled'];

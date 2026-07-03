@@ -23,6 +23,7 @@ class ApiEndPoint {
   static const dependents = '/dependents';
   static const createDependent = '/dependents/create';
   static String updateDependent(String id) => '/dependents/update/$id';
+  static String removeDependent(String id) => '/dependents/remove/$id';
   static const events = '/events';
   static const eventTypes = '/event-types/public';
   static const createEventReport = '/event-reports/create';

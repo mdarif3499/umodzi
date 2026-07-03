@@ -16,6 +16,7 @@ class LocalStorage {
   static String role = "";
   static String plan = "";
   static String adminId = "";
+  static String deviceId = ""; // নতুন যোগ করা হয়েছে
 
   static Future<void> init() async {
     preferences = await SharedPreferences.getInstance();
@@ -40,8 +41,9 @@ class LocalStorage {
     role = localStorage.getString(LocalStorageKeys.role) ?? "";
     plan = localStorage.getString(LocalStorageKeys.plan) ?? "";
     adminId = localStorage.getString(LocalStorageKeys.adminId) ?? "";
+    deviceId = localStorage.getString(LocalStorageKeys.deviceId) ?? ""; // এখান থেকেও লোড হবে
 
-    appLog(userId, source: "Local Storage");
+    appLog("User ID: $userId, Device ID: $deviceId", source: "Local Storage");
   }
 
   /// Get methods
@@ -71,6 +73,7 @@ class LocalStorage {
     if (key == LocalStorageKeys.role) role = value;
     if (key == LocalStorageKeys.plan) plan = value;
     if (key == LocalStorageKeys.adminId) adminId = value;
+    if (key == LocalStorageKeys.deviceId) deviceId = value; // এখানেও আপডেট হবে
   }
 
   static Future<void> setBool(String key, bool value) async {
@@ -107,5 +110,6 @@ class LocalStorage {
     role = "";
     plan = "";
     adminId = "";
+    deviceId = "";
   }
 }
