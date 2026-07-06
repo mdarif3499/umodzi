@@ -27,7 +27,6 @@ class MessageModel {
 
   factory MessageModel.fromJson(Map<String, dynamic> json, String currentUserId,
       {bool? forceMe}) {
-    // If explicitly sending a message, it's always 'Me'
     if (forceMe == true) {
       return _createModel(json, true);
     }
@@ -44,13 +43,12 @@ class MessageModel {
       sId = senderData?.toString();
     }
 
-    // Logic: Identify "Me" strictly by ID comparison as requested
     bool isMeResult = false;
     final String myId = currentUserId.trim();
 
     if (sId != null && sId.isNotEmpty && myId.isNotEmpty) {
       if (sId.trim() == myId) {
-        isMeResult = true; // Shows on Right Side
+        isMeResult = true;
       }
     }
 

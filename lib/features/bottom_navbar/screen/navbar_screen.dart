@@ -120,7 +120,7 @@ class NavbarScreen extends StatelessWidget {
           ),
         ],
       ),
-      label: '', // Empty label jate extra space na nay
+      label: '',
     );
   }
 }

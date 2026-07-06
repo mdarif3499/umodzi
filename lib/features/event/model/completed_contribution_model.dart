@@ -10,7 +10,6 @@ class CompletedContributionModel {
     this.statusCode,
     this.data,
   });
-
   factory CompletedContributionModel.fromJson(Map<String, dynamic> json) => CompletedContributionModel(
     success: json["success"],
     message: json["message"],
@@ -18,7 +17,6 @@ class CompletedContributionModel {
     data: json["data"] == null ? [] : List<CompletedContribution>.from(json["data"].map((x) => CompletedContribution.fromJson(x))),
   );
 }
-
 class CompletedContribution {
   final String? contributionId;
   final String? eventId;
@@ -39,7 +37,6 @@ class CompletedContribution {
     this.paidAt,
     this.status,
   });
-
   factory CompletedContribution.fromJson(Map<String, dynamic> json) => CompletedContribution(
     contributionId: json["contributionId"],
     eventId: json["eventId"],

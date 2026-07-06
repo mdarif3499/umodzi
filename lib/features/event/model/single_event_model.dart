@@ -3,14 +3,12 @@ class SingleEventModel {
   final String? message;
   final int? statusCode;
   final SingleEventData? data;
-
   SingleEventModel({
     this.success,
     this.message,
     this.statusCode,
     this.data,
   });
-
   factory SingleEventModel.fromJson(Map<String, dynamic> json) => SingleEventModel(
     success: json["success"],
     message: json["message"],
@@ -18,7 +16,6 @@ class SingleEventModel {
     data: json["data"] == null ? null : SingleEventData.fromJson(json["data"]),
   );
 }
-
 class SingleEventData {
   final Event? event;
   final UserStats? users;
@@ -27,13 +24,11 @@ class SingleEventData {
     this.event,
     this.users,
   });
-
   factory SingleEventData.fromJson(Map<String, dynamic> json) => SingleEventData(
     event: json["event"] == null ? null : Event.fromJson(json["event"]),
     users: json["users"] == null ? null : UserStats.fromJson(json["users"]),
   );
 }
-
 class Event {
   final String? id;
   final CreateBy? createBy;
@@ -49,7 +44,6 @@ class Event {
   final String? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-
   Event({
     this.id,
     this.createBy,
@@ -66,7 +60,6 @@ class Event {
     this.createdAt,
     this.updatedAt,
   });
-
   factory Event.fromJson(Map<String, dynamic> json) => Event(
     id: json["_id"],
     createBy: json["createBy"] == null ? null : CreateBy.fromJson(json["createBy"]),
@@ -84,7 +77,6 @@ class Event {
     updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
   );
 }
-
 class Beneficiary {
   final String? userId;
   final String? email;
@@ -96,7 +88,6 @@ class Beneficiary {
   final String? image;
   final List<String>? documents;
   final String? fundsReason;
-
   Beneficiary({
     this.userId,
     this.email,
@@ -109,7 +100,6 @@ class Beneficiary {
     this.documents,
     this.fundsReason,
   });
-
   factory Beneficiary.fromJson(Map<String, dynamic> json) => Beneficiary(
     userId: json["userId"],
     email: json["email"],
@@ -123,14 +113,12 @@ class Beneficiary {
     fundsReason: json["fundsReason"],
   );
 }
-
 class CreateBy {
   final String? id;
   final String? name;
   final String? role;
   final String? email;
   final String? image;
-
   CreateBy({
     this.id,
     this.name,
@@ -138,7 +126,6 @@ class CreateBy {
     this.email,
     this.image,
   });
-
   factory CreateBy.fromJson(Map<String, dynamic> json) => CreateBy(
     id: json["_id"],
     name: json["name"],
@@ -147,18 +134,15 @@ class CreateBy {
     image: json["image"],
   );
 }
-
 class UserStats {
   final int? totalPaidUsers;
   final int? totalUsers;
   final double? totalPercentage;
-
   UserStats({
     this.totalPaidUsers,
     this.totalUsers,
     this.totalPercentage,
   });
-
   factory UserStats.fromJson(Map<String, dynamic> json) => UserStats(
     totalPaidUsers: json["totalPaidUsers"],
     totalUsers: json["totalUsers"],
