@@ -25,7 +25,6 @@ class OtpScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 20.h),
-                // --- Custom Back Button ---
                 Align(
                   alignment: Alignment.centerLeft,
                   child: GestureDetector(
@@ -46,7 +45,6 @@ class OtpScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 40.h),
 
-                // --- Title and Subtitle ---
                 const CommonText(
                   text: 'Enter Your OTP',
                   fontSize: 24,
@@ -72,7 +70,6 @@ class OtpScreen extends StatelessWidget {
                 )),
                 SizedBox(height: 32.h),
 
-                // --- OTP Field (MaterialPinField) ---
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: MaterialPinField(
@@ -98,8 +95,6 @@ class OtpScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 32.h),
-
-                // --- Next Button ---
                 Obx(() => CommonButton(
                   isLoading: controller.isLoading.value,
                   buttonColor: Colors.black,
@@ -112,7 +107,6 @@ class OtpScreen extends StatelessWidget {
                 )),
                 SizedBox(height: 40.h),
 
-                // --- Resend Section ---
                 CommonText(
                   text: "Don't receive the code?",
                   fontSize: 12,
@@ -146,7 +140,6 @@ class OtpScreen extends StatelessWidget {
     );
   }
 
-  // --- Success Dialog ---
   void _showSuccessDialog(BuildContext context) {
     showDialog(
       context: context,

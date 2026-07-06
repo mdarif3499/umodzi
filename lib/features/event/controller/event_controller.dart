@@ -12,14 +12,12 @@ class EventController extends GetxController {
   var completedContributions = <CompletedContribution>[].obs;
   var isLoading = false.obs;
   var isPendingLoading = false.obs;
-
   @override
   void onInit() {
     super.onInit();
     fetchPendingContributions();
     fetchCompletedContributions();
   }
-
   Future<void> fetchPendingContributions() async {
     isPendingLoading.value = true;
     try {
@@ -36,7 +34,6 @@ class EventController extends GetxController {
       isPendingLoading.value = false;
     }
   }
-
   Future<void> fetchCompletedContributions() async {
     isLoading.value = true;
     try {
@@ -53,7 +50,6 @@ class EventController extends GetxController {
       isLoading.value = false;
     }
   }
-
   Future<void> refreshAll() async {
     await Future.wait([
       fetchPendingContributions(),

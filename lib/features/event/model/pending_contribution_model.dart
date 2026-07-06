@@ -10,7 +10,6 @@ class PendingContributionModel {
     this.statusCode,
     this.data,
   });
-
   factory PendingContributionModel.fromJson(Map<String, dynamic> json) => PendingContributionModel(
     success: json["success"],
     message: json["message"],
@@ -18,7 +17,6 @@ class PendingContributionModel {
     data: json["data"] == null ? [] : List<PendingContribution>.from(json["data"].map((x) => PendingContribution.fromJson(x))),
   );
 }
-
 class PendingContribution {
   final String? contributionId;
   final String? eventId;
@@ -32,7 +30,6 @@ class PendingContribution {
   final int? daysLeft;
   final String? status;
   final String? badge;
-
   PendingContribution({
     this.contributionId,
     this.eventId,

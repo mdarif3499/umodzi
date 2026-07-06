@@ -13,7 +13,6 @@ class EventDetailsController extends GetxController {
   var isLoading = false.obs;
   var isPaymentLoading = false.obs;
   var eventData = Rxn<SingleEventData>();
-
   Future<void> fetchEventDetails(String eventId) async {
     isLoading.value = true;
     try {
@@ -28,7 +27,6 @@ class EventDetailsController extends GetxController {
       isLoading.value = false;
     }
   }
-
   Future<void> createCheckoutSession(String eventId) async {
     try {
       isPaymentLoading.value = true;
@@ -36,7 +34,6 @@ class EventDetailsController extends GetxController {
         ApiEndPoint.checkoutContributions,
         body: {'eventId': eventId},
       );
-
       if (response.statusCode == 200) {
         final checkoutUrl = response.data['data']['url'];
         if (checkoutUrl != null) {

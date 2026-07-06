@@ -48,7 +48,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   SizedBox(height: 12.h),
 
-                  // Title and Subtitle
                   const CommonText(
                     text: 'Sign in now',
                     fontSize: 24,
@@ -66,7 +65,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   SizedBox(height: 32.h),
 
-                  // Choose Sign In Option
                   CommonText(
                     text: 'Choose Sign In Option',
                     fontSize: 12,
@@ -93,7 +91,6 @@ class _SignInScreenState extends State<SignInScreen> {
                       )),
                   SizedBox(height: 30.h),
 
-                  // Form Fields
                   Obx(() {
                     if (controller.selectedOption.value == 0) {
                       return _buildEmailSignIn(controller);
@@ -104,7 +101,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
                   SizedBox(height: 24.h),
 
-                  // Action Button
                   GetBuilder<SignInController>(
                     builder: (controller) => CommonButton(
                       isLoading: controller.isLoading,

@@ -57,6 +57,7 @@ class DefaultFirebaseOptions {
     }
   }
 
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAd3B5huM5iCxsgiG_1Z_QIdAbh_oX_RcU',
     appId: '1:508913384122:android:56a3ee710eef1e61c82083',
@@ -64,6 +65,7 @@ class DefaultFirebaseOptions {
     projectId: 'umodzi-7e23d',
     storageBucket: 'umodzi-7e23d.firebasestorage.app',
   );
+
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAoix97-m3t5l8NsUkhzEYETl7Ox2sK04U',
@@ -73,4 +75,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'umodzi-7e23d.firebasestorage.app',
     iosBundleId: 'com.example.umodzi',
   );
+
+
+
 }

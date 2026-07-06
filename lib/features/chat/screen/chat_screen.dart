@@ -50,7 +50,6 @@ class ChatScreen extends StatelessWidget {
                             color: Colors.grey.shade400,
                           );
                         }
-                        
                         return Image.network(
                           "${ApiEndPoint.imageUrl}${controller.adminImage.value}",
                           fit: BoxFit.cover,
@@ -113,7 +112,6 @@ class ChatScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildSkeletonBubble(bool isMe) {
     return Align(
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
@@ -130,7 +128,6 @@ class ChatScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildMessageBubble(MessageModel message) {
     return Align(
       alignment: message.isMe ? Alignment.centerRight : Alignment.centerLeft,
@@ -196,7 +193,6 @@ class ChatScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildMessageInput(ChatController controller) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
