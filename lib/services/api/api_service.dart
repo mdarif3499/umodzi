@@ -9,7 +9,6 @@ class DioApiClient implements ApiClient {
   final Dio _dio;
 
   DioApiClient({Dio? dio}) : _dio = dio ?? DioConfig.create();
-
   @override
   Future<ApiResponseModel> get(
     String url, {
@@ -18,7 +17,6 @@ class DioApiClient implements ApiClient {
   }) {
     return _request(url, method: 'GET', query: query, headers: headers);
   }
-
   @override
   Future<ApiResponseModel> post(
     String url, {

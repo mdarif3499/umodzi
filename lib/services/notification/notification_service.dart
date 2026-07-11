@@ -20,7 +20,6 @@
 //     await _createAndroidChannel();
 //   }
 //
-//   /// Request notification permission
 //   static Future<void> _requestAndroidPermission() async {
 //     final androidPlugin = _notificationsPlugin
 //         .resolvePlatformSpecificImplementation<
@@ -69,7 +68,6 @@
 //     await androidPlugin?.createNotificationChannel(channel);
 //   }
 //
-//   /// Show notification
 //   static Future<void> show({
 //     required String title,
 //     required String body,

@@ -25,10 +25,10 @@ class ChangePasswordScreen extends StatelessWidget {
             onTap: () => Get.back(),
             child: Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFA53200).withValues(alpha: 0.1),
+                color:  Color(0xFFA53200).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.arrow_back_ios_new,
+              child:  Icon(Icons.arrow_back_ios_new,
                   color: Color(0xFFA53200), size: 18),
             ),
           ),
@@ -66,7 +66,7 @@ class ChangePasswordScreen extends StatelessWidget {
               isPassword: true,
               controller: controller.confirmPasswordController,
             ),
-            const Spacer(),
+             Spacer(),
             Obx(() => CommonButton(
               titleText: 'Save all Changes',
               buttonColor: Colors.black,
@@ -77,7 +77,6 @@ class ChangePasswordScreen extends StatelessWidget {
           ],
         ),
       ),
-
     );
   }
 }

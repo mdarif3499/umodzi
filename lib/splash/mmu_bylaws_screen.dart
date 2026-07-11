@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../component/common_appbar/common_appbar.dart';
 import '../component/text/common_text.dart';
 import '../utils/constants/app_colors.dart';
@@ -71,6 +70,7 @@ class MmuBylawsScreen extends StatelessWidget {
               ),
             ),
           ),
+
           SizedBox(width: 12.w),
           Expanded(
             child: CommonText(

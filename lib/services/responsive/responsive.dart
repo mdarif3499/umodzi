@@ -13,13 +13,11 @@ class Responsive {
   static FlutterView _view(BuildContext context) =>
       View.of(context);
 
-  /// Screen width (logical pixels)
   static double width(BuildContext context) {
     final view = _view(context);
     return view.physicalSize.width / view.devicePixelRatio;
   }
 
-  /// Screen height (logical pixels)
   static double height(BuildContext context) {
     final view = _view(context);
     return view.physicalSize.height / view.devicePixelRatio;

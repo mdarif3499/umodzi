@@ -22,16 +22,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigate() async {
-    // ৩ সেকেন্ড অপেক্ষা করার পর চেক করবে ইউজার লগইন করা কিনা
     await Future.delayed(const Duration(seconds: 3));
     
     try {
       if (LocalStorage.isLogIn) {
         Get.offAllNamed(AppRoutes.navBarScreen);
       } else {
-        // যদি লগইন না থাকে তবে এই স্ক্রিনেই থাকবে অথবা অনবোর্ডিংয়ে যাবে
-        // বর্তমানে এখানে ম্যানুয়াল বাটন আছে, তাই অটো ন্যাভিগেশন না দিলেও হয় 
-        // তবে আপনি চাইলে নিচে অনবোর্ডিং বা সাইন-ইন স্ক্রিনে পাঠাতে পারেন।
+
       }
     } catch (e) {
       debugPrint("Navigation Error: $e");
@@ -54,14 +51,12 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      // Background effect image (AppImages.bag)
                       Image.asset(
                         AppImages.bag,
                         height: 380.h,
                         width: 380.w,
                         fit: BoxFit.contain,
                       ),
-                      // App Logo with Glow effect
                       Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
@@ -85,7 +80,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 SizedBox(height: 0.h),
 
-                // --- Welcome Text ---
                 const CommonText(
                   text: "Welcome to Mphamvu Mu Umodzi",
                   fontSize: 20,
@@ -104,7 +98,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
                 SizedBox(height: 50.h),
 
-                // --- Action Cards ---
                 _buildActionCard(
                   image: AppImages.signIn,
                   title: "Sign In",
@@ -133,7 +126,6 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  // --- Reusable Action Card Widget ---
   Widget _buildActionCard({
     required String title,
     required String image,
@@ -155,7 +147,6 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         child: Row(
           children: [
-            // Circular Icon
             Container(
               height: 48.h,
               width: 50.w,
@@ -171,7 +162,6 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             SizedBox(width: 6.w),
 
-            // Text Section
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

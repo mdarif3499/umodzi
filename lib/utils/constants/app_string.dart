@@ -76,13 +76,11 @@ class AppString {
   static const String startServer = 'Please, start the Server';
   static const String unknownError = 'Unknown Error';
 
-  // home screen added by ajijul
   static const String community = "COMMUNITY";
   static const String home = "HOME";
   static const String watchEngLive = "WATCH ENG TV LIVE";
   static const String latestNews = "latest News";
 
-  // added by arif
 
   static const String strAppBarTitle = "pending approval";
   static String strOfferStatus = "Offer Submitted";
@@ -123,7 +121,6 @@ class AppString {
   static String seeMore = "See more";
   static const String moreNews = "More News";
 
-  // match info added by ajijul
 
   static const String clinialFinishFromTheBox = "Clinical finish from the box";
   static const String keyEvents = "Key Events";
@@ -137,12 +134,10 @@ class AppString {
   static const String expectedGoals =
       'Expected Goals (xG): Titans 1.84 vs Phoenix 0.92';
 
-  //drawer added by ajijul
 
   static const String myTransfersHistory = 'My Transfers History';
   static const String logout = 'Logout';
 
-  // news details page added by ajijul
 
   static const String newsDetails = 'News Details';
   static const String thisWeekWereProudToCelebrateLeoAsOurStarOfTheWeek =

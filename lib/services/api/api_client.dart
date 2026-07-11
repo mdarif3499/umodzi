@@ -13,13 +13,11 @@ abstract class ApiClient {
     dynamic body,
     Map<String, String>? headers,
   });
-
   Future<ApiResponseModel> put(
     String url, {
     dynamic body,
     Map<String, String>? headers,
   });
-
   Future<ApiResponseModel> patch(
     String url, {
     dynamic body,
@@ -31,7 +29,6 @@ abstract class ApiClient {
     dynamic body,
     Map<String, String>? headers,
   });
-
   Future<ApiResponseModel> multipart({
     required String url,
     List<MultipartFileItem> files,

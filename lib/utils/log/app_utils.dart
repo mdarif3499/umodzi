@@ -13,7 +13,6 @@ class Utils {
       snackPosition: SnackPosition.BOTTOM,
     );
   }
-
   static void errorSnackBar(dynamic title, String message) {
     Get.snackbar(
       kDebugMode ? title.toString() : "Oops",

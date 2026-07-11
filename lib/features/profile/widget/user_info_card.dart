@@ -38,7 +38,6 @@ class UserInfoCard extends StatelessWidget {
           ],
         );
       }
-
       final data = controller.profileData.value;
       if (data == null) {
         return const SizedBox.shrink();
@@ -49,9 +48,7 @@ class UserInfoCard extends StatelessWidget {
         if (path.startsWith('http')) return path;
         return "${ApiEndPoint.imageUrl}${path.startsWith('/') ? '' : '/'}$path";
       }
-
       final imageUrl = getImageUrl(data.image);
-
       return Row(
         children: [
           Container(

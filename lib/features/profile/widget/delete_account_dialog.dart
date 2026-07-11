@@ -29,10 +29,10 @@ class DeleteAccountDialog extends StatelessWidget {
             text: 'Delete Account?',
             fontSize: 20.sp,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFFD32F2F),
+            color:  Color(0xFFD32F2F),
           ),
           SizedBox(height: 12.h),
-          const CommonText(
+           CommonText(
             text: 'This will permanently delete your account. Continue?',
             fontSize: 14,
             color: Color(0xFF333333),
@@ -64,7 +64,7 @@ class DeleteAccountDialog extends StatelessWidget {
               Expanded(
                 child: CommonButton(
                   titleText: 'Yes',
-                  buttonColor: const Color(0xFFD32F2F),
+                  buttonColor:  Color(0xFFD32F2F),
                   buttonHeight: 40,
                   onTap: onDelete,
                 ),

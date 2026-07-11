@@ -25,7 +25,6 @@ class MultipartHelper {
         ),
       );
     }
-
     fields.forEach((key, value) {
       formData.fields.add(MapEntry(key, value));
     });
@@ -37,6 +36,5 @@ class MultipartHelper {
 class MultipartFileItem {
   final String filePath;
   final String fileName;
-
   const MultipartFileItem({required this.filePath, required this.fileName});
 }

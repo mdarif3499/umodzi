@@ -28,7 +28,6 @@
 //         permission == LocationPermission.whileInUse;
 //   }
 //
-//   /// Get current user position
 //   static Future<Position?> getCurrentPosition() async {
 //     try {
 //       final hasAccess = await _ensureLocationAccess();
@@ -42,7 +41,6 @@
 //     }
 //   }
 //
-//   /// Convert address to coordinates
 //   static Future<List<Location>> addressToCoordinate(String address) async {
 //     try {
 //       final hasAccess = await _ensureLocationAccess();
@@ -54,7 +52,6 @@
 //     }
 //   }
 //
-//   /// Convert coordinates to address
 //   static Future<List<Placemark>> coordinateToAddress({
 //     required double latitude,
 //     required double longitude,

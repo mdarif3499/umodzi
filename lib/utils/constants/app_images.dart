@@ -6,7 +6,6 @@ class AppImages {
   static const String noData = '$baseurl/noData.png';
   static const String noImage = '$baseurl/noImage.png';
   static const String profile = '$baseurl/profile.png';
-  //Added by arif
 
   static const String appLogoP = '$baseurl/app_logo_p.png';
   static const String bag = '$baseurl/bag_p.png';
@@ -23,7 +22,6 @@ class AppImages {
   static const String homeImage = '$baseurl/home_img.png';
 
 
-  // added by ajijul
 
   static const String upcomingEvent = '$baseurl/upcoming_event.png';
 

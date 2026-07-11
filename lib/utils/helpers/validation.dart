@@ -15,7 +15,6 @@ class AppValidation {
     }
     return null;
   }
-
   static String? email(String? value) {
     final error = required(value);
     if (error != null) return error;
@@ -34,7 +33,6 @@ class AppValidation {
     }
     return null;
   }
-
   static String? confirmPassword(
     String? value,
     TextEditingController passwordController,

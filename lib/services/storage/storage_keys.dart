@@ -1,4 +1,5 @@
 class LocalStorageKeys {
+
   static const String token = "token";
   static const String refreshToken = "refreshToken";
   static const String role = "role";
@@ -13,4 +14,5 @@ class LocalStorageKeys {
   static const String deviceId = "deviceId";
   static const String rememberMe = "rememberMe";
   static const String password = "password";
+
 }

@@ -15,14 +15,12 @@ class EditDependentController extends GetxController {
 
   Future<void> selectDate(BuildContext context) async {
 
-
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime(2000),
       firstDate: DateTime(1950),
       lastDate: DateTime.now(),
     );
-
     if (picked != null) {
       String formattedDate = "${picked.day.toString().padLeft(2, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.year}";
       dobController.text = formattedDate;

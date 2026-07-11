@@ -20,8 +20,6 @@ class SocketService {
       return;
     }
 
-
-
     if (_socket != null && _socket!.connected) return;
 
     if (_socket == null) {

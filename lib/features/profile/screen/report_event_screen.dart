@@ -18,18 +18,18 @@ class ReportEventScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CommonAppBar(
+      appBar:  CommonAppBar(
         title: 'Report an Urgent Event',
         showBackButton: true,
       ),
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        physics:  ClampingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 24.w),
         child: Column(
           children: [
             SizedBox(height: 12.h),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding:  EdgeInsets.symmetric(horizontal: 20.0),
               child: CommonText(
                 text: 'Fill in the details below and upload supporting documents.',
                 fontSize: 14.sp,
@@ -44,7 +44,7 @@ class ReportEventScreen extends StatelessWidget {
               controller: controller.titleController,
             ),
             SizedBox(height: 16.h),
-            const Align(
+             Align(
               alignment: Alignment.centerLeft,
               child: CommonText(text: 'Event Type', fontWeight: FontWeight.w500),
             ),
@@ -60,10 +60,10 @@ class ReportEventScreen extends StatelessWidget {
                 child: DropdownButton<String>(
                   value: controller.selectedEventTypeId.value.isEmpty ? null : controller.selectedEventTypeId.value,
                   hint: controller.isFetchingTypes.value 
-                      ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
-                      : const CommonText(text: "Select Event Type", fontSize: 14, color: AppColors.textFiledColor),
+                      ?  SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                      :  CommonText(text: "Select Event Type", fontSize: 14, color: AppColors.textFiledColor),
                   isExpanded: true,
-                  icon: const Icon(Icons.keyboard_arrow_down),
+                  icon:  Icon(Icons.keyboard_arrow_down),
                   items: controller.fetchedEventTypes.map((dynamic type) {
                     return DropdownMenuItem<String>(
                       value: type['_id'].toString(),
@@ -95,34 +95,33 @@ class ReportEventScreen extends StatelessWidget {
                   title: 'Event Date',
                   hintText: 'Select the deadline of the event e.g., mm/dd/yyyy',
                   controller: controller.dateController,
-                  suffixIcon: const Icon(Icons.calendar_month_outlined, color: Colors.grey),
+                  suffixIcon:  Icon(Icons.calendar_month_outlined, color: Colors.grey),
                 ),
               ),
             ),
             SizedBox(height: 16.h),
-            const Align(
+             Align(
               alignment: Alignment.centerLeft,
               child: CommonText(text: 'Documents and Photos', fontWeight: FontWeight.w500),
             ),
             SizedBox(height: 8.h),
 
-            // --- Document Upload Section ---
             DottedBorder(
               color: Colors.grey.shade300,
               strokeWidth: 1,
-              dashPattern: const [6, 3],
+              dashPattern:  [6, 3],
               borderType: BorderType.RRect,
               radius: Radius.circular(12.r),
               child: Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(vertical: 30.h),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF3F4F6).withValues(alpha: 0.5),
+                  color:  Color(0xFFF3F4F6).withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Column(
                   children: [
-                    const Icon(Icons.folder_open_outlined, color: Colors.grey, size: 30),
+                     Icon(Icons.folder_open_outlined, color: Colors.grey, size: 30),
                     SizedBox(height: 12.h),
                     Obx(() => Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10.w),

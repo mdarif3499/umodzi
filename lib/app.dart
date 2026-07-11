@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
         designSize: const Size(428, 926),
         minTextAdapt: true,
         splitScreenMode: true,
-
         builder: (context, child) {
           return GetMaterialApp(
             color: AppColors.background,

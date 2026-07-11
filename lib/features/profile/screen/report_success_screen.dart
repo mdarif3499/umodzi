@@ -25,7 +25,7 @@ class ReportSuccessScreen extends StatelessWidget {
                 width: 120.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: const Color(0xFF4CAF50).withValues(alpha: 0.1),
+                  color:  Color(0xFF4CAF50).withValues(alpha: 0.1),
                 ),
                 child: Center(
                   child: SizedBox(
@@ -40,14 +40,14 @@ class ReportSuccessScreen extends StatelessWidget {
               ),
               SizedBox(height: 40.h),
               
-              const CommonText(
+               CommonText(
                 text: 'Report Submitted Successfully',
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 12.h),
-              const CommonText(
+               CommonText(
                 text: 'Your report has been sent to the admin. They will review it and contact you if needed.',
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -57,7 +57,6 @@ class ReportSuccessScreen extends StatelessWidget {
               
               SizedBox(height: 80.h),
               
-              // Back to Settings Button
               CommonButton(
                 titleText: 'Back to Settings',
                 buttonColor: Colors.white,
@@ -68,7 +67,6 @@ class ReportSuccessScreen extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               
-              // Submit Another Report Button
               CommonButton(
                 titleText: 'Submit Another Report',
                 buttonColor: Colors.black,

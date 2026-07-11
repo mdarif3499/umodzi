@@ -6,7 +6,6 @@ class AppColors {
   static const Color primaryColor = Color(0xFF080808);
   static const Color secondary = Color(0xff454545);
   static const Color background = Color(0xFFfdfdfd);
-  // added by ajijul
   static const Color colorB6A0FF = Color(0xFFB6A0FF);
   static const Color color19CA77 = Color(0xff19CA77);
   static const Color color3F3F3 = Color(0xFFF3F3F3);
@@ -33,7 +32,6 @@ class AppColors {
   static const Color textFiledColor = Color(0xFF979797);
   static const blueLight = Color(0xffe8e8f5);
 
-  //Add by Arif#
   static const yellow = Color(0xffEABB00);
   static const green = Color(0xFF31993B);
   static const color6B6B6B = Color(0xff6B6B6B);

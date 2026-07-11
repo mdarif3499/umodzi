@@ -33,7 +33,6 @@ class ProfileMenuItem extends StatelessWidget {
     this.subtitleColor,
     this.showArrow = true, this.backArrowColor,
   });
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

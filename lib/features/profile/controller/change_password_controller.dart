@@ -26,9 +26,7 @@ class ChangePasswordController extends GetxController {
       AppSnackbar.error(title: "Required", message: "Please fill all fields");
       return;
     }
-
     if (newPassword.length < 8) {
-
       AppSnackbar.error(title: "Invalid", message: "New password must be at least 8 characters");
 
       return;

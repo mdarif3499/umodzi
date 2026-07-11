@@ -16,7 +16,6 @@ class FaqController extends GetxController {
     super.onInit();
     fetchFaqs();
   }
-
   Future<void> fetchFaqs() async {
     try {
       isLoading.value = true;

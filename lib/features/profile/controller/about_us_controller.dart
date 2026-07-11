@@ -15,7 +15,6 @@ class AboutUsController extends GetxController {
     super.onInit();
     getAboutUs();
   }
-
   Future<void> getAboutUs() async {
     try {
       isLoading.value = true;
@@ -23,7 +22,6 @@ class AboutUsController extends GetxController {
         ApiEndPoint.settings,
         query: {"key": "aboutUs"},
       );
-
       if (response.isSuccess) {
         aboutUsContent.value = response.data['data'] ?? "";
       }

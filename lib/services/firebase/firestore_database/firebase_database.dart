@@ -1,7 +1,6 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:new_untitled/features/profile/data/model/session_model.dart';
 // import 'package:new_untitled/services/firebase/auth/firebase_auth.dart';
-
 // import '../../../utils/enum/enum.dart';
 
 // class FirebaseDBService {

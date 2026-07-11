@@ -35,7 +35,6 @@ class ProfileController extends GetxController {
     try {
       isLoading.value = true;
       final response = await apiClient.get(ApiEndPoint.profile);
-
       if (response.statusCode == 200) {
         final profileModel = ProfileModel.fromJson(response.data);
         profileData.value = profileModel.data;
@@ -64,7 +63,6 @@ class ProfileController extends GetxController {
       isStatsLoading.value = false;
     }
   }
-
   Future<void> checkoutPenalties() async {
     try {
       isLoading.value = true;

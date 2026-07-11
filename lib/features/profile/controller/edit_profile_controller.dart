@@ -29,7 +29,6 @@ class EditProfileController extends GetxController {
     super.onInit();
     _initializeData();
   }
-
   void _initializeData() {
     final profileController = Get.find<ProfileController>();
     final data = profileController.profileData.value;
@@ -42,7 +41,6 @@ class EditProfileController extends GetxController {
       selectedCountryCode.value = data.countryCode ?? '+880';
     }
   }
-
   Future<void> pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {

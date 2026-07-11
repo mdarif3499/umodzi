@@ -31,9 +31,7 @@ class UserStatsCard extends StatelessWidget {
           ),
         );
       }
-
       final summary = controller.paymentBreakdown.value?.summary;
-      
       String memberSince = 'N/A';
       if (controller.profileData.value?.createdAt != null) {
         try {
@@ -43,7 +41,6 @@ class UserStatsCard extends StatelessWidget {
           memberSince = 'N/A';
         }
       }
-
       return Container(
         padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.w),
         decoration: BoxDecoration(

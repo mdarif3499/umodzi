@@ -21,16 +21,18 @@ class LogoutDialog extends StatelessWidget {
             text: 'Log Out?',
             fontSize: 20.sp,
             fontWeight: FontWeight.w700,
-            color: const Color(0xFFA53200),
+            color:  Color(0xFFA53200),
           ),
           SizedBox(height: 12.h),
-          const CommonText(
+           CommonText(
             text: 'Are you sure you want to log out?',
             fontSize: 14,
             color: Color(0xFF333333),
             textAlign: TextAlign.center,
           ),
+
           SizedBox(height: 24.h),
+
           Row(
             children: [
               Expanded(

@@ -5,7 +5,6 @@ class FaqModel {
   List<FaqData>? data;
 
   FaqModel({this.success, this.message, this.statusCode, this.data});
-
   FaqModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
@@ -18,7 +17,6 @@ class FaqModel {
     }
   }
 }
-
 class FaqData {
   String? sId;
   String? question;

@@ -19,7 +19,6 @@ class ApiResponseHandler {
       case DioExceptionType.receiveTimeout:
       case DioExceptionType.sendTimeout:
         return ApiResponseModel(408, {'message': AppString.requestTimeOut});
-
       case DioExceptionType.connectionError:
         return ApiResponseModel(503, {
           'message': AppString.noInternetConnection,
