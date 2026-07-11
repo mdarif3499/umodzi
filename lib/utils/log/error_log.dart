@@ -19,7 +19,9 @@ void errorLog(dynamic e, {String source = ''}) {
       <<<<<<<<<<<<<<<<<<<<<<<<<<<😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
       ''');
     }
+
   } catch (e) {
+
     debugPrint(e.toString());
   }
 }

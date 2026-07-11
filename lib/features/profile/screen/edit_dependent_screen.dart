@@ -25,10 +25,10 @@ class EditDependentScreen extends StatelessWidget {
             onTap: () => Get.back(),
             child: Container(
               decoration: BoxDecoration(
-                color: const Color(0x1AA53200),
+                color:  Color(0x1AA53200),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.arrow_back_ios_new,
+              child:  Icon(Icons.arrow_back_ios_new,
                   color: Color(0xFFA53200), size: 18),
             ),
           ),
@@ -60,7 +60,7 @@ class EditDependentScreen extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             
-            const CommonText(text: 'Relationship to Member', fontWeight: FontWeight.w500),
+             CommonText(text: 'Relationship to Member', fontWeight: FontWeight.w500),
             SizedBox(height: 8.h),
             Obx(() => Container(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -74,7 +74,7 @@ class EditDependentScreen extends StatelessWidget {
                 child: DropdownButton<String>(
                   value: controller.selectedRelationship.value,
                   isExpanded: true,
-                  icon: const Icon(Icons.keyboard_arrow_down),
+                  icon:  Icon(Icons.keyboard_arrow_down),
                   items: controller.relationships.map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -94,15 +94,13 @@ class EditDependentScreen extends StatelessWidget {
               onTap: () => controller.selectDate(context),
               suffixIcon: GestureDetector(
                 onTap: () => controller.selectDate(context),
-                child: const Icon(Icons.calendar_month_outlined, color: Colors.grey),
+                child:  Icon(Icons.calendar_month_outlined, color: Colors.grey),
               ),
             ),
             
             SizedBox(height: 20.h),
-            const CommonText(text: "Uploaded Files", fontWeight: FontWeight.w500),
+             CommonText(text: "Uploaded Files", fontWeight: FontWeight.w500),
             SizedBox(height: 12.h),
-
-            // Uploaded Files List
             Obx(() => Wrap(
               spacing: 12.w,
               runSpacing: 12.h,
@@ -117,13 +115,13 @@ class EditDependentScreen extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.picture_as_pdf, color: Colors.red, size: 20),
+                       Icon(Icons.picture_as_pdf, color: Colors.red, size: 20),
                       SizedBox(width: 8.w),
                       CommonText(text: controller.uploadedFiles[index], fontSize: 12),
                       SizedBox(width: 8.w),
                       GestureDetector(
                         onTap: () => controller.removeFile(index),
-                        child: const Icon(Icons.close, size: 16, color: Colors.grey),
+                        child:  Icon(Icons.close, size: 16, color: Colors.grey),
                       ),
                     ],
                   ),
@@ -133,20 +131,19 @@ class EditDependentScreen extends StatelessWidget {
             
             SizedBox(height: 20.h),
             
-            // Dotted Border Upload Section - এখন পুরো বক্সটি ক্লিকেবল
             GestureDetector(
               onTap: () => controller.pickFile(),
               child: DottedBorder(
                 color: Colors.grey.shade300,
                 strokeWidth: 1,
-                dashPattern: const [6, 3],
+                dashPattern:  [6, 3],
                 borderType: BorderType.RRect,
                 radius: Radius.circular(12.r),
                 child: Container(
                   width: double.infinity,
                   padding: EdgeInsets.all(20.sp),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF3F4F6).withValues(alpha: 0.5),
+                    color:  Color(0xFFF3F4F6).withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(12.r),
                   ),
                   child: Column(
@@ -154,11 +151,11 @@ class EditDependentScreen extends StatelessWidget {
                       CircleAvatar(
                         radius: 30.r,
                         backgroundColor: Colors.grey.shade200,
-                        child: const Icon(Icons.cloud_upload_outlined,
+                        child:  Icon(Icons.cloud_upload_outlined,
                             color: Colors.grey),
                       ),
                       SizedBox(height: 12.h),
-                      const CommonText(
+                       CommonText(
                           text: "Upload ID / Document",
                           fontWeight: FontWeight.w600),
                       SizedBox(height: 4.h),
@@ -171,7 +168,6 @@ class EditDependentScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 16.h),
         
-                      // Choose File Button Style
                       Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: 24.w, vertical: 10.h),

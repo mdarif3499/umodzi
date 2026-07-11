@@ -21,7 +21,6 @@ class ReportEventController extends GetxController {
   RxString selectedFilePath = ''.obs;
   RxBool isLoading = false.obs;
   RxBool isFetchingTypes = false.obs;
-
   final ApiClient apiClient = DioApiClient();
 
   @override
@@ -29,7 +28,6 @@ class ReportEventController extends GetxController {
     super.onInit();
     getEventTypes();
   }
-
 
   Future<void> getEventTypes() async {
     try {

@@ -27,7 +27,6 @@ Future<void> main() async {
         appLog("❌ Firebase Init Error: $e");
       }
     }
-
     await LocalStorage.init();
 
     await DeviceUtils.getAndSaveDeviceId();

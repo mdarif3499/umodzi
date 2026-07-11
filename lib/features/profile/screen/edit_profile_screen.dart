@@ -30,10 +30,10 @@ class EditProfileScreen extends StatelessWidget {
             onTap: () => Get.back(),
             child: Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFA53200).withValues(alpha: 0.1),
+                color:  Color(0xFFA53200).withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.arrow_back_ios_new,
+              child:  Icon(Icons.arrow_back_ios_new,
                   color: Color(0xFFA53200), size: 18),
             ),
           ),
@@ -80,7 +80,7 @@ class EditProfileScreen extends StatelessWidget {
                       width: 100.r,
                       height: 100.r,
                       color: Colors.grey[100],
-                      child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                      child:  Center(child: CircularProgressIndicator(strokeWidth: 2)),
                     ),
                     errorWidget: (context, url, error) => Container(
                       width: 100.r,
@@ -103,7 +103,7 @@ class EditProfileScreen extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(color: const Color(0xFFA53200), width: 2),
+                        border: Border.all(color:  Color(0xFFA53200), width: 2),
                       ),
                       child: ClipOval(
                         child: imageWidget,
@@ -116,7 +116,7 @@ class EditProfileScreen extends StatelessWidget {
                         onTap: () => controller.pickImage(),
                         child: Container(
                           padding: EdgeInsets.all(6.r),
-                          decoration: const BoxDecoration(
+                          decoration:  BoxDecoration(
                             color: Color(0xFFA53200),
                             shape: BoxShape.circle,
                           ),

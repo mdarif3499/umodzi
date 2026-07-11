@@ -19,17 +19,17 @@ class AboutUsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CommonAppBar(
+      appBar:  CommonAppBar(
         title: "About Us",
         showBackButton: true,
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator(color: Colors.black));
+          return  Center(child: CircularProgressIndicator(color: Colors.black));
         }
         
         if (controller.content.value.isEmpty) {
-          return const Center(child: CommonText(text: "No content available"));
+          return  Center(child: CommonText(text: "No content available"));
         }
 
         return SingleChildScrollView(
@@ -41,7 +41,7 @@ class AboutUsScreen extends StatelessWidget {
                 fontSize: FontSize(14.sp),
                 fontWeight: FontWeight.w400,
                 color: Colors.black87,
-                lineHeight: const LineHeight(1.5),
+                lineHeight:  LineHeight(1.5),
                 padding: HtmlPaddings.zero,
                 margin: Margins.zero,
               ),

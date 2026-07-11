@@ -3,7 +3,6 @@ class AppIcons {
 
   static const String baseurl = 'assets/icons';
 
-    //Add by arif
 
   static const String calendar= '$baseurl/calendar.png';
   static const String arrowR= '$baseurl/arrow_r.png';

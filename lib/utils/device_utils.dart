@@ -19,7 +19,6 @@ class DeviceUtils {
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
         deviceId = iosInfo.identifierForVendor;
       }
-
       if (deviceId != null) {
         await LocalStorage.setString(LocalStorageKeys.deviceId, deviceId);
         appLog("✅ Device ID Saved: $deviceId", source: "DeviceUtils");

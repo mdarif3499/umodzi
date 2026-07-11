@@ -6,7 +6,6 @@ import '../../../services/api/api_service.dart';
 
 class DynamicContentController extends GetxController {
   final ApiClient apiClient = DioApiClient();
-  
   RxString content = "".obs;
   RxBool isLoading = false.obs;
   Future<void> getContent(String key) async {

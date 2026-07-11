@@ -24,14 +24,14 @@ class ProfileScreen extends StatelessWidget {
     final homeController = Get.find<HomeController>();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFDFDFD),
-      appBar: const CustomHomeAppBar(
+      backgroundColor:  Color(0xFFFDFDFD),
+      appBar:  CustomHomeAppBar(
         hasNotification: true,
         isEventPage: true,
         title: 'Profile',
       ),
       body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
+        physics:  ClampingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,13 +44,13 @@ class ProfileScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(color: const Color(0xFFF1F5F9)),
+                border: Border.all(color:  Color(0xFFF1F5F9)),
               ),
               child: Column(
                 children: [
-                  const UserInfoCard(),
+                   UserInfoCard(),
                   SizedBox(height: 16.h),
-                  const UserStatsCard(),
+                   UserStatsCard(),
                 ],
               ),
             ),
@@ -67,19 +67,19 @@ class ProfileScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(color: const Color(0xFFF1F5F9)),
+                border: Border.all(color:  Color(0xFFF1F5F9)),
               ),
               child: Column(
                 children: [
                   ProfileMenuItem(
-                    backArrowColor: const Color(0xFFA53200),
+                    backArrowColor:  Color(0xFFA53200),
                     icon: Icons.notification_important_outlined,
                     title: 'Report an Event',
                     subtitle: 'Notify us for Urgent Event',
-                    bgColor: const Color(0x1AA53200),
-                    iconColor: const Color(0xFFA53200),
-                    titleColor: const Color(0xFFA53200),
-                    subtitleColor: const Color(0xFFA53200).withValues(alpha: 0.6),
+                    bgColor:  Color(0x1AA53200),
+                    iconColor:  Color(0xFFA53200),
+                    titleColor:  Color(0xFFA53200),
+                    subtitleColor:  Color(0xFFA53200).withValues(alpha: 0.6),
                     showArrow: true,
                     onTap: () => Get.toNamed(AppRoutes.reportEvent),
                   ),
@@ -162,7 +162,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () {
                       showDialog(
                         context: context,
-                        builder: (context) => const LogoutDialog(),
+                        builder: (context) =>  LogoutDialog(),
                       );
                     },
                     color: AppColors.logoutRed,
@@ -178,9 +178,9 @@ class ProfileScreen extends StatelessWidget {
         onPressed: () {
           homeController.createChatAndNavigate();
         },
-        backgroundColor: const Color(0xFF31993B),
+        backgroundColor:  Color(0xFF31993B),
         elevation: 4,
-        shape: const CircleBorder(),
+        shape:  CircleBorder(),
         child: Image.asset(
           AppIcons.chat,
           height: 18.h,
@@ -189,7 +189,6 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildSubHeader() {
     return Row(
       children: [

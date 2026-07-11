@@ -5,7 +5,6 @@ void globalError(Object error, StackTrace? stack) {
   if (stack != null) {
     debugPrint('Global Error 📌 STACK TRACE:\n$stack');
   }
-  // Optional: Send to remote logging
   // FirebaseCrashlytics.instance.recordError(error, stack);
 }
 

@@ -5,7 +5,6 @@ class PaymentBreakdownModel {
   PaymentBreakdownData? data;
 
   PaymentBreakdownModel({this.success, this.message, this.statusCode, this.data});
-
   PaymentBreakdownModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
@@ -13,7 +12,6 @@ class PaymentBreakdownModel {
     data = json['data'] != null ? PaymentBreakdownData.fromJson(json['data']) : null;
   }
 }
-
 class PaymentBreakdownData {
   String? status;
   List<BreakdownItem>? breakdown;

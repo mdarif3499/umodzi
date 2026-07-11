@@ -8,7 +8,6 @@ import 'auth_interceptor.dart';
 
 class DioConfig {
   DioConfig._();
-
   static Dio create() {
     final dio = Dio(
       BaseOptions(
@@ -26,7 +25,6 @@ class DioConfig {
       CookieManager(cookieJar),
       apiLog(),
     ]);
-
     return dio;
   }
 }

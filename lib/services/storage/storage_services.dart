@@ -5,7 +5,6 @@ import '../../utils/log/app_log.dart';
 class LocalStorage {
   static SharedPreferences? preferences;
 
-  // Static variables for quick access
   static String token = "";
   static String refreshToken = "";
   static bool isLogIn = false;
@@ -16,7 +15,7 @@ class LocalStorage {
   static String role = "";
   static String plan = "";
   static String adminId = "";
-  static String deviceId = ""; // নতুন যোগ করা হয়েছে
+  static String deviceId = "";
 
   static Future<void> init() async {
     preferences = await SharedPreferences.getInstance();
@@ -41,7 +40,7 @@ class LocalStorage {
     role = localStorage.getString(LocalStorageKeys.role) ?? "";
     plan = localStorage.getString(LocalStorageKeys.plan) ?? "";
     adminId = localStorage.getString(LocalStorageKeys.adminId) ?? "";
-    deviceId = localStorage.getString(LocalStorageKeys.deviceId) ?? ""; // এখান থেকেও লোড হবে
+    deviceId = localStorage.getString(LocalStorageKeys.deviceId) ?? "";
 
     appLog("User ID: $userId, Device ID: $deviceId", source: "Local Storage");
   }
@@ -73,7 +72,7 @@ class LocalStorage {
     if (key == LocalStorageKeys.role) role = value;
     if (key == LocalStorageKeys.plan) plan = value;
     if (key == LocalStorageKeys.adminId) adminId = value;
-    if (key == LocalStorageKeys.deviceId) deviceId = value; // এখানেও আপডেট হবে
+    if (key == LocalStorageKeys.deviceId) deviceId = value;
   }
 
   static Future<void> setBool(String key, bool value) async {

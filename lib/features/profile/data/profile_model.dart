@@ -13,7 +13,6 @@ class ProfileModel {
     data = json['data'] != null ? ProfileData.fromJson(json['data']) : null;
   }
 }
-
 class ProfileData {
   OnlineStatus? onlineStatus;
   List<dynamic>? document;

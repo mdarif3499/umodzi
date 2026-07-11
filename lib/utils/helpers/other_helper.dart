@@ -42,7 +42,6 @@ class OtherHelper {
     );
     return image?.path;
   }
-
   static Future<String?> pickVideo() async {
     final picker = ImagePicker();
     final XFile? video = await picker.pickVideo(source: ImageSource.gallery);
@@ -64,7 +63,6 @@ class OtherHelper {
     controller?.text = formatted;
     return formatted;
   }
-
   static String formatTime(TimeOfDay time) {
     final hour = time.hourOfPeriod == 0 ? 12 : time.hourOfPeriod;
     final minute = time.minute.toString().padLeft(2, '0');

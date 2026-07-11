@@ -9,7 +9,6 @@ import '../config/route/app_routes.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
-
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
@@ -17,7 +16,6 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-
   final List<Map<String, String>> _onboardingData = [
     {
       'image': AppImages.onboarding1,
@@ -129,7 +127,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                 ),
 
-                // Indicators & Button
                 Padding(
                   padding: EdgeInsets.only(bottom: 60.h),
                   child: Column(
@@ -167,7 +164,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 curve: Curves.easeInOut,
                               );
                             } else {
-                              Get.offAllNamed(AppRoutes.signIn); // Go to SignIn
+                              Get.offAllNamed(AppRoutes.signIn);
                             }
                           },
                         ),

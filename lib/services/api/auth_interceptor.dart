@@ -9,7 +9,6 @@ class AuthInterceptor extends InterceptorsWrapper {
       'Authorization': 'Bearer ${LocalStorage.token}',
       'Content-Type': 'application/json',
     });
-
     super.onRequest(options, handler);
   }
 }

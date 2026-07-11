@@ -14,7 +14,6 @@ class AppSnackbar {
       position: SnackPosition.BOTTOM,
     );
   }
-
   static void error({String? title, required String message}) {
     _showSnackbar(
       title: kDebugMode ? (title ?? 'Error') : 'Oops',

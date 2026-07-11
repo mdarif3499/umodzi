@@ -15,6 +15,5 @@ class ApiResponseModel {
     }
     return _data?['message'] ?? AppString.someThingWrong;
   }
-
   Map<String, dynamic> get data => _data ?? {};
 }

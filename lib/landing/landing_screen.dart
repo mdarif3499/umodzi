@@ -18,7 +18,6 @@ class LandingScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 60.h),
-                
                 Center(
                   child: Stack(
                     alignment: Alignment.center,
@@ -60,16 +59,14 @@ class LandingScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 8.h),
-                const CommonText(
+                 CommonText(
                   text: "Your Trusted Partner in Difficult Times",
                   fontSize: 18,
                   fontWeight: FontWeight.w400,
                   color: AppColors.text6BD45,
                   textAlign: TextAlign.center,
                 ),
-                
                 SizedBox(height: 40.h),
-
                 _buildActionCard(
                   image: AppImages.signIn,
                   title: "Sign In",

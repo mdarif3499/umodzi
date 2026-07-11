@@ -15,17 +15,17 @@ class FAQScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: const CommonAppBar(
+      appBar:  CommonAppBar(
         title: "FAQ's",
         showBackButton: true,
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return  Center(child: CircularProgressIndicator());
         }
 
         if (controller.faqList.isEmpty) {
-          return const Center(child: CommonText(text: "No FAQ's found"));
+          return  Center(child: CommonText(text: "No FAQ's found"));
         }
 
         return ListView.builder(
@@ -68,7 +68,7 @@ class _FAQItemState extends State<FAQItem> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.r),
-        border: Border.all(color: const Color(0xFFF1F5F9)),
+        border: Border.all(color:  Color(0xFFF1F5F9)),
       ),
       child: Theme(
         data: Theme.of(context).copyWith(
@@ -92,7 +92,7 @@ class _FAQItemState extends State<FAQItem> {
           trailing: Icon(
             _isExpanded ? Icons.remove : Icons.add,
             size: 20.sp,
-            color: _isExpanded ? Colors.black : const Color(0xFF99A1AF),
+            color: _isExpanded ? Colors.black :  Color(0xFF99A1AF),
           ),
           children: [
             Padding(
