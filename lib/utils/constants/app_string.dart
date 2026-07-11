@@ -132,7 +132,7 @@ class AppString {
   static const String tacticalFoulInMidfield = "Tactical foul in midfield";
   static const String matchSummary = "Match Summary";
   static const String theTitans =
-      '\"The Titans have dominated the central thirds, utilizing a high-press system that caught Phoenix off guard early in the second half. Vane\'s strike at 62\' has shifted the momentum entirely.\"';
+      '"The Titans have dominated the central thirds, utilizing a high-press system that caught Phoenix off guard early in the second half. Vane\'s strike at 62\' has shifted the momentum entirely."';
   static const String expertInsight = "Expert Insight";
   static const String expectedGoals =
       'Expected Goals (xG): Titans 1.84 vs Phoenix 0.92';

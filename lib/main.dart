@@ -33,8 +33,11 @@ Future<void> main() async {
     await DeviceUtils.getAndSaveDeviceId();
     appLog("📱 Device ID Captured and Saved");
 
-    await NotificationService().init();
-    appLog("🔔 Notification Service Initialized");
+    NotificationService().init().then((_) {
+      appLog("🔔 Notification Service Initialized");
+    }).catchError((e) {
+      appLog("❌ Notification Service Init Error: $e");
+    });
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
