@@ -416,7 +416,6 @@ class HomeScreen extends StatelessWidget {
     required Color textColor,
     required Color iconColor,
     required VoidCallback onTap,
-    bool isFullWidth = false,
     int badgeCount = 0,
   }) {
     return GestureDetector(

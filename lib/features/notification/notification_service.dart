@@ -24,59 +24,89 @@ class NotificationService {
   final FlutterLocalNotificationsPlugin _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   Future<void> init() async {
-    // ১. ব্যাকগ্রাউন্ড মেসেজ হ্যান্ডলার সেট করা
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    try {
+      FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-    // ২. পারমিশন রিকোয়েস্ট করা
-    NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-    log('🔔 Permission Status: ${settings.authorizationStatus}');
+      NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      ).timeout(const Duration(seconds: 8), onTimeout: () {
+        log('🔔 Permission Request Timeout');
+        return const NotificationSettings(
+          authorizationStatus: AuthorizationStatus.notDetermined,
+          alert: AppleNotificationSetting.disabled,
+          announcement: AppleNotificationSetting.disabled,
+          badge: AppleNotificationSetting.disabled,
+          carPlay: AppleNotificationSetting.disabled,
+          criticalAlert: AppleNotificationSetting.disabled,
+          sound: AppleNotificationSetting.disabled,
+          lockScreen: AppleNotificationSetting.disabled,
+          notificationCenter: AppleNotificationSetting.disabled,
+          showPreviews: AppleShowPreviewSetting.never,
+          timeSensitive: AppleNotificationSetting.disabled,
+          providesAppNotificationSettings: AppleNotificationSetting.disabled,
+        );
+      });
+      
+      log('🔔 Permission Status: ${settings.authorizationStatus}');
 
-    // ৩. FCM টোকেন সংগ্রহ করা
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-    log("🎯 FCM Token: $fcmToken");
-    if (fcmToken != null) {
-      await LocalStorage.setString(LocalStorageKeys.fcmToken, fcmToken);
+      // ৩. FCM টোকেন সংগ্রহ করা (টাইমআউট সহ)
+      final fcmToken = await FirebaseMessaging.instance.getToken().timeout(
+        const Duration(seconds: 8),
+        onTimeout: () {
+          log("🎯 FCM Token Timeout");
+          return null;
+        },
+      );
+      
+      if (fcmToken != null) {
+        log("🎯 FCM Token: $fcmToken");
+        await LocalStorage.setString(LocalStorageKeys.fcmToken, fcmToken);
+      }
+
+      // ৪. লোকাল নোটিফিকেশন ইনিশিয়ালাইজ করা
+      const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
+      const initSettings = InitializationSettings(android: androidSettings);
+      
+      await _localNotificationsPlugin.initialize(
+        initSettings,
+        onDidReceiveNotificationResponse: (details) {
+          log("📩 Notification Tapped: ${details.payload}");
+        },
+      );
+
+      // ৫. ফোরগ্রাউন্ড মেসেজ লিসেনার
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        log('📬 Foreground Message: ${message.notification?.title}');
+        _showLocalNotification(message);
+      });
+    } catch (e) {
+      log("❌ NotificationService Init Error: $e");
     }
-
-    // ৪. লোকাল নোটিফিকেশন ইনিশিয়ালাইজ করা (ফোরগ্রাউন্ডে দেখানোর জন্য)
-    const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const initSettings = InitializationSettings(android: androidSettings);
-    
-    await _localNotificationsPlugin.initialize(
-      initSettings,
-      onDidReceiveNotificationResponse: (details) {
-        log("📩 Notification Tapped: ${details.payload}");
-      },
-    );
-
-    // ৫. ফোরগ্রাউন্ড মেসেজ লিসেনার
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      log('📬 Foreground Message: ${message.notification?.title}');
-      _showLocalNotification(message);
-    });
   }
 
   Future<void> _showLocalNotification(RemoteMessage message) async {
-    const androidDetails = AndroidNotificationDetails(
-      'umodzi_channel',
-      'Umodzi Notifications',
-      importance: Importance.max,
-      priority: Priority.high,
-      playSound: true,
-    );
+    try {
+      const androidDetails = AndroidNotificationDetails(
+        'umodzi_channel',
+        'Umodzi Notifications',
+        importance: Importance.max,
+        priority: Priority.high,
+        playSound: true,
+      );
 
-    const notificationDetails = NotificationDetails(android: androidDetails);
+      const notificationDetails = NotificationDetails(android: androidDetails);
 
-    await _localNotificationsPlugin.show(
-      message.hashCode,
-      message.notification?.title,
-      message.notification?.body,
-      notificationDetails,
-      payload: message.data.toString(),
-    );
+      await _localNotificationsPlugin.show(
+        message.hashCode,
+        message.notification?.title,
+        message.notification?.body,
+        notificationDetails,
+        payload: message.data.toString(),
+      );
+    } catch (e) {
+      log("❌ Local Notification Show Error: $e");
+    }
   }
 }

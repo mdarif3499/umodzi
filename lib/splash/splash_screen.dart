@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:umodzi/services/storage/storage_services.dart';
 import '../component/text/common_text.dart';
 import 'package:get/get.dart';
 import '../config/route/app_routes.dart';
@@ -17,17 +18,25 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    _navigate();
   }
 
-  // Future<void> _navigate() async {
-  //   await LocalStorage.getAllPrefData();
-  //   await Future.delayed(const Duration(seconds: 3));
-  //   if (LocalStorage.isLogIn) {
-  //     Get.offAllNamed(AppRoutes.navBarScreen);
-  //   } else {
-  //     Get.offAllNamed(AppRoutes.onboarding);
-  //   }
-  // }
+  Future<void> _navigate() async {
+    // ৩ সেকেন্ড অপেক্ষা করার পর চেক করবে ইউজার লগইন করা কিনা
+    await Future.delayed(const Duration(seconds: 3));
+    
+    try {
+      if (LocalStorage.isLogIn) {
+        Get.offAllNamed(AppRoutes.navBarScreen);
+      } else {
+        // যদি লগইন না থাকে তবে এই স্ক্রিনেই থাকবে অথবা অনবোর্ডিংয়ে যাবে
+        // বর্তমানে এখানে ম্যানুয়াল বাটন আছে, তাই অটো ন্যাভিগেশন না দিলেও হয় 
+        // তবে আপনি চাইলে নিচে অনবোর্ডিং বা সাইন-ইন স্ক্রিনে পাঠাতে পারেন।
+      }
+    } catch (e) {
+      debugPrint("Navigation Error: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,14 +113,6 @@ class _SplashScreenState extends State<SplashScreen> {
                     Get.toNamed(AppRoutes.signIn);
                   },
                 ),
-                // SizedBox(height: 12.h),
-                //
-                // _buildActionCard(
-                //   image: AppImages.signUp,
-                //   title: "Contribute",
-                //   subtitle: "Be part of something meaningful",
-                //   onTap: () {},
-                // ),
                 SizedBox(height: 12.h),
 
                 _buildActionCard(
@@ -145,7 +146,7 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Container(
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
-          color: Color(0xFF2a0d01),
+          color: const Color(0xFF2a0d01),
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
             color: AppColors.yellow.withValues(alpha: 0.3),
