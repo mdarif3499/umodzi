@@ -15,7 +15,7 @@ class ApiEndPoint {
   static const signUp = 'users/sign-up';
   static const verifyEmail = 'users/verify-email';
   static const signIn = '/auth/login';
-  static const googleSignIn = '/auth/google'; // Added for Google Login
+  static const googleSignIn = '/auth/google';
   static const forgotPassword = '/auth/forget-password';
   static const resendOtp = '/auth/resend-otp';
   static const verifyOtp = '/auth/verify-otp';
