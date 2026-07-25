@@ -1,19 +1,10 @@
 class ApiEndPoint {
-  // static const baseUrl = 'http://10.10.7.39:5005/api/v1';
-  // static const imageUrl = 'http://10.10.7.39:5005';
-  // static const socketUrl = 'http://10.10.7.39:5005';
-
-  // static const baseUrl = 'https://rakibur5005.binarybards.online/api/v1';
-  // static const imageUrl = 'https://rakibur5005.binarybards.online';
-  // static const socketUrl = 'https://rakibur5005.binarybards.online';
-
-
   static const baseUrl = 'https://api.mphamvu.org/api/v1';
   static const imageUrl = 'https://api.mphamvu.org';
   static const socketUrl = 'https://api.mphamvu.org';
 
-  static const signUp = 'users/sign-up';
-  static const verifyEmail = 'users/verify-email';
+  static const signUp = '/users/register';
+  static const verifyEmail = '/users/verify-email';
   static const signIn = '/auth/login';
   static const googleSignIn = '/auth/google'; // Added for Google Login
   static const forgotPassword = '/auth/forget-password';
@@ -21,7 +12,7 @@ class ApiEndPoint {
   static const verifyOtp = '/auth/verify-otp';
   static const resetPassword = '/auth/reset-password';
   static const changePassword = '/auth/change-password';
-  static const user = 'users';
+  static const user = '/users';
   static const profile = '/users/profile';
   static const getMe = '/users/me';
   static const deleteAccount = '/users/delete/account';
@@ -32,11 +23,11 @@ class ApiEndPoint {
   static const events = '/events';
   static const eventTypes = '/event-types/public';
   static const createEventReport = '/event-reports/create';
-  static const notifications = 'notifications';
-  static const privacyPolicies = 'privacy-policies';
-  static const termsOfServices = 'terms-and-conditions';
-  static const chats = 'chats';
-  static const messages = 'messages';
+  static const notifications = '/notifications';
+  static const privacyPolicies = '/privacy-policies';
+  static const termsOfServices = '/terms-and-cond45itions';
+  static const chats = '/chats';
+  static const messages = '/messages';
   static const faqs = '/faqs';
   static const faqsPublic = '/faqs/public';
   static const settings = '/settings';

@@ -17,7 +17,7 @@ class AddDependentController extends GetxController {
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
   final addressController = TextEditingController();
-  final countryCodeController = TextEditingController(text: "+880");
+  final countryCodeController = TextEditingController(text: "+265");
   
   var selectedRelationship = "".obs;
   List<String> relationships = [
@@ -58,7 +58,7 @@ class AddDependentController extends GetxController {
         nameController.text = member.name;
         phoneController.text = member.phone;
         addressController.text = member.address ?? "";
-        countryCodeController.text = member.countryCode ?? "+880";
+        countryCodeController.text = member.countryCode ?? "+265";
         selectedRelationship.value = member.relationship;
         
         if (member.countryCode != null) {

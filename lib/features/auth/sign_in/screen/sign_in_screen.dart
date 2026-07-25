@@ -6,6 +6,7 @@ import 'package:umodzi/utils/helpers/validation.dart';
 
 import '../../../../component/button/common_button.dart';
 import '../../../../component/text/common_text.dart';
+import '../../../../component/text_field/common_phone_number_text_filed.dart';
 import '../../../../component/text_field/common_text_field.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../utils/constants/app_images.dart';
@@ -114,6 +115,28 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
 
+                  SizedBox(height: 24.h),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const CommonText(
+                        text: "Don't have an account? ",
+                        fontSize: 14,
+                        color: AppColors.color333333,
+                      ),
+                      GestureDetector(
+                        onTap: () => Get.toNamed(AppRoutes.signUp),
+                        child: const CommonText(
+                          text: "Sign Up",
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFA53200),
+                        ),
+                      ),
+                    ],
+                  ),
+
                   SizedBox(height: 40.h),
                 ],
               ),
@@ -212,12 +235,17 @@ class _SignInScreenState extends State<SignInScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonTextField(
-          title: 'Phone Number',
-          hintText: 'Please enter your phone number.',
+        CommonText(
+          text: 'Phone Number',
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w400,
+          color: AppColors.color333333,
+        ),
+        SizedBox(height: 12.h),
+        CommonPhoneNumberTextFiled(
           controller: controller.phoneController,
-          keyboardType: TextInputType.phone,
-          validator: AppValidation.required,
+          countryChange: controller.onCountryChange,
+          initialCountryCode: controller.initialISOCode,
         ),
         SizedBox(height: 16.h),
         Align(

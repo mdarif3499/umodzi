@@ -1,0 +1,3 @@
+- [ ] Fix `OtpController` (Rx variables, argument handling, timer)
+- [ ] Clean up `OtpScreen` (Remove duplicate code, update Rx references)
+- [ ] Verify resend logic
