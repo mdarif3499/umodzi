@@ -15,7 +15,7 @@ class OtpController extends GetxController {
   final otpController = TextEditingController();
   late final PinInputController pinController;
   
-  RxInt timerSeconds = 90.obs;
+  RxInt timerSeconds = 240.obs;
   Timer? _timer;
   RxBool canResend = false.obs;
 
@@ -43,7 +43,7 @@ class OtpController extends GetxController {
   void startTimer() {
     _timer?.cancel();
     canResend.value = false;
-    timerSeconds.value = 90;
+    timerSeconds.value = 240;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (timerSeconds.value > 0) {
         timerSeconds.value--;
@@ -108,7 +108,7 @@ class OtpController extends GetxController {
         'oneTimeCode': int.tryParse(otp) ?? otp,
       };
 
-      final response = await apiClient.post(ApiEndPoint.verifyEmail, body: body);
+      final response = await apiClient.post(ApiEndPoint.verifyOtp, body: body);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final Map<String, dynamic> data = response.data['data'] ?? {};
