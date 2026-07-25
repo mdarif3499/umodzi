@@ -45,7 +45,7 @@ android {
         }
     }
 }
-
+//  google_sign_in_android 6.2.1 (7.2.15 available)
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }

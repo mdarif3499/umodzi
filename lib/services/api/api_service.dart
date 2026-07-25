@@ -18,11 +18,14 @@ class DioApiClient implements ApiClient {
     return _request(url, method: 'GET', query: query, headers: headers);
   }
   @override
+
   Future<ApiResponseModel> post(
     String url, {
     dynamic body,
     Map<String, String>? headers,
-  }) {
+  })
+
+  {
     return _request(url, method: 'POST', body: body, headers: headers);
   }
 
