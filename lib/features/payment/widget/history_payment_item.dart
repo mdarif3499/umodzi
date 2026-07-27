@@ -21,7 +21,6 @@ class HistoryPaymentItem extends StatelessWidget {
     String formattedDate = history.createdAt != null 
         ? DateFormat('MMM d').format(history.createdAt!) 
         : "";
-
     return Column(
       children: [
         Padding(
