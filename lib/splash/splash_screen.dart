@@ -109,6 +109,16 @@ class _SplashScreenState extends State<SplashScreen> {
                 SizedBox(height: 12.h),
 
                 _buildActionCard(
+                  image: AppImages.signUp,
+                  title: "Sign Up",
+                  subtitle: "Create an account and join our community",
+                  onTap: () {
+                    Get.toNamed(AppRoutes.signUp);
+                  },
+                ),
+                SizedBox(height: 12.h),
+
+                _buildActionCard(
                   image: AppImages.mmu,
                   title: "MMU Bylaws",
                   subtitle: "Understand our rules and guiding principles",

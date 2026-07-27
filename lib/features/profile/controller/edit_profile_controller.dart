@@ -22,7 +22,7 @@ class EditProfileController extends GetxController {
   RxString imagePath = ''.obs;
   RxBool isLoading = false.obs;
   
-  RxString selectedCountryCode = '+880'.obs;
+  RxString selectedCountryCode = '+265'.obs;
 
   @override
   void onInit() {
@@ -38,7 +38,7 @@ class EditProfileController extends GetxController {
       emailController.text = data.email ?? '';
       phoneController.text = data.phone ?? '';
       locationController.text = data.address ?? '';
-      selectedCountryCode.value = data.countryCode ?? '+880';
+      selectedCountryCode.value = data.countryCode ?? '+265';
     }
   }
   Future<void> pickImage() async {

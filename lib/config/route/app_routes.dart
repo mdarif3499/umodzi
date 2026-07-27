@@ -15,6 +15,7 @@ import '../../splash/splash_screen.dart';
 import '../../onboarding/onboarding_screen.dart';
 import '../../landing/landing_screen.dart';
 import '../../features/auth/sign_in/screen/sign_in_screen.dart';
+import '../../features/auth/sign_up/screen/sign_up_screen.dart';
 import '../../features/auth/sign_in/screen/otp_screen.dart';
 import '../../features/auth/forgot_password/screen/forgot_password_screen.dart';
 import '../../features/auth/forgot_password/screen/forgot_otp_screen.dart';
@@ -39,6 +40,7 @@ class AppRoutes {
   static const String landing = '/landing';
   static const String navBarScreen = '/navBarScreen'; 
   static const String signIn = '/signIn';
+  static const String signUp = '/signUp';
   static const String otp = '/otp';
   static const String forgotPassword = '/forgotPassword';
   static const String forgotOtp = '/forgotOtp';
@@ -71,6 +73,7 @@ class AppRoutes {
     GetPage(name: onboarding, page: () => const OnboardingScreen()),
     GetPage(name: landing, page: () => const LandingScreen()),
     GetPage(name: signIn, page: () => const SignInScreen()),
+    GetPage(name: signUp, page: () => const SignUpScreen()),
     GetPage(name: navBarScreen, page: () => NavbarScreen()),
     GetPage(name: paymentResolution, page: () => const PaymentResolutionScreen()),
     GetPage(name: otp, page: () => const OtpScreen()),

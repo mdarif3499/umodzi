@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 
 import '../../../../config/api/api_end_point.dart';
@@ -18,10 +19,16 @@ class SignInController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final phoneController = TextEditingController();
+  final countryCodeController = TextEditingController(text: "+265");
+  String initialISOCode = 'MW';
   RxBool rememberMe = false.obs;
 
   void selectOption(int index) {
     selectedOption.value = index;
+  }
+
+  void onCountryChange(Country value) {
+    countryCodeController.text = "+${value.dialCode}";
   }
 
   void toggleRememberMe(bool? value) {
@@ -72,6 +79,7 @@ class SignInController extends GetxController {
       } else {
         body.addAll({
           'phoneNumber': phoneController.text.trim(),
+          'countryCode': countryCodeController.text.trim(),
         });
       }
 
@@ -141,6 +149,7 @@ class SignInController extends GetxController {
     emailController.dispose();
     passwordController.dispose();
     phoneController.dispose();
+    countryCodeController.dispose();
     super.onClose();
   }
 }
