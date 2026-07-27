@@ -242,6 +242,7 @@ class EventDetailsScreen extends StatelessWidget {
       }),
     );
   }
+  //🔑✅ ╚═╔╝╚╝╚╔╝
 
   Widget _buildSkeleton() {
     return SingleChildScrollView(
