@@ -222,7 +222,6 @@ class EventDetailsScreen extends StatelessWidget {
 
               SizedBox(height: 24.h),
 
-              // --- Pay Button ---
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: SizedBox(
@@ -248,7 +247,10 @@ class EventDetailsScreen extends StatelessWidget {
                   )),
                 ),
               ),
+
+
               SizedBox(height: 40.h),
+
             ],
           ),
         );
