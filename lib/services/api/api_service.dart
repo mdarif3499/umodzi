@@ -18,13 +18,18 @@ class DioApiClient implements ApiClient {
     return _request(url, method: 'GET', query: query, headers: headers);
   }
   @override
+
   Future<ApiResponseModel> post(
     String url, {
     dynamic body,
     Map<String, String>? headers,
-  }) {
+  })
+
+  {
     return _request(url, method: 'POST', body: body, headers: headers);
   }
+
+ // "[Content"success":[6a643e05da7a187d37bed04f]]
 
   @override
   Future<ApiResponseModel> put(
@@ -34,7 +39,6 @@ class DioApiClient implements ApiClient {
   }) {
     return _request(url, method: 'PUT', body: body, headers: headers);
   }
-
   @override
   Future<ApiResponseModel> patch(
     String url, {
@@ -64,7 +68,7 @@ class DioApiClient implements ApiClient {
     final formData = await MultipartHelper.build(files: files, fields: body);
     return _request(url, method: method, body: formData, headers: headers);
   }
-
+  // ╔╣║╚═║╔╣ Response ║ GET ║ Status: 200 OK  ║ Time: 1687 ms ╔╣╚═╚═╝═╝
   Future<ApiResponseModel> _request(
     String url, {
     required String method,

@@ -343,6 +343,7 @@ class EventDetailsScreen extends StatelessWidget {
       defaultImage: TempImage.family,
     );
   }
+ // Copyright error: pathspec 'arif' did not match any file(s) known to git
 
   Widget _buildSectionCard(String title, Widget content) {
     return Container(
@@ -415,7 +416,7 @@ class EventDetailsScreen extends StatelessWidget {
           width: 50.r,
           borderRadius: 8,
           fill: BoxFit.cover,
-          defaultImage: TempImage.manP, // Using manP as default for person
+          defaultImage: TempImage.manP,
         ),
         SizedBox(width: 12.w),
         Expanded(

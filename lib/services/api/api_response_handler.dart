@@ -24,6 +24,9 @@ class ApiResponseHandler {
           'message': AppString.noInternetConnection,
         });
 
+
+
+
       case DioExceptionType.badResponse:
         return ApiResponseModel(
           error.response?.statusCode,

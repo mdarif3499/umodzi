@@ -12,7 +12,7 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("key.jks")
+            storeFile = file("upload-keystore.jks")
             storePassword = "Mm@692972"
             keyAlias = "key"
             keyPassword = "Mm@692972"
@@ -45,7 +45,7 @@ android {
         }
     }
 }
-
+//  google_sign_in_android 6.2.1 (7.2.15 available)
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }
