@@ -78,7 +78,6 @@ class PaymentHistoryScreen extends StatelessWidget {
                     if (controller.filteredHistory.isEmpty) {
                       return const Center(child: CommonText(text: "No history found"));
                     }
-                    
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       itemCount: controller.filteredHistory.length,

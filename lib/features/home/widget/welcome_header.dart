@@ -3,11 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WelcomeHeader extends StatefulWidget {
   const WelcomeHeader({super.key});
-
   @override
   State<WelcomeHeader> createState() => _WelcomeHeaderState();
 }
-
 class _WelcomeHeaderState extends State<WelcomeHeader> {
   final OverlayPortalController _tooltipController = OverlayPortalController();
   final _link = LayerLink();

@@ -42,8 +42,7 @@ class PaymentHistoryController extends GetxController {
     if (query.isEmpty) {
       filteredHistory.assignAll(paymentHistory);
     } else {
-      // We can also call the API with searchTerm if the backend supports it better
-      // For now, doing local filtering or you can call fetchPaymentHistory(searchTerm: query)
+
       filteredHistory.assignAll(
         paymentHistory.where((element) {
           final eventName = element.eventId?.name?.toLowerCase() ?? '';

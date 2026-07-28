@@ -25,11 +25,9 @@ class AddDependentController extends GetxController {
     "Child", "Son", "Daughter", "Sibling", "Brother", "Sister", "Other"
   ];
   
-  // For Profile Image
   var selectedImagePath = "".obs;
   var selectedImageName = "".obs;
   
-  // For KYC/Document
   var selectedDocPath = "".obs;
   var selectedDocName = "".obs;
 
@@ -162,7 +160,7 @@ class AddDependentController extends GetxController {
           title: "Success", 
           message: isEditing.value ? "Dependent updated successfully" : "Dependent added successfully"
         );
-        Get.find<FamilyMemberController>().getDependents(); // Refresh list
+        Get.find<FamilyMemberController>().getDependents();
 
         Get.toNamed(AppRoutes.myFamilyScreen);
       } else {
