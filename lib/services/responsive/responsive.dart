@@ -3,13 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class Responsive {
-  Responsive._(); // Prevent instantiation
+  Responsive._();
 
-  /// Breakpoints (logical pixels)
   static const double mobileMaxWidth = 600;
   static const double tabletMaxWidth = 1024;
 
-  /// Current Flutter view
   static FlutterView _view(BuildContext context) =>
       View.of(context);
 
@@ -23,7 +21,6 @@ class Responsive {
     return view.physicalSize.height / view.devicePixelRatio;
   }
 
-  /// Device type helpers
   static bool isMobile(BuildContext context) =>
       width(context) < mobileMaxWidth;
 
