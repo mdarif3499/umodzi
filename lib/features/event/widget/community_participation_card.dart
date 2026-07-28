@@ -88,7 +88,6 @@ class CommunityParticipationCard extends StatelessWidget {
       ],
     );
   }
-
   Widget _buildRow(String icon, String label, String value) {
     return Padding(
       padding: EdgeInsets.only(bottom: 6.h),
