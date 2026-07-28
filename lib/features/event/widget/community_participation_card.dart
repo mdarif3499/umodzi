@@ -30,7 +30,10 @@ class CommunityParticipationCard extends StatelessWidget {
     String createdOn = createdAt != null ? DateFormat('MMMM d, yyyy').format(createdAt!) : "";
 
     return Column(
-      children: [
+      children:
+
+      [
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -41,7 +44,9 @@ class CommunityParticipationCard extends StatelessWidget {
             CommonText(text: '${percentage.toInt()}%', fontSize: 12.sp, color: const Color(0xFF64748B)),
           ],
         ),
+
         SizedBox(height: 8.h),
+
         LinearProgressIndicator(
           value: percentage / 100,
           backgroundColor: const Color(0xFFF1F5F9),
@@ -49,8 +54,11 @@ class CommunityParticipationCard extends StatelessWidget {
           minHeight: 6.h,
           borderRadius: BorderRadius.circular(10.r),
         ),
+
         SizedBox(height: 16.h),
+
         _buildRow(AppIcons.manI,'Organized by:', 'Community Admin'),
+
         _buildRow(AppIcons.date,'Created on:', createdOn),
 
         if (hasPenalty) ...[
@@ -71,6 +79,7 @@ class CommunityParticipationCard extends StatelessWidget {
         ],
 
         SizedBox(height: 12.h),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -85,7 +94,10 @@ class CommunityParticipationCard extends StatelessWidget {
                 color: AppColors.green),
           ],
         ),
+
       ],
+
+
     );
   }
 
@@ -112,4 +124,8 @@ class CommunityParticipationCard extends StatelessWidget {
       ),
     );
   }
+
+
+
+
 }

@@ -13,13 +13,11 @@ class CompletedEventCard extends StatelessWidget {
     super.key,
     required this.item,
   });
-
   @override
   Widget build(BuildContext context) {
     String formattedDate = item.paidAt != null 
         ? "Completed on ${DateFormat('MMM d, yyyy').format(item.paidAt!)}" 
         : "";
-
     return Container(
       margin: EdgeInsets.only(bottom: 12.h),
       padding: EdgeInsets.all(16.sp),

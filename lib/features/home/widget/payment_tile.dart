@@ -67,7 +67,7 @@ class PaymentTile extends StatelessWidget {
         if (showDivider)
           Divider(
             height: 1,
-            indent: 72.w, // Aligning divider after the icon
+            indent: 72.w,
             endIndent: 16.w,
             color: const Color(0xFFF1F5F9),
           ),
