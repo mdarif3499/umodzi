@@ -39,7 +39,6 @@ class _StripeWebViewPageState extends State<StripeWebViewPage> {
               Get.offAll(() => NavbarScreen ());
               Utils.successSnackBar("Payment successful");
             }
-            //  cancel or failure
             else if (url.contains("cancel") || url.contains("failure")) {
               Get.back();
               Utils.errorSnackBar("Payment Status", "Payment was cancelled or failed.");

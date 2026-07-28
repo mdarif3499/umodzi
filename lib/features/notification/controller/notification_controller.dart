@@ -21,7 +21,6 @@ class NotificationController extends GetxController {
     getNotifications();
   }
 
-  // 1. Fetch all notifications with pagination
   Future<void> getNotifications({bool isLoadMore = false}) async {
     if (isLoadMore) {
       if (_currentPage >= _totalPages) return;
@@ -52,7 +51,6 @@ class NotificationController extends GetxController {
     }
   }
 
-  // 2. Mark a specific notification as read
   Future<void> markAsRead(String id) async {
     try {
       final response = await _apiClient.patch('/notifications/read/$id');
@@ -69,7 +67,6 @@ class NotificationController extends GetxController {
     }
   }
 
-  // 3. Mark all notifications as read
   Future<void> markAllAsRead() async {
     try {
       final response = await _apiClient.patch('/notifications');

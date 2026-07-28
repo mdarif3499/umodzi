@@ -63,7 +63,6 @@ class _StatusCardState extends State<StatusCard> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Left Column (Flex 5)
                 Expanded(
                   flex: 5,
                   child: Column(
@@ -89,7 +88,7 @@ class _StatusCardState extends State<StatusCard> {
                                               40.w;
                                       final contentAreaWidth = cardWidth -
                                           32.r -
-                                          24.w; // Card padding + divider width
+                                          24.w;
                                       final leftColWidth =
                                           contentAreaWidth * 5 / 11;
 

@@ -124,7 +124,6 @@ class PaymentsScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final event = homeController.activeEvents[index];
 
-                  // Calculate days remaining
                   int daysLeft = 0;
                   if (event.eventDeadline != null) {
                     daysLeft = event.eventDeadline!.difference(DateTime.now()).inDays;
@@ -144,7 +143,6 @@ class PaymentsScreen extends StatelessWidget {
                     child: PendingPaymentCard(
                       payment: payment,
                       onPayTap: () {
-                        // Navigate to payment details with event info
                         Get.toNamed(AppRoutes.eventDetailsScreen, arguments: {
                           'eventId': event.id,
                           'hasPenalty': false,

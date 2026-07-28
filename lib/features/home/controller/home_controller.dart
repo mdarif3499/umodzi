@@ -24,11 +24,9 @@ class HomeController extends GetxController {
   var quickActionData = QuickActionData().obs;
   var walletSummary = WalletSummaryData().obs;
   
-  // For Home Screen (Short list)
   var activeEvents = <ActiveEvent>[].obs;
   var recentTransactions = <RecentTransaction>[].obs;
   
-  // For All Active Events Screen (Paginated)
   var allActiveEvents = <ActiveEvent>[].obs;
   var currentPage = 1;
   var totalPages = 1;

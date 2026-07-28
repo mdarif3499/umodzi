@@ -13,7 +13,6 @@ class PaymentsController extends GetxController {
   var paymentHistory = <TransactionData>[].obs;
   var isLoading = false.obs;
   var isSummaryLoading = false.obs;
-  
   var paymentSummary = PaymentSummaryData().obs;
 
   @override
@@ -22,7 +21,6 @@ class PaymentsController extends GetxController {
     fetchPaymentSummary();
     fetchPaymentHistory();
   }
-
   Future<void> fetchPaymentSummary() async {
     isSummaryLoading.value = true;
     try {
@@ -39,7 +37,6 @@ class PaymentsController extends GetxController {
       isSummaryLoading.value = false;
     }
   }
-
   Future<void> fetchPaymentHistory() async {
     isLoading.value = true;
     try {

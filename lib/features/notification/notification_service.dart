@@ -51,7 +51,6 @@ class NotificationService {
       
       log('🔔 Permission Status: ${settings.authorizationStatus}');
 
-      // ৩. FCM টোকেন সংগ্রহ করা (টাইমআউট সহ)
       final fcmToken = await FirebaseMessaging.instance.getToken().timeout(
         const Duration(seconds: 8),
         onTimeout: () {
@@ -65,7 +64,6 @@ class NotificationService {
         await LocalStorage.setString(LocalStorageKeys.fcmToken, fcmToken);
       }
 
-      // ৪. লোকাল নোটিফিকেশন ইনিশিয়ালাইজ করা
       const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
       const initSettings = InitializationSettings(android: androidSettings);
       
@@ -76,7 +74,6 @@ class NotificationService {
         },
       );
 
-      // ৫. ফোরগ্রাউন্ড মেসেজ লিসেনার
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         log('📬 Foreground Message: ${message.notification?.title}');
         _showLocalNotification(message);

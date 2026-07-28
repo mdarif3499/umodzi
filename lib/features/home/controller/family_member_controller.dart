@@ -38,8 +38,8 @@ class FamilyMemberController extends GetxController {
       isLoading.value = true;
       final response = await apiClient.delete(ApiEndPoint.removeDependent(id));
       if (response.isSuccess) {
-        Get.back(); // Close dialog
-        getDependents(); // Refresh list
+        Get.back();
+        getDependents();
         Get.snackbar("Success", "Family member removed successfully",
             backgroundColor: AppColors.green, colorText: Colors.white);
       } else {

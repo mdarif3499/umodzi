@@ -26,7 +26,6 @@ class EditDependentController extends GetxController {
       dobController.text = formattedDate;
     }
   }
-
   Future<void> pickFile() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);

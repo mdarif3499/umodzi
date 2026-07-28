@@ -45,7 +45,6 @@ class PaymentHistoryDetailsScreen extends StatelessWidget {
             ),
             SizedBox(height: 30.h),
 
-            // --- Top Card (Event Info) ---
             Container(
               padding: EdgeInsets.all(16.sp),
               decoration: BoxDecoration(
@@ -115,7 +114,6 @@ class PaymentHistoryDetailsScreen extends StatelessWidget {
 
                   const Divider(height: 32, color: Color(0xFFF1F5F9)),
 
-                  // Total Paid Amount Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
