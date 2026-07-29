@@ -200,7 +200,6 @@ class EventDetailsScreen extends StatelessWidget {
 
               SizedBox(height: 140.h),
 
-              // --- Beneficiary Details Card ---
               EventSectionCard(
                 title: 'Beneficiary Details', 
                 content: BeneficiaryInfoCard(beneficiary: beneficiary),

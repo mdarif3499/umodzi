@@ -9,7 +9,7 @@ import '../model/single_event_model.dart';
 
 class EventDetailsController extends GetxController {
   final ApiClient _apiClient = DioApiClient();
-  
+
   var isLoading = false.obs;
   var isPaymentLoading = false.obs;
   var eventData = Rxn<SingleEventData>();
@@ -35,17 +35,26 @@ class EventDetailsController extends GetxController {
         body: {'eventId': eventId},
       );
       if (response.statusCode == 200) {
+
         final checkoutUrl = response.data['data']['url'];
         if (checkoutUrl != null) {
+
           Get.to(() => StripeWebViewPage(checkoutUrl: checkoutUrl));
+
         }
       } else {
+
         AppSnackbar.error(title: 'Error', message: response.message);
       }
     } catch (e) {
+
       AppSnackbar.error(title: 'Error', message: e.toString());
+
     } finally {
+
+
       isPaymentLoading.value = false;
+
     }
   }
 }

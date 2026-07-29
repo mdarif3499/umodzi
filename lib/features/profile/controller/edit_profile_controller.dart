@@ -32,7 +32,6 @@ class EditProfileController extends GetxController {
   void _initializeData() {
     final profileController = Get.find<ProfileController>();
     final data = profileController.profileData.value;
-    
     if (data != null) {
       nameController.text = data.name ?? '';
       emailController.text = data.email ?? '';
@@ -47,7 +46,6 @@ class EditProfileController extends GetxController {
       imagePath.value = image.path;
     }
   }
-
   Future<void> updateProfile() async {
     try {
       isLoading.value = true;
