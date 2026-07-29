@@ -9,7 +9,6 @@ import '../model/single_event_model.dart';
 
 class EventDetailsController extends GetxController {
   final ApiClient _apiClient = DioApiClient();
-
   var isLoading = false.obs;
   var isPaymentLoading = false.obs;
   var eventData = Rxn<SingleEventData>();
