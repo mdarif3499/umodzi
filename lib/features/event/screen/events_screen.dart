@@ -12,9 +12,7 @@ import '../../../component/other_widgets/common_skeleton.dart';
 
 class EventsScreen extends StatelessWidget {
   EventsScreen({super.key});
-
   final controller = Get.put(EventController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +37,6 @@ class EventsScreen extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
               SizedBox(height: 24.h),
-
-              // --- Pending Section ---
               const CommonText(
                 text: 'Pending Contributions',
                 fontWeight: FontWeight.w500,
@@ -112,6 +108,7 @@ class EventsScreen extends StatelessWidget {
                     )),
                   );
                 }
+
                 if (controller.completedContributions.isEmpty) {
                   return const Center(
                     child: Padding(
@@ -120,6 +117,7 @@ class EventsScreen extends StatelessWidget {
                     ),
                   );
                 }
+
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -129,7 +127,9 @@ class EventsScreen extends StatelessWidget {
                     return CompletedEventCard(item: item);
                   },
                 );
+
               }),
+
               SizedBox(height: 20.h),
             ],
           ),
