@@ -107,7 +107,8 @@ class AddDependentController extends GetxController {
       }
 
 
-    } catch (e) {
+    }
+    catch (e) {
       debugPrint("Error picking document: $e");
     }
   }
