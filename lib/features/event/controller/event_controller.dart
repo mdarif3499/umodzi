@@ -34,6 +34,9 @@ class EventController extends GetxController {
       isPendingLoading.value = false;
     }
   }
+
+  //       ✅---___--->
+
   Future<void> fetchCompletedContributions() async {
     isLoading.value = true;
     try {

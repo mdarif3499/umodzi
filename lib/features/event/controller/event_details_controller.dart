@@ -9,11 +9,6 @@ import '../model/single_event_model.dart';
 
 class EventDetailsController extends GetxController {
   final ApiClient _apiClient = DioApiClient();
-
-
- // ℹ️ >>>>>>>>>>>>>>>>>>>>>>>>> >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Firebase already running, skipping re-initialization.
-
-
   var isLoading = false.obs;
   var isPaymentLoading = false.obs;
   var eventData = Rxn<SingleEventData>();

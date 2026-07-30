@@ -71,6 +71,7 @@ class AddDependentController extends GetxController {
           }
         }
       }
+
     } catch (e) {
       debugPrint("Error loading member for edit: $e");
     }
@@ -94,14 +95,18 @@ class AddDependentController extends GetxController {
 
   Future<void> pickDocument() async {
     try {
+
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['pdf', 'doc', 'docx', 'png', 'jpg', 'jpeg'],
       );
+
       if (result != null && result.files.single.path != null) {
         selectedDocName.value = result.files.single.name;
         selectedDocPath.value = result.files.single.path!;
       }
+
+
     } catch (e) {
       debugPrint("Error picking document: $e");
     }
@@ -131,6 +136,10 @@ class AddDependentController extends GetxController {
         "address": addressController.text.trim(),
         "relationship": selectedRelationship.value,
       };
+
+
+
+
 
       List<MultipartFileItem> files = [];
       
@@ -172,7 +181,7 @@ class AddDependentController extends GetxController {
       isLoading.value = false;
     }
   }
-
+ // 🔌👂🔔✅🎯🔑📱ℹ️
   @override
   void onClose() {
     nameController.dispose();
