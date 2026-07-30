@@ -139,8 +139,6 @@ class AddDependentController extends GetxController {
 
 
 
-
-
       List<MultipartFileItem> files = [];
       
       if (selectedImagePath.value.isNotEmpty) {
@@ -181,7 +179,9 @@ class AddDependentController extends GetxController {
       isLoading.value = false;
     }
   }
- // 🔌👂🔔✅🎯🔑📱ℹ️
+
+
+ //🔌👂🔔✅🎯🔑📱ℹ️
   @override
   void onClose() {
     nameController.dispose();
@@ -190,4 +190,5 @@ class AddDependentController extends GetxController {
     countryCodeController.dispose();
     super.onClose();
   }
+
 }
