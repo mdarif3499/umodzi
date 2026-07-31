@@ -112,7 +112,7 @@ class AddDependentController extends GetxController {
       debugPrint("Error picking document: $e");
     }
   }
-
+  // ╚═║═╝╔╣╝
   Future<void> submitMember() async {
     if (nameController.text.isEmpty || phoneController.text.isEmpty || selectedRelationship.value.isEmpty) {
       AppSnackbar.error(title: "Required", message: "Please fill in Name, Phone, and Relationship");
@@ -138,8 +138,7 @@ class AddDependentController extends GetxController {
         "relationship": selectedRelationship.value,
       };
 
-
-
+    //╔╣══╔╣╝═=>╚║╝  "message": "Events retrieved successfully",
       List<MultipartFileItem> files = [];
       
       if (selectedImagePath.value.isNotEmpty) {
