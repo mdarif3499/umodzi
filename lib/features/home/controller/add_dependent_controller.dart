@@ -107,7 +107,8 @@ class AddDependentController extends GetxController {
       }
 
 
-    } catch (e) {
+    }
+    catch (e) {
       debugPrint("Error picking document: $e");
     }
   }
@@ -136,8 +137,6 @@ class AddDependentController extends GetxController {
         "address": addressController.text.trim(),
         "relationship": selectedRelationship.value,
       };
-
-
 
 
 
@@ -181,7 +180,9 @@ class AddDependentController extends GetxController {
       isLoading.value = false;
     }
   }
- // 🔌👂🔔✅🎯🔑📱ℹ️
+
+
+ //🔌👂🔔✅🎯🔑📱ℹ️
   @override
   void onClose() {
     nameController.dispose();
@@ -190,4 +191,5 @@ class AddDependentController extends GetxController {
     countryCodeController.dispose();
     super.onClose();
   }
+
 }
