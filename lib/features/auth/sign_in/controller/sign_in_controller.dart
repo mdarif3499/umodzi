@@ -102,6 +102,12 @@ class SignInController extends GetxController {
           await LocalStorage.remove(LocalStorageKeys.password);
         }
 
+
+
+
+
+
+
         if (accessToken.isNotEmpty) {
           try {
             Map<String, dynamic> payload = Jwt.parseJwt(accessToken);
@@ -110,7 +116,6 @@ class SignInController extends GetxController {
             if (uId.isNotEmpty) {
               await LocalStorage.setString(LocalStorageKeys.userId, uId);
             }
-
             if (payload["email"] != null) await LocalStorage.setString(LocalStorageKeys.myEmail, payload["email"].toString());
             if (payload["role"] != null) await LocalStorage.setString(LocalStorageKeys.role, payload["role"].toString());
 
