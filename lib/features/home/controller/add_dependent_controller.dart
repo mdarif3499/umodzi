@@ -138,7 +138,10 @@ class AddDependentController extends GetxController {
         "relationship": selectedRelationship.value,
       };
 
-    //╔╣══╔╣╝═=>╚║╝  "message": "Events retrieved successfully",
+    //╔╣══╔╣╝═=>╚║╝╔╣═╝
+     // MultipartFileItem >>>>>>>>>>>>>>>>>>>>>>
+
+
       List<MultipartFileItem> files = [];
       
       if (selectedImagePath.value.isNotEmpty) {
@@ -161,7 +164,7 @@ class AddDependentController extends GetxController {
         files: files,
         body: {'data': jsonEncode(dataMap)},
       );
-
+   // 👂  6a643e05da7a187d37bed04f
       if (response.isSuccess) {
         AppSnackbar.success(
           title: "Success", 
