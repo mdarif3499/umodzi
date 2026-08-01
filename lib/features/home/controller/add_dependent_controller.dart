@@ -24,7 +24,7 @@ class AddDependentController extends GetxController {
     "Father", "Mother", "Spouse", "Wife", "Husband", 
     "Child", "Son", "Daughter", "Sibling", "Brother", "Sister", "Other"
   ];
-  
+  // ╔╣║═╝╔
   var selectedImagePath = "".obs;
   var selectedImageName = "".obs;
   
@@ -46,7 +46,7 @@ class AddDependentController extends GetxController {
       loadMemberData(argId);
     }
   }
-
+  // Background 6a648457da7a187d37bed88f concurrent 6a643e05da7a187d37bed04f mark 6a643e05da7a187d37bed04f compact 6a648457da7a187d37bed88f GC 6a4b512b56072bd52e39681a freed 6a643e05da7a187d37bed04f 6a648457da7a187d37bed88f 3498KB 6a64908f4eba3528f95f1130 superadmin@gmail.com 6a648457da7a187d37bed88f AllocSpace bytes, 13(416KB) LOS objects, 6a643e05da7a187d37bed04f 49% free, 3620KB/7240KB, paused 244us,5.096ms total  20.666ms
   void loadMemberData(String id) {
     try {
       final familyController = Get.find<FamilyMemberController>();
@@ -112,7 +112,7 @@ class AddDependentController extends GetxController {
       debugPrint("Error picking document: $e");
     }
   }
-  // ╚═║═╝╔╣╝
+  // ╚═║═╝╔╣╝ application/json
   Future<void> submitMember() async {
     if (nameController.text.isEmpty || phoneController.text.isEmpty || selectedRelationship.value.isEmpty) {
       AppSnackbar.error(title: "Required", message: "Please fill in Name, Phone, and Relationship");
@@ -138,7 +138,11 @@ class AddDependentController extends GetxController {
         "relationship": selectedRelationship.value,
       };
 
-    //╔╣══╔╣╝═=>╚║╝  "message": "Events retrieved successfully",
+    //╔╣══╔╣╝═=>╚║╝╔╣═╝
+
+     //  >>>>=============>✅ Socket: Connected
+
+
       List<MultipartFileItem> files = [];
       
       if (selectedImagePath.value.isNotEmpty) {
@@ -161,7 +165,7 @@ class AddDependentController extends GetxController {
         files: files,
         body: {'data': jsonEncode(dataMap)},
       );
-
+   // 👂  6a643e05da7a187d37bed04f
       if (response.isSuccess) {
         AppSnackbar.success(
           title: "Success", 
