@@ -21,8 +21,7 @@ class BeneficiaryInfoCard extends StatelessWidget {
         CommonImage(imageSrc: image ?? "", height: 50.r, width: 50.r, borderRadius: 8, fill: BoxFit.cover, defaultImage: TempImage.manP,),
         SizedBox(width: 12.w),
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column( crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
               Row(
@@ -54,6 +53,7 @@ class BeneficiaryInfoCard extends StatelessWidget {
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color: AppColors.color333333),
+
               SizedBox(height: 6.h),
 
               if (beneficiary?.documents != null && beneficiary!.documents!.isNotEmpty)

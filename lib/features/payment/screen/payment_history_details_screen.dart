@@ -44,7 +44,6 @@ class PaymentHistoryDetailsScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 30.h),
-
             Container(
               padding: EdgeInsets.all(16.sp),
               decoration: BoxDecoration(
@@ -93,7 +92,6 @@ class PaymentHistoryDetailsScreen extends StatelessWidget {
                     color: Color(0xFF64748B),
                   ),
                   SizedBox(height: 16.h),
-
                   Row(
                     children: [
                       const Expanded(
@@ -111,31 +109,31 @@ class PaymentHistoryDetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   const Divider(height: 32, color: Color(0xFFF1F5F9)),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const CommonText(text: 'Total Paid Amount', fontSize: 14, color: Color(0xFF64748B)),
+
                       const CommonText(
                         text: '\$ 100.00',
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF22C55E),
                       ),
+
                     ],
                   ),
                 ],
               ),
             ),
-
             SizedBox(height: 20.h),
 
             const PayPendingSectionCard(
               title: 'Beneficiary Details',
               content: PayPendingBeneficiaryInfo(),
-            ),
+            )
+            ,
 
             SizedBox(height: 40.h),
           ],
