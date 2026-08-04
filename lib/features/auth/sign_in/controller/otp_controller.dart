@@ -156,6 +156,8 @@ class OtpController extends GetxController {
     }
   }
 
+  // 👂👂👂
+
   String get minutes => (timerSeconds.value ~/ 60).toString().padLeft(2, '0');
   String get seconds => (timerSeconds.value % 60).toString().padLeft(2, '0');
 
