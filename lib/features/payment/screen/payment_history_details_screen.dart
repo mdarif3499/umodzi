@@ -129,7 +129,7 @@ class PaymentHistoryDetailsScreen extends StatelessWidget {
             ),
             SizedBox(height: 20.h),
 
-            const PayPendingSectionCard(
+             PayPendingSectionCard(
               title: 'Beneficiary Details',
               content: PayPendingBeneficiaryInfo(),
             )
