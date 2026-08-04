@@ -18,25 +18,18 @@ class BeneficiaryInfoCard extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonImage(
-          imageSrc: image ?? "",
-          height: 50.r,
-          width: 50.r,
-          borderRadius: 8,
-          fill: BoxFit.cover,
-          defaultImage: TempImage.manP,
-        ),
+        CommonImage(imageSrc: image ?? "", height: 50.r, width: 50.r, borderRadius: 8, fill: BoxFit.cover, defaultImage: TempImage.manP,),
         SizedBox(width: 12.w),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               Row(
                 children: [
-                  CommonText(
-                      text: beneficiary?.name ?? "",
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400),
+
+                  CommonText(text: beneficiary?.name ?? "", fontSize: 14.sp, fontWeight: FontWeight.w400),
+
                   SizedBox(width: 6.w),
                   CommonText(
                       text: beneficiary?.relationship ?? "",
@@ -44,6 +37,7 @@ class BeneficiaryInfoCard extends StatelessWidget {
                       color: const Color(0xFFE29D19)),
                 ],
               ),
+
               Row(
                 children: [
                   Image.asset(AppIcons.check3, height: 14.h, width: 15.w),
@@ -54,24 +48,16 @@ class BeneficiaryInfoCard extends StatelessWidget {
                       color: Color(0xFFA53200)),
                 ],
               ),
+
               CommonText(
                   text: beneficiary?.email ?? "",
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color: AppColors.color333333),
-              CommonText(
-                  text: "${beneficiary?.countryCode ?? ""} ${beneficiary?.contactNumber ?? ""}",
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.color333333),
               SizedBox(height: 6.h),
-              CommonText(
-                  text: beneficiary?.address ?? "",
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.color333333),
-              SizedBox(height: 6.h),
+
               if (beneficiary?.documents != null && beneficiary!.documents!.isNotEmpty)
+
                 Row(
                   children: [
                     const Icon(Icons.picture_as_pdf, color: Colors.red, size: 14),
@@ -82,12 +68,31 @@ class BeneficiaryInfoCard extends StatelessWidget {
                         color: AppColors.color333333),
                   ],
                 ),
+
               SizedBox(height: 8.h),
+
               CommonText(
                   text: beneficiary?.fundsReason ?? "",
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w400,
+                  color: AppColors.color333333
+              ),
+              CommonText(
+                  text: "${beneficiary?.countryCode ?? ""} ${beneficiary?.contactNumber ?? ""}",
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
                   color: AppColors.color333333),
+
+              SizedBox(height: 6.h),
+
+              CommonText(
+                  text: beneficiary?.address ?? "",
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.color333333),
+
+
+
             ],
           ),
         )
