@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:jwt_decode/jwt_decode.dart';
-
 import '../../../../config/api/api_end_point.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../services/api/api_client.dart';
@@ -45,6 +44,7 @@ class SignInController extends GetxController {
   }
 
   // Saved credentials load korar jonno
+
   void _loadSavedCredentials() {
     bool isRemember = LocalStorage.getBool(LocalStorageKeys.rememberMe);
     if (isRemember) {
@@ -91,32 +91,24 @@ class SignInController extends GetxController {
         final String accessToken = data["accessToken"] ?? "";
         await LocalStorage.setString(LocalStorageKeys.token, accessToken);
         await LocalStorage.setString(LocalStorageKeys.refreshToken, data["refreshToken"] ?? "");
-        
+
         // Remember Me logic
+
         if (rememberMe.value) {
           await LocalStorage.setBool(LocalStorageKeys.rememberMe, true);
           await LocalStorage.setString(LocalStorageKeys.myEmail, emailController.text.trim());
           await LocalStorage.setString(LocalStorageKeys.password, passwordController.text.trim());
-        } else {
-          await LocalStorage.setBool(LocalStorageKeys.rememberMe, false);
-          await LocalStorage.remove(LocalStorageKeys.password);
-        }
-
-
-
-
-
+        } else {await LocalStorage.setBool(LocalStorageKeys.rememberMe, false);await LocalStorage.remove(LocalStorageKeys.password);}
 
 
         if (accessToken.isNotEmpty) {
           try {
             Map<String, dynamic> payload = Jwt.parseJwt(accessToken);
 
-            final String uId = (payload["id"] ?? "").toString();
-            if (uId.isNotEmpty) {
-              await LocalStorage.setString(LocalStorageKeys.userId, uId);
-            }
+            final String uId = (payload["id"] ?? "").toString();if (uId.isNotEmpty) {await LocalStorage.setString(LocalStorageKeys.userId, uId);}
             if (payload["email"] != null) await LocalStorage.setString(LocalStorageKeys.myEmail, payload["email"].toString());
+
+
             if (payload["role"] != null) await LocalStorage.setString(LocalStorageKeys.role, payload["role"].toString());
 
           } catch (e) {
