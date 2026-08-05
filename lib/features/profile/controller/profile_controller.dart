@@ -128,7 +128,6 @@ class ProfileController extends GetxController {
       AppSnackbar.error(title: 'Error', message: 'Please enter your password');
       return;
     }
-
     try {
       isLoading.value = true;
       final response = await apiClient.delete(
@@ -153,7 +152,6 @@ class ProfileController extends GetxController {
       isLoading.value = false;
     }
   }
-
   @override
   void onClose() {
     deletePasswordController.dispose();
