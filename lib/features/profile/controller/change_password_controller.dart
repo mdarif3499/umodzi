@@ -33,11 +33,9 @@ class ChangePasswordController extends GetxController {
     }
 
     if (newPassword != confirmPassword) {
-
       AppSnackbar.error(title: "Mismatch", message: "Passwords do not match");
 
       return;
-
     }
 
     try {
