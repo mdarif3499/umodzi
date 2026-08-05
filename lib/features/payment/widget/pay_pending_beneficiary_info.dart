@@ -30,6 +30,9 @@ class PayPendingBeneficiaryInfo extends StatelessWidget {
                   CommonText(
                       text: 'Member', fontSize: 12, color: Color(0xFFE29D19)),],
               ),
+
+              ///  ╚══════════════════════════════════════════6a64908f4eba3528f95f1130//6a643e05da7a187d37bed04f\\6a4b512b56072bd52e39681a════════════════════════════════════════════════╝
+
               Row(
                 children: [
                   Image.asset(
@@ -73,6 +76,8 @@ class PayPendingBeneficiaryInfo extends StatelessWidget {
                       color: AppColors.color333333),
                 ],
               ),
+
+              /// 🔔 Notification Service Initialized Request HomeController setOnBackInvokedCallbackInfo Activity$$ExternalSyntheticLambda0@df462b6
               SizedBox(height: 8.h),
               const CommonText(
                   text:
@@ -80,6 +85,9 @@ class PayPendingBeneficiaryInfo extends StatelessWidget {
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
                   color: AppColors.color333333),
+
+
+
             ],
           ),
         )
