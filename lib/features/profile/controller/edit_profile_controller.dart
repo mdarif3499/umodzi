@@ -21,7 +21,6 @@ class EditProfileController extends GetxController {
   
   RxString imagePath = ''.obs;
   RxBool isLoading = false.obs;
-  
   RxString selectedCountryCode = '+265'.obs;
 
   @override

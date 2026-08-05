@@ -14,7 +14,6 @@ class EditDependentController extends GetxController {
   RxList<String> uploadedFiles = <String>['NID.pdf', 'NID.pdf'].obs;
 
   Future<void> selectDate(BuildContext context) async {
-
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime(2000),
