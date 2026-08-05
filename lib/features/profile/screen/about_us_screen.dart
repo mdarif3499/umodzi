@@ -27,11 +27,9 @@ class AboutUsScreen extends StatelessWidget {
         if (controller.isLoading.value) {
           return  Center(child: CircularProgressIndicator(color: Colors.black));
         }
-        
         if (controller.content.value.isEmpty) {
           return  Center(child: CommonText(text: "No content available"));
         }
-
         return SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
           child: Html(
