@@ -76,6 +76,8 @@ class PayPendingBeneficiaryInfo extends StatelessWidget {
                       color: AppColors.color333333),
                 ],
               ),
+
+              /// 🔔 Notification Service Initialized Request HomeController setOnBackInvokedCallbackInfo Activity$$ExternalSyntheticLambda0@df462b6
               SizedBox(height: 8.h),
               const CommonText(
                   text:
@@ -83,6 +85,9 @@ class PayPendingBeneficiaryInfo extends StatelessWidget {
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
                   color: AppColors.color333333),
+
+
+
             ],
           ),
         )

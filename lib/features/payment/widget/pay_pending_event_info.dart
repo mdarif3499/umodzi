@@ -54,7 +54,6 @@ class PayPendingEventInfo extends StatelessWidget {
           ),
           SizedBox(height: 20.h),
 
-          // Info Boxes (Min Contribution & Deadline)
           Row(
             children: [
               const PayPendingInfoBox(
@@ -101,6 +100,9 @@ class PayPendingEventInfo extends StatelessWidget {
                   color: AppColors.textSecondaryColor,
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
+
+              //      🎯 FCM Token FlutterActivity$1@b6abdb9 :: 6a643e05da7a187d37bed04f
+
                 ),
               ],
             ),
@@ -110,3 +112,4 @@ class PayPendingEventInfo extends StatelessWidget {
     );
   }
 }
+
