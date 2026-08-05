@@ -30,22 +30,15 @@ class AboutUsScreen extends StatelessWidget {
         if (controller.content.value.isEmpty) {
           return  Center(child: CommonText(text: "No content available"));
         }
+
         return SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
           child: Html(
             data: controller.content.value,
-            style: {
-              "body": Style(
-                fontSize: FontSize(14.sp),
-                fontWeight: FontWeight.w400,
-                color: Colors.black87,
-                lineHeight:  LineHeight(1.5),
-                padding: HtmlPaddings.zero,
-                margin: Margins.zero,
-              ),
-            },
+            style: {"body": Style(fontSize: FontSize(14.sp), fontWeight: FontWeight.w400, color: Colors.black87, lineHeight:  LineHeight(1.5), padding: HtmlPaddings.zero, margin: Margins.zero,),},
           ),
         );
+
       }),
     );
   }
