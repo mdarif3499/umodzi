@@ -30,6 +30,9 @@ class PayPendingBeneficiaryInfo extends StatelessWidget {
                   CommonText(
                       text: 'Member', fontSize: 12, color: Color(0xFFE29D19)),],
               ),
+
+              ///  ╚══════════════════════════════════════════6a64908f4eba3528f95f1130//6a643e05da7a187d37bed04f\\6a4b512b56072bd52e39681a════════════════════════════════════════════════╝
+
               Row(
                 children: [
                   Image.asset(

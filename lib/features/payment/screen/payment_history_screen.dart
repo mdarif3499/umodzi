@@ -23,6 +23,7 @@ class PaymentHistoryScreen extends StatelessWidget {
       backgroundColor: AppColors.background,
       body: Column(
         children: [
+
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
             child: TextField(
@@ -95,6 +96,7 @@ class PaymentHistoryScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20.h),
+
         ],
       ),
     );
