@@ -31,7 +31,6 @@ class AboutUsScreen extends StatelessWidget {
         if (controller.content.value.isEmpty) {
           return  Center(child: CommonText(text: "No content available"));
         }
-
         return SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
           child: Html(

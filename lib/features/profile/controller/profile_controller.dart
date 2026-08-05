@@ -98,7 +98,6 @@ class ProfileController extends GetxController {
   }
 
   Future<void> toggleNotification(bool value) async {
-    // Optimistic update
     final previousValue = isNotificationEnabled.value;
     isNotificationEnabled.value = value;
     
@@ -109,7 +108,6 @@ class ProfileController extends GetxController {
       );
 
       if (response.statusCode != 200) {
-        // Revert if failed
         isNotificationEnabled.value = previousValue;
         AppSnackbar.error(title: 'Error', message: 'Failed to update notification settings');
       } else {
@@ -119,7 +117,6 @@ class ProfileController extends GetxController {
         );
       }
     } catch (e) {
-      // Revert if exception
       isNotificationEnabled.value = previousValue;
       AppSnackbar.error(title: 'Error', message: 'Something went wrong');
     }
@@ -131,7 +128,6 @@ class ProfileController extends GetxController {
       AppSnackbar.error(title: 'Error', message: 'Please enter your password');
       return;
     }
-
     try {
       isLoading.value = true;
       final response = await apiClient.delete(
@@ -142,7 +138,6 @@ class ProfileController extends GetxController {
       if (response.statusCode == 200) {
         AppSnackbar.success(title: 'Success', message: 'Account deleted successfully');
         
-        // Logout and navigate to Sign In
         await LocalStorage.removeAllPrefData();
         SocketService.disconnect();
         
@@ -157,7 +152,6 @@ class ProfileController extends GetxController {
       isLoading.value = false;
     }
   }
-
   @override
   void onClose() {
     deletePasswordController.dispose();
