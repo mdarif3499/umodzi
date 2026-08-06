@@ -128,7 +128,6 @@ class ChatController extends GetxController {
       } else {
         response = await _apiClient.post(url, body: body);
       }
-
       if (response.statusCode == 200 || response.statusCode == 201) {
         if (response.data['data'] != null) {
            final sentMsg = MessageModel.fromJson(response.data['data'], userId, forceMe: true);
