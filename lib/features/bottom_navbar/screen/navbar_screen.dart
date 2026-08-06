@@ -97,13 +97,11 @@ class NavbarScreen extends StatelessWidget {
         height: 24.h,
         color: const Color(0xFF99A1AF),
       ),
-
       activeIcon: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           CommonText(text:
             label,
-
               fontSize: 14.sp,
               fontWeight: FontWeight.w400,
               color:  AppColors.logoutRed,
