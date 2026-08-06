@@ -35,7 +35,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   SizedBox(height: 40.h),
-                  // Logo
                   Center(
                     child: Image.asset(
                       AppImages.appLogoP,
@@ -45,7 +44,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(height: 12.h),
-
                   const CommonText(
                     text: 'Sign up now',
                     fontSize: 24,
@@ -62,7 +60,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 32.h),
-
                   CommonTextField(
                     title: 'Full Name',
                     hintText: 'Please enter your full name.',
@@ -70,7 +67,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     validator: AppValidation.required,
                   ),
                   SizedBox(height: 20.h),
-
                   CommonTextField(
                     title: 'Email',
                     hintText: 'Please enter your email address.',
@@ -79,7 +75,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     validator: AppValidation.email,
                   ),
                   SizedBox(height: 20.h),
-
                   Align(
                     alignment: Alignment.centerLeft,
                     child: CommonText(
@@ -104,7 +99,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     validator: AppValidation.password,
                   ),
                   SizedBox(height: 30.h),
-
                   GetBuilder<SignUpController>(
                     builder: (controller) => CommonButton(
                       isLoading: controller.isLoading,
@@ -117,9 +111,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               : null,
                     ),
                   ),
-
                   SizedBox(height: 24.h),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -139,7 +131,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ],
                   ),
-
                   SizedBox(height: 40.h),
                 ],
               ),
