@@ -42,7 +42,7 @@ class EventDetailsController extends GetxController {
 
         }
       } else {
-
+/// pop up snackbar error message
         AppSnackbar.error(title: 'Error', message: response.message);
       }
     } catch (e) {
