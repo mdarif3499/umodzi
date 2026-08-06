@@ -68,13 +68,9 @@ class NotificationScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final item = controller.notificationList[index];
 
-                    // Safely format date
                     String formattedTime = item.createdAt != null
                         ? DateFormat('dd MMM, yyyy').format(item.createdAt!)
-                        : "";
-
-                    bool isRead = item.read ?? true;
-
+                        : "";bool isRead = item.read ?? true;
                     return GestureDetector(
                       onTap: () {
                         if (item.id != null) {
@@ -175,6 +171,7 @@ class NotificationScreen extends StatelessWidget {
             child: Icon(icon, color: iconColor, size: 20.sp),
           ),
           SizedBox(width: 12.w),
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,7 +191,7 @@ class NotificationScreen extends StatelessWidget {
                       Container(
                         height: 8.h,
                         width: 8.h,
-                        decoration: const BoxDecoration(
+                        decoration:  BoxDecoration(
                           color: Color(0xFF27AE60),
                           shape: BoxShape.circle,
                         ),
@@ -235,7 +232,7 @@ class _NotificationBadge extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 5),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: const Color(0xFFE43730),
+        color:  Color(0xFFE43730),
         borderRadius: BorderRadius.circular(20.r),
       ),
       child: CommonText(
