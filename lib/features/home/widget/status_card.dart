@@ -86,9 +86,8 @@ class _StatusCardState extends State<StatusCard> {
                                       final cardWidth =
                                           MediaQuery.of(context).size.width -
                                               40.w;
-                                      final contentAreaWidth = cardWidth -
-                                          32.r -
-                                          24.w;
+                                      final contentAreaWidth =
+                                          cardWidth - 32.r - 24.w;
                                       final leftColWidth =
                                           contentAreaWidth * 5 / 11;
                                       final iconCenterX =
@@ -115,6 +114,15 @@ class _StatusCardState extends State<StatusCard> {
                                             child: _buildMembershipPopup(
                                                 cardWidth, iconCenterX),
                                           ),
+
+                                          // Windows PowerShell
+                                          // Copyright (C) Microsoft Corporation. All rights reserved.
+                                          //
+                                          // PS C:\Users\mdyou\StudioProjects\umodzi>
+                                          ///Windows PowerShell
+                                         // // Copyright (C) Microsoft Corporation. All rights reserved.
+                                        // //
+                                       // // PS C:\Users\mdyou\StudioProjects\umodzi>
                                         ],
                                       );
                                     },
@@ -288,7 +296,8 @@ class _StatusCardState extends State<StatusCard> {
             fontSize: 11.sp,
             color: AppColors.textSecondaryColor),
         CommonText(
-            text: '${widget.lastPaymentAmount ?? "N/A"} - on ${widget.lastPaymentDate ?? "N/A"}',
+            text:
+                '${widget.lastPaymentAmount ?? "N/A"} - on ${widget.lastPaymentDate ?? "N/A"}',
             fontSize: 11.sp,
             fontWeight: FontWeight.w500),
       ],
@@ -317,7 +326,8 @@ class _StatusCardState extends State<StatusCard> {
             color: AppColors.textSecondaryColor),
         SizedBox(height: 3.h),
         CommonText(
-            text: '${widget.lastPaymentAmount ?? "N/A"} - on ${widget.lastPaymentDate ?? "N/A"}',
+            text:
+                '${widget.lastPaymentAmount ?? "N/A"} - on ${widget.lastPaymentDate ?? "N/A"}',
             fontSize: 11.sp,
             fontWeight: FontWeight.w500),
       ],
