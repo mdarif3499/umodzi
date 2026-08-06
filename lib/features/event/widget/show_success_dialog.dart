@@ -27,7 +27,6 @@ void showSuccessDialog(BuildContext context) {
                 fit: BoxFit.contain,
               ),
               SizedBox(height: 24.h),
-
               CommonText(
                 text: 'Payment Successful',
                 fontSize: 18.sp,
@@ -41,7 +40,6 @@ void showSuccessDialog(BuildContext context) {
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,
                 color: const Color(0xFF64748B),
-
                 textAlign: TextAlign.center,
               ),
             ],

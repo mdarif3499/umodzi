@@ -263,7 +263,7 @@ class ChatScreen extends StatelessWidget {
                     child: TextField(
                       controller: controller.messageController,
                       decoration: const InputDecoration(
-                        hintText: 'Type here your message',
+                        hintText: 'Type here your message...',
                         border: InputBorder.none,
                         hintStyle: TextStyle(color: Colors.grey),
                       ),
