@@ -90,9 +90,6 @@ class BeneficiaryInfoCard extends StatelessWidget {
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   color: AppColors.color333333),
-
-
-
             ],
           ),
         )
