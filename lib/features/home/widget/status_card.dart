@@ -91,12 +91,9 @@ class _StatusCardState extends State<StatusCard> {
                                           24.w;
                                       final leftColWidth =
                                           contentAreaWidth * 5 / 11;
-
                                       final iconCenterX =
                                           16.r + leftColWidth - 9.sp;
-
                                       final dx = (cardWidth / 2) - iconCenterX;
-
                                       return Stack(
                                         children: [
                                           GestureDetector(
