@@ -21,7 +21,6 @@ class SignUpController extends GetxController {
   void onCountryChange(Country value) {
     countryCodeController.text = "+${value.dialCode}";
   }
-
   Future<void> signUpUser() async {
     if (isLoading) return;
 
@@ -36,9 +35,7 @@ class SignUpController extends GetxController {
         "phone": phoneController.text.trim(),
         "countryCode": countryCodeController.text.trim(),
       };
-
       final response = await apiClient.post(ApiEndPoint.signUp, body: body);
-
       if (response.statusCode == 201 || response.statusCode == 200) {
         AppSnackbar.success(title: 'Success', message: response.message);
         Get.toNamed(AppRoutes.otp, arguments: {
@@ -56,7 +53,6 @@ class SignUpController extends GetxController {
       update();
     }
   }
-
   @override
   void onClose() {
     nameController.dispose();
