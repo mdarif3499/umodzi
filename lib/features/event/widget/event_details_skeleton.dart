@@ -56,12 +56,9 @@ class EventDetailsSkeleton extends StatelessWidget {
                       SizedBox(height: 20.h),
                       Row(
                         children: [
-
                           Expanded(child: CommonSkeleton(height: 60.h, width: double.infinity)),
                           SizedBox(width: 7.w),
                           Expanded(child: CommonSkeleton(height: 60.h, width: double.infinity)),
-
-
                         ],
                       ),
                     ],
@@ -78,8 +75,6 @@ class EventDetailsSkeleton extends StatelessWidget {
               ),
             ],
           ),
-
-
           SizedBox(height: 140.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
