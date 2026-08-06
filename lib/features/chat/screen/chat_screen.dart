@@ -245,6 +245,10 @@ class ChatScreen extends StatelessWidget {
                       },
                     ),
                   )),
+
+            ///  =============>📱==>=>ℹ️
+            ///
+
             Row(
               children: [
                 GestureDetector(
