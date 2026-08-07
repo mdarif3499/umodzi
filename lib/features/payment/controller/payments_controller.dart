@@ -41,7 +41,6 @@ class PaymentsController extends GetxController {
     isLoading.value = true;
     try {
       final response = await _apiClient.get('/transactions/my');
-      
       if (response.statusCode == 200) {
         final model = TransactionModel.fromJson(response.data);
         if (model.data != null) {
