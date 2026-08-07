@@ -126,6 +126,7 @@ class _StatusCardState extends State<StatusCard> {
                                         ],
                                       );
                                     },
+
                                     child: GestureDetector(
                                       onTap: () => _tooltipController.show(),
                                       child: Icon(
@@ -134,6 +135,7 @@ class _StatusCardState extends State<StatusCard> {
                                         size: 18.sp,
                                       ),
                                     ),
+
                                   ),
                                 )
                               : const SizedBox(),
