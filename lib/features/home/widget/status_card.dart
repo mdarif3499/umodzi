@@ -117,12 +117,6 @@ class _StatusCardState extends State<StatusCard> {
 
                                           // Windows PowerShell
                                           // Copyright (C) Microsoft Corporation. All rights reserved.
-                                          //
-                                          // PS C:\Users\mdyou\StudioProjects\umodzi>
-                                          ///Windows PowerShell
-                                         // // Copyright (C) Microsoft Corporation. All rights reserved.
-                                        // //
-                                       // // PS C:\Users\mdyou\StudioProjects\umodzi>
                                         ],
                                       );
                                     },

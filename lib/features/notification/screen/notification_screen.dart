@@ -235,13 +235,17 @@ class _NotificationBadge extends StatelessWidget {
         color:  Color(0xFFE43730),
         borderRadius: BorderRadius.circular(20.r),
       ),
+
       child: CommonText(
         text: count,
         color: AppColors.white,
         fontSize: 12.sp,
         fontWeight: FontWeight.w400,
       ),
+
     );
   }
 }
-///   >>>>>>>>>>>>>>>>>>>>>>>>>>>6a643e05da7a187d37bed04f>>>>>>>>>>>>>>>>>>>>>>>>>>>>6a643e05da7a187d37bed04f>>>>>>>>>>>>>>>>>>>>>>>>>>>>6a643e05da7a187d37bed04f>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+///   Md Arif Bhuiyan
+// >>>>>>>>>>>>>>>>>>>>>>>>>>6a643e05da7a187d37bed04f>>>>>>>>>>>>>>>>>>>>>>>>>>>>6a643e05da7a187d37bed04f>>>>>>>>>>>>>>>>>>>>>>>>>>>>6a643e05da7a187d37bed04f>>>>>>>>>>>>>>>>>>>>>>>>>>
