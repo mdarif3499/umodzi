@@ -33,7 +33,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       'subtitle': 'Get timely reminders, track your status, and never miss an important update or deadline.',
     },
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +54,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           SafeArea(
             child: Column(
               children: [
-                // Top Bar
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
                   child: Row(
